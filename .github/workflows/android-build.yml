@@ -38,6 +38,9 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          packages: 'platform-tools platforms;android-36 build-tools;36.0.0'
+          accept-android-sdk-licenses: true
 
       - name: Sync Web Application Assets to www/
         run: node tools/sync_web.mjs
