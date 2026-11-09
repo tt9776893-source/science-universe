@@ -1,0 +1,33 @@
+[
+  {
+    "method": "Network.responseReceived",
+    "params": {
+      "requestId": "14300.42",
+      "loaderId": "4643FDB40EBC0D50238A3F564B446F7A",
+      "timestamp": 156785.260923,
+      "type": "Image",
+      "response": {
+        "url": "blob:http://127.0.0.1:5501/3b0eb306-bde8-4fbd-8f08-66bc9e2fbe57",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "Content-Type": "image/jpeg",
+          "Content-Length": "3164938"
+        },
+        "mimeType": "image/jpeg",
+        "charset": "",
+        "connectionReused": false,
+        "connectionId": 0,
+        "fromDiskCache": false,
+        "fromServiceWorker": false,
+        "fromPrefetchCache": false,
+        "encodedDataLength": -1,
+        "protocol": "blob",
+        "alternateProtocolUsage": "alternativeJobWonWithoutRace",
+        "securityState": "secure"
+      },
+      "hasExtraInfo": false,
+      "frameId": "60E8AEB5D408071A2C91D95588C588C5"
+    }
+  }
+]

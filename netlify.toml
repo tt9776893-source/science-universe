@@ -1,0 +1,25 @@
+# Netlify configuration for SCIENCE UNIVERSE
+# Publish directory: www (populated and verified by `node tools/sync_web.mjs`)
+# NOTE: Do NOT run `tools/build_integration.mjs` as it is a historical one-off generator with hardcoded paths.
+
+[build]
+  publish = "www"
+  command = "node tools/sync_web.mjs"
+
+[[headers]]
+  for = "/*.glb"
+  [headers.values]
+    Content-Type = "model/gltf-binary"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.wasm"
+  [headers.values]
+    Content-Type = "application/wasm"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.raw"
+  [headers.values]
+    Content-Type = "application/octet-stream"
+    Cache-Control = "public, max-age=31536000, immutable"

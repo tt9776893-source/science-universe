@@ -1,0 +1,42 @@
+{
+  "appId": "com.scienceuniverse.frontier",
+  "appName": "Science Universe Frontier",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "launchAutoHide": true,
+      "backgroundColor": "#08060a",
+      "androidSpinnerStyle": "horizontal",
+      "iosSpinnerStyle": "small",
+      "spinnerColor": "#00f0ff"
+    }
+  },
+  "android": {
+    "buildOptions": {
+      "release": {
+        "keystorePath": "",
+        "keystorePassword": "",
+        "alias": "",
+        "storeType": "",
+        "keyPassword": ""
+      },
+      "default": {
+        "keystorePath": "",
+        "keystorePassword": "",
+        "alias": "",
+        "storeType": "",
+        "keyPassword": ""
+      }
+    }
+  },
+  "ios": {
+    "contentInset": "automatic",
+    "allowsBackForwardNavigationGestures": true,
+    "scrollEnabled": false,
+    "backgroundColor": "#08060a"
+  }
+}

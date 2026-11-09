@@ -1,0 +1,60 @@
+{
+  "results": {
+    "gameLoaded": true,
+    "f3OverlayWorks": true,
+    "excavate5m": true,
+    "excavate20m": true,
+    "excavate50m": true,
+    "excavate100m": true,
+    "horizontalTunnelAndBoundary": true,
+    "workLightDeployed": true,
+    "normalsValid": true,
+    "undergroundEditsPersist": true,
+    "fpsTargetAchieved": true,
+    "drawCallsReduced": true
+  },
+  "benchmarks": {
+    "underground": {
+      "scenario": "Deep Underground (-25m)",
+      "fps": 42,
+      "avgFrameTimeMs": 23.68,
+      "drawCalls": 130,
+      "triangles": 157046,
+      "activeChunks": 125
+    },
+    "surface": {
+      "scenario": "Surface Spawn",
+      "fps": 39,
+      "avgFrameTimeMs": 25.95,
+      "drawCalls": 533,
+      "triangles": 456342,
+      "activeChunks": 75
+    },
+    "base": {
+      "scenario": "Near Base Habitat",
+      "fps": 36,
+      "avgFrameTimeMs": 28.14,
+      "drawCalls": 655,
+      "triangles": 447768,
+      "activeChunks": 75
+    },
+    "rover": {
+      "scenario": "Near Rover",
+      "fps": 25,
+      "avgFrameTimeMs": 39.3,
+      "drawCalls": 409,
+      "triangles": 443020,
+      "activeChunks": 75
+    }
+  },
+  "consoleLogs": [
+    "[debug] [vite] connecting...",
+    "[debug] [vite] connected.",
+    "[log] Starting SCIENCE UNIVERSE — FRONTIER v3.0.0-planetary-realism",
+    "[log] [AssetRegistry] Successfully resolved asset base path: /assets",
+    "[warn] THREE.GLTFLoader: Unknown extension \"KHR_materials_pbrSpecularGlossiness\".",
+    "[log] Game state saved successfully at 10/28/2026, 12:53:41 AM",
+    "[log] Game state loaded successfully from 10/28/2026, 12:53:41 AM"
+  ],
+  "errors": []
+}

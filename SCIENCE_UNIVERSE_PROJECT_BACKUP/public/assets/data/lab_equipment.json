@@ -1,0 +1,388 @@
+[
+  {
+    "id": "lab_microscope",
+    "code": "01",
+    "name_en": "Scientific Optical Microscope",
+    "name_mn": "\u041e\u043f\u0442\u0438\u043a \u043c\u0438\u043a\u0440\u043e\u0441\u043a\u043e\u043f",
+    "model_file": "SU_Lab_Microscope.glb",
+    "category": "Microscopic & Petrographic Study",
+    "dimensions": {
+      "width": 0.6,
+      "length": 0.4,
+      "height": 0.9
+    },
+    "power_draw_kw": 0.8,
+    "sample_types": [
+      "quartz_crystal",
+      "basalt_rock",
+      "obsidian",
+      "hematite",
+      "gypsum"
+    ],
+    "magnifications": [
+      "40x",
+      "100x",
+      "400x",
+      "1000x Oil Immersion"
+    ],
+    "description": "High-precision binocular petrographic microscope with revolving 4-objective turret, coaxial focus knobs, and illuminated stage.",
+    "scientific_principle": "Transmitted and reflected polarized light optical microscopy reveals crystal twinning, grain cleavage planes, and microscopic inclusions.",
+    "animations": [
+      "Action_ObjectiveTurret",
+      "Action_FocusKnobs"
+    ],
+    "components": [
+      "Eyepiece (Binocular 10x)",
+      "Body (Cast C-Arm)",
+      "Objective Turret (4 Lenses)",
+      "Stage (Mechanical)",
+      "Illuminator (LED Condenser)",
+      "Base Frame"
+    ]
+  },
+  {
+    "id": "lab_spectrometer",
+    "code": "02",
+    "name_en": "Emission/Absorption Spectrometer",
+    "name_mn": "\u0421\u043f\u0435\u043a\u0442\u0440\u043e\u043c\u0435\u0442\u0440",
+    "model_file": "SU_Lab_Spectrometer.glb",
+    "category": "Optical & Molecular Analytics",
+    "dimensions": {
+      "width": 1.4,
+      "length": 0.8,
+      "height": 1.2
+    },
+    "power_draw_kw": 4.5,
+    "sample_types": [
+      "meteorite_iron_nickel",
+      "sulfur_crystal",
+      "olivine",
+      "water_ice_deposit"
+    ],
+    "description": "Czerny-Turner optical monochromator with holographic diffraction grating and high-sensitivity CCD detector array.",
+    "scientific_principle": "Spectral dispersion measures atomic emission and absorption band lines (nm) revealing precise chemical bonding and trace element fingerprints.",
+    "animations": [
+      "Action_SampleTrayOpen"
+    ],
+    "components": [
+      "Sample Loading Tray",
+      "Diffraction Grating Chamber",
+      "CCD Detector Array",
+      "Touch Control Display",
+      "Radiator Cooling Louvers"
+    ]
+  },
+  {
+    "id": "lab_sample_analyzer",
+    "code": "03",
+    "name_en": "Multifunction Sample Analyzer",
+    "name_mn": "\u0414\u044d\u044d\u0436 \u0448\u0438\u043d\u0436\u043b\u044d\u0433\u0447",
+    "model_file": "SU_Lab_Sample_Analyzer.glb",
+    "category": "Comprehensive Petrochemistry",
+    "dimensions": {
+      "width": 1.6,
+      "length": 0.9,
+      "height": 1.4
+    },
+    "power_draw_kw": 6.2,
+    "sample_types": [
+      "all_geological_rocks",
+      "lunar_soil",
+      "martian_sand",
+      "impact_crater_fragment"
+    ],
+    "description": "Hermetic automated analysis chamber integrating laser-induced breakdown spectroscopy (LIBS) and acoustic density profiling.",
+    "scientific_principle": "Pulsed laser ablation generates micro-plasma emissions while ultrasonic transducers measure bulk density and acoustic velocity.",
+    "animations": [
+      "Action_ChamberHatch"
+    ],
+    "components": [
+      "Top Specimen Input Hatch",
+      "Hermetic Analysis Chamber",
+      "LIBS Sensor Module",
+      "Processing Telemetry Unit",
+      "Base Foundation"
+    ]
+  },
+  {
+    "id": "lab_chemical_reactor",
+    "code": "04",
+    "name_en": "Sealed Laboratory Chemical Reactor",
+    "name_mn": "\u0425\u0438\u043c\u0438\u0439\u043d \u043b\u0430\u0431\u043e\u0440\u0430\u0442\u043e\u0440\u0438\u0439\u043d \u0440\u0435\u0430\u043a\u0442\u043e\u0440",
+    "model_file": "SU_Lab_Chemical_Reactor.glb",
+    "category": "Chemical & Thermal Synthesis",
+    "dimensions": {
+      "width": 1.2,
+      "length": 1.2,
+      "height": 1.8
+    },
+    "power_draw_kw": 18.0,
+    "sample_types": [
+      "purified_potable_water",
+      "sulfur_crystal",
+      "hematite",
+      "raw_slurry_water"
+    ],
+    "description": "Jacketed borosilicate glass reaction vessel with magnetic drive overhead agitator, thermal coils, and digital telemetry.",
+    "scientific_principle": "Enclosed stoichiometric reaction under controlled pressure and temperature accelerates fluid phase synthesis and hydrothermal digestion.",
+    "animations": [
+      "Action_AgitatorSpin",
+      "Action_FluidPulse"
+    ],
+    "components": [
+      "Top Flanged Lid",
+      "Digital Control Module",
+      "Borosilicate Reaction Vessel",
+      "Heater/Cooler Bands",
+      "Stainless Steel Base Frame"
+    ]
+  },
+  {
+    "id": "lab_centrifuge",
+    "code": "05",
+    "name_en": "High-Speed Laboratory Centrifuge",
+    "name_mn": "\u04e8\u043d\u0434\u04e9\u0440 \u0445\u0443\u0440\u0434\u043d\u044b \u0446\u0435\u043d\u0442\u0440\u0438\u0444\u0443\u0433",
+    "model_file": "SU_Lab_Centrifuge.glb",
+    "category": "Density Fractionation & Separation",
+    "dimensions": {
+      "width": 0.8,
+      "length": 0.8,
+      "height": 0.8
+    },
+    "power_draw_kw": 3.8,
+    "sample_types": [
+      "raw_slurry_water",
+      "fine_mineral_dust",
+      "biological_suspension"
+    ],
+    "description": "Induction brushless motor drive spinning an 8-bucket rotor up to 15,000 RPM (21,000 x g) with interlocked safety dome lid.",
+    "scientific_principle": "Centrifugal acceleration separates colloidal mixtures into discrete layers according to specific density gradients.",
+    "animations": [
+      "Action_RotorSpin",
+      "Action_LidOpen"
+    ],
+    "components": [
+      "Aerodynamic Outer Casing",
+      "Rotating 8-Bucket Rotor",
+      "Interlocked Dome Safety Lid",
+      "Digital Speed/RCF Display",
+      "Vibration Damper Mounts"
+    ]
+  },
+  {
+    "id": "lab_incubator",
+    "code": "06",
+    "name_en": "Scientific Biological Incubator",
+    "name_mn": "\u0411\u0438\u043e\u043b\u043e\u0433\u0438\u0439\u043d \u0438\u043d\u043a\u0443\u0431\u0430\u0442\u043e\u0440",
+    "model_file": "SU_Lab_Incubator.glb",
+    "category": "Astrobiology & Specimen Culture",
+    "dimensions": {
+      "width": 1.2,
+      "length": 0.7,
+      "height": 1.6
+    },
+    "power_draw_kw": 2.4,
+    "sample_types": [
+      "extremophile_lichen",
+      "cyanobacteria_strain",
+      "seedling_tissue"
+    ],
+    "description": "Vacuum-insulated incubation chamber with multi-tier specimen shelves, photosynthetically active grow lights, and gas controls.",
+    "scientific_principle": "Maintains tight homeostatic equilibrium (+/-0.1C, controlled RH%, CO2 enrichment) for studying extremophile microbial metabolic rates.",
+    "animations": [
+      "Action_DoorOpen",
+      "Action_GrowLightPulse"
+    ],
+    "components": [
+      "Vacuum Insulated Body",
+      "Specimen Culture Shelves",
+      "Full-Spectrum Grow Lights",
+      "Environmental Sensor Suite",
+      "Double-Glazed Heated Door"
+    ]
+  },
+  {
+    "id": "lab_experiment_chamber",
+    "code": "07",
+    "name_en": "Hermetic Planetary Experiment Chamber",
+    "name_mn": "\u0422\u0443\u0440\u0448\u0438\u043b\u0442\u044b\u043d \u0431\u0438\u0442\u04af\u04af\u043c\u0436\u0438\u043b\u0441\u044d\u043d \u043a\u0430\u043c\u0435\u0440",
+    "model_file": "SU_Lab_Experiment_Chamber.glb",
+    "category": "Physical & Environmental Stress Testing",
+    "dimensions": {
+      "width": 1.8,
+      "length": 1.4,
+      "height": 1.8
+    },
+    "power_draw_kw": 12.5,
+    "sample_types": [
+      "water_ice_deposit",
+      "refined_structural_alloy",
+      "basalt_rock",
+      "composite_circuitry"
+    ],
+    "description": "High-vacuum and hyperbaric test chamber with quartz observation window, mechanical test probe arm, and thermal stage.",
+    "scientific_principle": "Subjecting materials to vacuum sublimation, extreme cryo/pyro thermal shocks, and mechanical compression tests.",
+    "animations": [
+      "Action_ProbeMove"
+    ],
+    "components": [
+      "Reinforced Pressure Chamber",
+      "Laminated Quartz Window",
+      "Internal Test Platform",
+      "Articulating Probe Arm",
+      "Atmospheric Pressure Telemetry"
+    ]
+  },
+  {
+    "id": "lab_bioreactor",
+    "code": "08",
+    "name_en": "Continuous-Flow Bioreactor",
+    "name_mn": "\u0411\u0438\u043e\u043b\u043e\u0433\u0438\u0439\u043d \u04e9\u0441\u0433\u04e9\u0432\u04e9\u0440\u043b\u04e9\u0433\u0447",
+    "model_file": "SU_Lab_Bioreactor.glb",
+    "category": "Biochemical Life Support & Synthesis",
+    "dimensions": {
+      "width": 1.3,
+      "length": 1.1,
+      "height": 1.7
+    },
+    "power_draw_kw": 5.8,
+    "sample_types": [
+      "spirulina_algae",
+      "chateoceros_diatoms",
+      "methanotrophic_bacteria"
+    ],
+    "description": "Jacketed fermentation vessel featuring bottom magnetic impeller drive, optical density probes, and dissolved oxygen sensors.",
+    "scientific_principle": "Photobioreactive synthesis converts dissolved CO2 and nitrates into biomass and oxygen via light-driven microbial respiration.",
+    "animations": [
+      "Action_BioImpeller"
+    ],
+    "components": [
+      "Borosilicate Culture Cylinder",
+      "Magnetic Impeller Assembly",
+      "Peristaltic Dosing Manifold",
+      "Optical Sensor Array",
+      "Steel Support Cradle"
+    ]
+  },
+  {
+    "id": "lab_element_analyzer",
+    "code": "09",
+    "name_en": "X-Ray Fluorescence (XRF) Analyzer",
+    "name_mn": "\u0420\u0435\u043d\u0442\u0433\u0435\u043d \u0444\u043b\u0443\u043e\u0440\u0435\u0441\u0446\u0435\u043d\u0446 \u0430\u043d\u0430\u043b\u0438\u0437\u0430\u0442\u043e\u0440 (XRF)",
+    "model_file": "SU_Lab_Element_Analyzer.glb",
+    "category": "Elemental & Radiometric Analysis",
+    "dimensions": {
+      "width": 1.5,
+      "length": 0.8,
+      "height": 1.1
+    },
+    "power_draw_kw": 3.2,
+    "sample_types": [
+      "hematite",
+      "magnetite",
+      "copper_ore",
+      "rare_earth_deposit"
+    ],
+    "description": "Radiation-shielded analysis bench with motorized sample drawer, ceramic 50kV X-ray tube, and silicon drift detector.",
+    "scientific_principle": "Characteristic secondary X-ray fluorescence emissions identify atomic elements from magnesium (Mg) to uranium (U) quantitatively.",
+    "animations": [
+      "Action_SampleDrawer"
+    ],
+    "components": [
+      "Lead-Shielded Enclosure",
+      "Motorized Sample Drawer",
+      "X-Ray Tube Emitter",
+      "Silicon Drift Detector",
+      "Multi-Channel Analyzer Screen"
+    ]
+  },
+  {
+    "id": "lab_analysis_computer",
+    "code": "10",
+    "name_en": "Scientific Analysis Computer Workstation",
+    "name_mn": "\u0414\u0430\u0442\u0430 \u0441\u0442\u0430\u043d\u0446 & \u0421\u0443\u0434\u0430\u043b\u0433\u0430\u0430\u043d\u044b \u043a\u043e\u043c\u043f\u044c\u044e\u0442\u0435\u0440",
+    "model_file": "SU_Lab_Analysis_Computer.glb",
+    "category": "Data Analytics & Molecular Modeling",
+    "dimensions": {
+      "width": 1.8,
+      "length": 0.8,
+      "height": 1.3
+    },
+    "power_draw_kw": 1.8,
+    "sample_types": [
+      "all_research_data_logs"
+    ],
+    "description": "Ergonomic composite workstation with dual ultrawide curved monitors, rotating 3D holographic projection globe, and carbon chair.",
+    "scientific_principle": "Multi-spectral correlation algorithms and crystallographic database matching classify unknown planetary mineral structures.",
+    "animations": [
+      "Action_HoloRotate"
+    ],
+    "components": [
+      "Curved Workstation Desk",
+      "Dual Ultrawide Curved Monitors",
+      "Floating Holographic Emitter",
+      "Scientific Keyboard Console",
+      "Ergonomic Chair"
+    ]
+  },
+  {
+    "id": "lab_sample_storage",
+    "code": "11",
+    "name_en": "Cryogenic Scientific Sample Storage",
+    "name_mn": "\u0414\u044d\u044d\u0436 \u0445\u0430\u0434\u0433\u0430\u043b\u0430\u0445 \u043a\u0440\u0438\u043e \u0448\u04af\u04af\u0433\u044d\u044d",
+    "model_file": "SU_Lab_Sample_Storage.glb",
+    "category": "Sample Preservation & Archiving",
+    "dimensions": {
+      "width": 1.2,
+      "length": 0.7,
+      "height": 1.6
+    },
+    "power_draw_kw": 3.0,
+    "sample_types": [
+      "all_collected_specimens"
+    ],
+    "description": "Insulated cryogenic specimen cabinet with tempered glass doors, 3 tiers of illuminated sample trays, and -80C temperature telemetry.",
+    "scientific_principle": "Ultra-low temperature cryogenic preservation halts oxidation, volatile outgassing, and chemical decomposition of sensitive samples.",
+    "animations": [
+      "Action_StorageDoor"
+    ],
+    "components": [
+      "Insulated Cabinet Casing",
+      "Chilled Sample Trays & Vials",
+      "Tempered Glass Cabinet Doors",
+      "Cryogenic Nitrogen Regulators",
+      "Digital Telemetry Display"
+    ]
+  },
+  {
+    "id": "lab_environment_simulator",
+    "code": "12",
+    "name_en": "Planetary Environmental Simulation Chamber",
+    "name_mn": "\u041e\u0440\u0447\u043d\u044b \u0441\u0438\u043c\u0443\u043b\u044f\u0442\u043e\u0440",
+    "model_file": "SU_Lab_Environment_Simulator.glb",
+    "category": "Comparative Planetary Science",
+    "dimensions": {
+      "width": 2.4,
+      "length": 1.8,
+      "height": 2.0
+    },
+    "power_draw_kw": 25.0,
+    "sample_types": [
+      "regolith_core",
+      "subsurface_ice",
+      "volcanic_basalt"
+    ],
+    "description": "Large panoramic simulation terrarium chamber with internal terrain bed, overhead solar simulator lamp array, and atmospheric injectors.",
+    "scientific_principle": "Recreates surface atmospheric pressure, solar ultraviolet irradiance, and thermal diurnal cycles of Mars, Moon, and Titan.",
+    "animations": [
+      "Action_SolarLampPulse"
+    ],
+    "components": [
+      "Reinforced Pressure Chassis",
+      "Panoramic Observation Window",
+      "Simulated Terrain Bed",
+      "Solar Simulator Lamp Array",
+      "Atmospheric Gas Injectors"
+    ]
+  }
+]

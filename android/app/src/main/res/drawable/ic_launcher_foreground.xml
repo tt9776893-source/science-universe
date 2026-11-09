@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportHeight="108"
+    android:viewportWidth="108">
+    <!-- Star glow -->
+    <path
+        android:fillColor="#1a2550"
+        android:pathData="M54,54m-34,0a34,34 0 1,0 68,0a34,34 0 1,0 -68,0" />
+    <!-- Planet body (Science Universe warm orange/terracotta) -->
+    <path
+        android:fillColor="#e06c3a"
+        android:pathData="M54,54m-18,0a18,18 0 1,0 36,0a18,18 0 1,0 -36,0" />
+    <path
+        android:fillColor="#ff8547"
+        android:pathData="M54,42a12,12 0 0,0 -12,12c0,3 1.5,5.5 3.5,7a17,17 0 0,1 15,-18c-2,-0.7 -4.3,-1 -6.5,-1z" />
+    <!-- Planetary Ring Orbit (Cyan neon glow) -->
+    <path
+        android:strokeColor="#00f0ff"
+        android:strokeWidth="2.8"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M24,66 C32,44 76,44 84,66 C76,88 32,88 24,66 Z" />
+    <path
+        android:strokeColor="#7dd3fc"
+        android:strokeWidth="1.2"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M27,66 C34,47 74,47 81,66 C74,85 34,85 27,66 Z" />
+</vector>
+

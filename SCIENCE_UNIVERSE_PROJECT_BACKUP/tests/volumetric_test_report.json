@@ -1,0 +1,100 @@
+{
+  "results": {
+    "terrainType": "VolumetricTerrain",
+    "chunkCount": 49,
+    "baseHeightAtOrigin": 0.09717119445779591,
+    "carveResult": {
+      "success": true,
+      "modifiedChunks": 1,
+      "volumeMined": 65.44984694978736,
+      "yieldItem": "martian_regolith",
+      "yieldCount": 23
+    },
+    "preDigFloor": 0.1142048727016789,
+    "postDigFloor": -2.1517682652967007,
+    "excavationDepth": 2.27,
+    "holeCreated": true,
+    "playerYInHole": -0.5017682652966999,
+    "playerEnteredHole": true,
+    "horizontalTunnelCreated": true,
+    "toolsTested": [
+      {
+        "slot": 0,
+        "name": "Mining Laser MK-1",
+        "modelMounted": true
+      },
+      {
+        "slot": 1,
+        "name": "Geological Pick Hammer",
+        "modelMounted": true
+      },
+      {
+        "slot": 2,
+        "name": "Thermal Core Drill",
+        "modelMounted": true
+      },
+      {
+        "slot": 3,
+        "name": "Gravimetric Manipulator",
+        "modelMounted": true
+      },
+      {
+        "slot": 4,
+        "name": "Cryo Sample Vacuum",
+        "modelMounted": true
+      },
+      {
+        "slot": 5,
+        "name": "Geological PIXL Scanner",
+        "modelMounted": true
+      },
+      {
+        "slot": 6,
+        "name": "Multispectral Scanner",
+        "modelMounted": true
+      },
+      {
+        "slot": 7,
+        "name": "Subsurface GPR Radar",
+        "modelMounted": true
+      },
+      {
+        "slot": 8,
+        "name": "Modular Fabricator Tool",
+        "modelMounted": true
+      },
+      {
+        "slot": 9,
+        "name": "Plasma Arc Welder",
+        "modelMounted": true
+      }
+    ],
+    "roverAvailable": true,
+    "roverDrivingActive": true,
+    "roverExited": true,
+    "buildingSystemReady": true,
+    "placedModule": "Planetary Hab: Living Quarters",
+    "presetTests": {
+      "LOW": {
+        "shadows": false,
+        "activeRadius": 2
+      },
+      "MEDIUM": {
+        "shadows": true,
+        "activeRadius": 3
+      },
+      "HIGH": {
+        "shadows": true,
+        "activeRadius": 3
+      },
+      "ULTRA": {
+        "shadows": true,
+        "activeRadius": 4
+      }
+    },
+    "saveSuccess": true,
+    "persistentChunkEditsCount": 2
+  },
+  "consoleErrors": [],
+  "allPassed": true
+}

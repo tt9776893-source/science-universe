@@ -1,0 +1,30 @@
+{
+  "grid_unit_m": 4.0,
+  "wall_height_m": 3.0,
+  "corridor_collar": {
+    "outer_width_m": 2.8,
+    "outer_height_m": 2.8,
+    "inner_walkable_width_m": 1.6,
+    "inner_walkable_height_m": 2.2
+  },
+  "compatibility_matrix": {
+    "corridor_socket": [
+      "corridor_socket",
+      "exterior_portal"
+    ],
+    "floor_socket": [
+      "floor_socket",
+      "platform_slot"
+    ],
+    "wall_slot": [
+      "wall_slot",
+      "roof_slot"
+    ],
+    "pipe_socket": [
+      "pipe_socket"
+    ],
+    "cable_socket": [
+      "cable_socket"
+    ]
+  }
+}

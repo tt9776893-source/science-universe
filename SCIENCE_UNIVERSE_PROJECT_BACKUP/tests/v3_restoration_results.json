@@ -1,0 +1,12 @@
+{
+  "mainMenuLoaded": true,
+  "orbitalCockpitActive": true,
+  "mfdDisplaysVerified": true,
+  "cameraToggleWorks": true,
+  "deorbitAndLandingSucceeds": true,
+  "surfaceBaseVerified": true,
+  "perimeterBeaconsActive": true,
+  "explorerRoverAvailable": true,
+  "undergroundCrystalsVerified": true,
+  "rocketLaunchToSpaceWorks": true
+}

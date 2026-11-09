@@ -1,0 +1,170 @@
+{
+  "timestamp": "2026-10-27T13:30:11.759Z",
+  "geology": {
+    "testPoints": [
+      {
+        "depth": 0.5,
+        "layer": "REGOLITH",
+        "item": "martian_regolith",
+        "name_mn": "Ангарагийн хөрс (Реголит)",
+        "desc_mn": "Сул шороо, нарийн ширхэгт гадаргын тоосонцор",
+        "color": {
+          "isColor": true,
+          "r": 0.3813260114221238,
+          "g": 0.1499597898006365,
+          "b": 0.07618538147321911
+        },
+        "hardness": 1.5
+      },
+      {
+        "depth": 2,
+        "layer": "SEDIMENTARY_STRATA",
+        "item": "sedimentary_rock",
+        "name_mn": "Тунамал чулуулаг",
+        "desc_mn": "Давхаргат шаварлаг тунамал эртний тогтоц",
+        "color": {
+          "isColor": true,
+          "r": 0.14702726648767014,
+          "g": 0.06662593863608139,
+          "b": 0.03954623527052923
+        },
+        "hardness": 3.5
+      },
+      {
+        "depth": 4.5,
+        "layer": "SEDIMENTARY_STRATA",
+        "item": "sedimentary_rock",
+        "name_mn": "Тунамал чулуулаг",
+        "desc_mn": "Давхаргат шаварлаг тунамал эртний тогтоц",
+        "color": {
+          "isColor": true,
+          "r": 0.14702726648767014,
+          "g": 0.06662593863608139,
+          "b": 0.03954623527052923
+        },
+        "hardness": 3.5
+      },
+      {
+        "depth": 7,
+        "layer": "BASALT_BEDROCK",
+        "item": "basalt",
+        "name_mn": "Базальт (Галт уулын суурь чулуулаг)",
+        "desc_mn": "Галт уулын гаралтай нягт суурь чулуулаг",
+        "color": {
+          "isColor": true,
+          "r": 0.026241221889696346,
+          "g": 0.01764195448412081,
+          "b": 0.014443843592229466
+        },
+        "hardness": 6
+      },
+      {
+        "depth": 15,
+        "layer": "BASALT_BEDROCK",
+        "item": "basalt",
+        "name_mn": "Базальт (Галт уулын суурь чулуулаг)",
+        "desc_mn": "Галт уулын гаралтай нягт суурь чулуулаг",
+        "color": {
+          "isColor": true,
+          "r": 0.026241221889696346,
+          "g": 0.01764195448412081,
+          "b": 0.014443843592229466
+        },
+        "hardness": 6
+      }
+    ],
+    "carveResult": {
+      "success": true,
+      "modifiedChunks": 1,
+      "volumeMined": 137.25827743044047,
+      "yieldItem": "martian_regolith",
+      "yieldCount": 48,
+      "layer": "REGOLITH",
+      "name_mn": "Ангарагийн хөрс (Реголит)",
+      "desc_mn": "Сул шороо, нарийн ширхэгт гадаргын тоосонцор"
+    },
+    "densityLookupSuccess": true
+  },
+  "physics": {
+    "gravityVal": 3.71,
+    "dropSpawned": true,
+    "dropFell": true,
+    "initialDropY": 8.639651203155518,
+    "finalDropY": 8.198012803155518,
+    "jumpHeightGain": 1.9579392000000029,
+    "hangTimeSec": "0.96",
+    "isLowGravityCalibrated": true
+  },
+  "dayNight": {
+    "noonHour": "SOL 1 // 07:01 SOL-TIME",
+    "noonSolar": 0.802509161683702,
+    "sunsetHour": "SOL 1 // 18:14 SOL-TIME",
+    "sunsetSolar": 0.4351947859540607,
+    "sunsetSunColor": "#fff7ea",
+    "sunsetSkyColor": "#dfbf9f",
+    "isSolTimeAccurate": true
+  },
+  "habitat": {
+    "initialPrompt": "[E] Open Exterior Airlock Hatch",
+    "hatchStateOpen": "EXTERIOR_OPEN",
+    "cycleInitiated": true,
+    "finalPressure": 101,
+    "stateAfterPressurize": "INTERIOR_OPEN",
+    "isPlayerInside": true,
+    "oxygenRefilling": true,
+    "tempRegulated": true
+  },
+  "inventoryIcons": {
+    "o2Tank": {
+      "id": "o2_canister",
+      "name": "Pressurized O₂ Life Support Tank",
+      "name_mn": "Хүчилтөрөгчийн баллон (O₂)"
+    },
+    "scanner": {
+      "id": "tool_multispectral_scanner",
+      "name": "Multispectral Infrared Scanner",
+      "name_mn": "Олон зурваст хэт улаан сканнер"
+    },
+    "radar": {
+      "id": "tool_gpr_radar",
+      "name": "Subsurface GPR Pulse Radar",
+      "name_mn": "Гүний үелзүүрт радарын төхөөрөмж"
+    },
+    "hotbarCount": 10
+  },
+  "screenshots": [
+    "C:\\Users\\Administrator\\Desktop\\SCIENCE_UNIVERSE_GAME\\tests\\screenshots\\14_underground_geology_strata.png",
+    "C:\\Users\\Administrator\\Desktop\\SCIENCE_UNIVERSE_GAME\\tests\\screenshots\\15_martian_day_and_blue_sunset.png",
+    "C:\\Users\\Administrator\\Desktop\\SCIENCE_UNIVERSE_GAME\\tests\\screenshots\\16_enterable_airlock_and_habitat.png",
+    "C:\\Users\\Administrator\\Desktop\\SCIENCE_UNIVERSE_GAME\\tests\\screenshots\\17_functional_lab_equipment.png"
+  ],
+  "lab": {
+    "workstationsCount": 4,
+    "specResult": {
+      "type": "research",
+      "success": true,
+      "msg": "Анализ амжилттай! Шинэ технологийн +100 оноо олгогдлоо.",
+      "techs": [
+        "ice_chunk",
+        "iron_ore"
+      ]
+    },
+    "bioResult": {
+      "type": "electrolysis",
+      "success": true,
+      "msg": "Цэвэршүүлэлт хийгдлээ: Мөсийг хайлуулж O₂ хүчилтөрөгчийн баллон цэнэглэлээ!"
+    },
+    "researchPoints": 100,
+    "unlockedTechs": [
+      "ice_chunk",
+      "iron_ore"
+    ],
+    "colonyStorageItems": 3
+  },
+  "saveLoad": {
+    "saveSuccess": true,
+    "hasKeyV3": true,
+    "savedResearchPoints": 100,
+    "savedAirlockState": "INTERIOR_OPEN"
+  }
+}

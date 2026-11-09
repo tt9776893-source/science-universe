@@ -1,0 +1,352 @@
+[
+  {
+    "id": "SU_Vehicle_Explorer_Rover",
+    "name_en": "Explorer Rover",
+    "name_mn": "Газрын ровер",
+    "category": "Planetary Rover",
+    "dimensions": {
+      "width": 3.4,
+      "length": 5.8,
+      "height": 2.1
+    },
+    "mass_kg": 3200,
+    "max_speed_kmh": 45,
+    "range_km": 120,
+    "battery_kwh": 150,
+    "crew_capacity": 2,
+    "cargo_capacity_kg": 1000,
+    "features": [
+      "Pressurized Cockpit",
+      "6-Wheel Rocker-Bogie",
+      "Scientific Camera Mast",
+      "Solar Array",
+      "Sample Lockers"
+    ],
+    "operating_environments": [
+      "Mars",
+      "Moon",
+      "Europa (Ice)",
+      "Desert Planets"
+    ]
+  },
+  {
+    "id": "SU_Vehicle_Cargo_Rover",
+    "name_en": "Cargo Rover",
+    "name_mn": "Ачааны ровер",
+    "category": "Heavy Transport Rover",
+    "dimensions": {
+      "width": 3.2,
+      "length": 6.6,
+      "height": 2.3
+    },
+    "mass_kg": 4600,
+    "max_speed_kmh": 35,
+    "range_km": 95,
+    "battery_kwh": 220,
+    "crew_capacity": 2,
+    "cargo_capacity_kg": 4500,
+    "features": [
+      "Reinforced Chassis",
+      "Heavy-Duty 6-Wheel Drive",
+      "Hydraulic Loading Ramp",
+      "Cargo Container Clamps",
+      "Roll Cage"
+    ],
+    "operating_environments": [
+      "Planetary Bases",
+      "Mining Sites",
+      "Refineries"
+    ]
+  },
+  {
+    "id": "SU_Vehicle_Research_Rover",
+    "name_en": "Research Rover",
+    "name_mn": "Судалгааны ровер",
+    "category": "Mobile Scientific Lab",
+    "dimensions": {
+      "width": 3.3,
+      "length": 6.2,
+      "height": 2.4
+    },
+    "mass_kg": 3800,
+    "max_speed_kmh": 38,
+    "range_km": 110,
+    "battery_kwh": 180,
+    "crew_capacity": 2,
+    "cargo_capacity_kg": 800,
+    "features": [
+      "Motorized Satellite Dish",
+      "3-Joint Robotic Sampling Arm",
+      "Micro-Drill Spectrometer",
+      "Atmospheric Analyzer",
+      "Hazard Isolation Chamber"
+    ],
+    "operating_environments": [
+      "Geological Faults",
+      "Impact Craters",
+      "Hydrothermal Vents"
+    ]
+  },
+  {
+    "id": "SU_Vehicle_Utility_Rover",
+    "name_en": "Utility Vehicle",
+    "name_mn": "Олон зориулалтын машин",
+    "category": "Engineering Utility",
+    "dimensions": {
+      "width": 3.5,
+      "length": 6.8,
+      "height": 2.5
+    },
+    "mass_kg": 5200,
+    "max_speed_kmh": 30,
+    "range_km": 85,
+    "battery_kwh": 250,
+    "crew_capacity": 1,
+    "cargo_capacity_kg": 3000,
+    "features": [
+      "360-Deg Hydraulic Crane Arm",
+      "Mechanical Industrial Claw",
+      "4 Outrigger Stabilizers",
+      "Welding & Pipe Racks",
+      "Hazard Beacon"
+    ],
+    "operating_environments": [
+      "Base Construction",
+      "Infrastructure Repair",
+      "Heavy Equipment Towing"
+    ]
+  },
+  {
+    "id": "SU_Ship_Planetary_Lander",
+    "name_en": "Planetary Lander",
+    "name_mn": "Сансрын буугч",
+    "category": "Planetary Spacecraft",
+    "dimensions": {
+      "width": 6.0,
+      "length": 6.0,
+      "height": 4.8
+    },
+    "mass_kg": 8500,
+    "max_speed_kmh": 1800,
+    "range_km": 8000,
+    "battery_kwh": 400,
+    "crew_capacity": 4,
+    "cargo_capacity_kg": 2500,
+    "features": [
+      "Octagonal Pressure Core",
+      "Gold Thermal Shield",
+      "4 Telescoping Hydraulic Struts",
+      "Descent Rocket Gimbal",
+      "Deployable Egress Ramp",
+      "RCS Blocks"
+    ],
+    "operating_environments": [
+      "Atmospheric Re-entry",
+      "Airless Bodies",
+      "Planetary Landings"
+    ]
+  },
+  {
+    "id": "SU_Ship_Exploration_Vessel",
+    "name_en": "Exploration Ship",
+    "name_mn": "Хайгуулын хөлөг",
+    "category": "Atmospheric & Space Vessel",
+    "dimensions": {
+      "width": 8.4,
+      "length": 12.5,
+      "height": 3.6
+    },
+    "mass_kg": 14200,
+    "max_speed_kmh": 9500,
+    "range_km": 500000,
+    "battery_kwh": 850,
+    "crew_capacity": 3,
+    "cargo_capacity_kg": 1800,
+    "features": [
+      "Aerodynamic Delta Wings",
+      "Twin Ion Engine Nacelles",
+      "Forward LIDAR Nose",
+      "Retractable Landing Gear",
+      "Orbital Mapping Suite"
+    ],
+    "operating_environments": [
+      "Sub-Orbital Exploration",
+      "Atmospheric Flight",
+      "Interplanetary Transfer"
+    ]
+  },
+  {
+    "id": "SU_Ship_Cargo_Freighter",
+    "name_en": "Cargo Ship",
+    "name_mn": "Ачааны хөлөг",
+    "category": "Interplanetary Transport",
+    "dimensions": {
+      "width": 8.8,
+      "length": 14.0,
+      "height": 4.2
+    },
+    "mass_kg": 28500,
+    "max_speed_kmh": 6500,
+    "range_km": 1500000,
+    "battery_kwh": 1400,
+    "crew_capacity": 2,
+    "cargo_capacity_kg": 18000,
+    "features": [
+      "Heavy Spine Truss",
+      "4 Modular Standardized Cargo Pods",
+      "Quad Ion Drive Block",
+      "Thermal Radiators",
+      "Command Cupola"
+    ],
+    "operating_environments": [
+      "Orbital Logistics",
+      "Deep Space Cargo Lanes",
+      "Lunar-Martian Ferry"
+    ]
+  },
+  {
+    "id": "SU_Ship_Orbital_Shuttle",
+    "name_en": "Orbital Shuttle",
+    "name_mn": "Орбитын шаттл",
+    "category": "Orbital Transfer Shuttle",
+    "dimensions": {
+      "width": 9.6,
+      "length": 15.2,
+      "height": 4.0
+    },
+    "mass_kg": 22000,
+    "max_speed_kmh": 28000,
+    "range_km": 950000,
+    "battery_kwh": 1100,
+    "crew_capacity": 6,
+    "cargo_capacity_kg": 5000,
+    "features": [
+      "Carbon-Ceramic Heat Shield Belly",
+      "Swept Wings & Vertical Tail",
+      "Tri-Engine Cluster",
+      "Clamshell Payload Bay",
+      "Flight Deck Cockpit"
+    ],
+    "operating_environments": [
+      "Planetary Surface-to-Orbit",
+      "Space Station Ferry",
+      "Emergency Crew Return"
+    ]
+  },
+  {
+    "id": "SU_Drone_Scout",
+    "name_en": "Scout Drone",
+    "name_mn": "Хайгуулын дрон",
+    "category": "Autonomous Exploration Drone",
+    "dimensions": {
+      "width": 1.2,
+      "length": 1.2,
+      "height": 0.6
+    },
+    "mass_kg": 28,
+    "max_speed_kmh": 75,
+    "range_km": 35,
+    "battery_kwh": 12,
+    "crew_capacity": 0,
+    "cargo_capacity_kg": 5,
+    "features": [
+      "Quad Tilt-Rotor Ducts",
+      "360-Deg Multispectral Gimbal",
+      "Carbon Fiber Frame",
+      "Landing Skids",
+      "Cyan Telemetry Halos"
+    ],
+    "operating_environments": [
+      "Canyons",
+      "Volcanic Tubes",
+      "Dense Atmosphere Caves"
+    ]
+  },
+  {
+    "id": "SU_Robot_Survey_Quadruped",
+    "name_en": "Survey Robot (S-06)",
+    "name_mn": "Газрын робот",
+    "category": "Robotic Quadruped Companion",
+    "dimensions": {
+      "width": 0.6,
+      "length": 1.4,
+      "height": 0.9
+    },
+    "mass_kg": 65,
+    "max_speed_kmh": 24,
+    "range_km": 40,
+    "battery_kwh": 18,
+    "crew_capacity": 0,
+    "cargo_capacity_kg": 25,
+    "features": [
+      "Articulated 4-Leg Locomotion",
+      "Stereo LIDAR Head",
+      "Top Accessory Rail",
+      "Terrain Mapping AI",
+      "Follow/Guard Modes"
+    ],
+    "operating_environments": [
+      "Rough Boulders",
+      "Steep Slopes",
+      "Crater Rims"
+    ]
+  },
+  {
+    "id": "SU_Drone_Geological_Drill",
+    "name_en": "Drilling Drone",
+    "name_mn": "Өрөмдлөгийн дрон",
+    "category": "Core Sampling VTOL",
+    "dimensions": {
+      "width": 1.6,
+      "length": 1.6,
+      "height": 1.1
+    },
+    "mass_kg": 110,
+    "max_speed_kmh": 45,
+    "range_km": 20,
+    "battery_kwh": 35,
+    "crew_capacity": 0,
+    "cargo_capacity_kg": 15,
+    "features": [
+      "Annular Frame",
+      "4 VTOL Ducted Thrusters",
+      "Rotating Diamond Core Drill",
+      "3 Telescopic Ground Anchors",
+      "Automated Sample Carousel"
+    ],
+    "operating_environments": [
+      "Cliff Faces",
+      "Frozen Glaciers",
+      "Unstable Crusts"
+    ]
+  },
+  {
+    "id": "SU_Drone_Cargo_HeavyLift",
+    "name_en": "Cargo Drone",
+    "name_mn": "Тээвэрлэгч дрон",
+    "category": "Heavy-Lift VTOL Drone",
+    "dimensions": {
+      "width": 1.8,
+      "length": 1.8,
+      "height": 0.8
+    },
+    "mass_kg": 140,
+    "max_speed_kmh": 60,
+    "range_km": 30,
+    "battery_kwh": 45,
+    "crew_capacity": 0,
+    "cargo_capacity_kg": 120,
+    "features": [
+      "Tandem Heavy Rotor Nacelles",
+      "Magnetic Cargo Winch",
+      "Hot-Swap Battery Bays",
+      "Standard Cargo Container Lock",
+      "Ground Searchlights"
+    ],
+    "operating_environments": [
+      "Field-to-Base Logistics",
+      "Automated Mineral Haul",
+      "Equipment Air Drop"
+    ]
+  }
+]

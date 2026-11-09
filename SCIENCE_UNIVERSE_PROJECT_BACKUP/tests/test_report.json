@@ -1,0 +1,121 @@
+{
+  "testResults": {
+    "sceneReady": true,
+    "rendererSize": {
+      "width": 1280,
+      "height": 720
+    },
+    "terrainChunkCount": 49,
+    "sampleElevationAtOrigin": 0.9940256888588951,
+    "cachedAssetCount": 38,
+    "metadataCount": 67,
+    "initialPlayerPos": {
+      "x": 0,
+      "y": 2.644025688858895,
+      "z": 0
+    },
+    "isGrounded": true,
+    "movedPlayerPos": {
+      "x": 0,
+      "y": 3.5005410100578684,
+      "z": -2.25
+    },
+    "playerMoved": true,
+    "initialTool": "Mining Laser MK-1",
+    "switchedTool": "Geological Pick Hammer",
+    "survivalState": {
+      "oxygen": 100,
+      "power": 100,
+      "health": 100,
+      "water": 100,
+      "food": 100,
+      "temperature": 21
+    },
+    "totalResourceNodes": 80,
+    "firstNodeInfo": {
+      "id": "res_-2_-2_0",
+      "name": "Granite Outcrop",
+      "hp": 140,
+      "maxHp": 140
+    },
+    "nodeHpAfterDamage": 112.3076923076923,
+    "damageApplied": true,
+    "depletedAndCollected": {
+      "itemId": "granite",
+      "count": 3,
+      "name": "Granite Outcrop",
+      "name_mn": "Боржин чулуулаг"
+    },
+    "inventoryState": {
+      "hotbar": [
+        {
+          "itemId": "tool_mining_laser",
+          "count": 1
+        },
+        {
+          "itemId": "tool_rock_hammer",
+          "count": 1
+        },
+        {
+          "itemId": "tool_scanner",
+          "count": 1
+        },
+        {
+          "itemId": "tool_sample_collector",
+          "count": 1
+        },
+        {
+          "itemId": "tool_thermal_drill",
+          "count": 1
+        },
+        {
+          "itemId": "tool_construction",
+          "count": 1
+        },
+        {
+          "itemId": "granite",
+          "count": 3
+        },
+        null
+      ],
+      "backpack": [
+        {
+          "itemId": "o2_canister",
+          "count": 2
+        },
+        {
+          "itemId": "battery_pack",
+          "count": 2
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "activeHotbarIndex": 1
+    },
+    "saveSuccess": true,
+    "loadSuccess": true,
+    "restoredOxygen": 100
+  },
+  "consoleErrors": [],
+  "allPassed": true
+}

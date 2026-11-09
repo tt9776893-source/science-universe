@@ -1,0 +1,467 @@
+[
+  {
+    "id": "SU_Part_Cockpit",
+    "name_en": "Cockpit Module",
+    "name_mn": "Хяналтын бүхээг",
+    "category": "Command & Control",
+    "dimensions": {
+      "width": 3.2,
+      "length": 4.0,
+      "height": 2.8
+    },
+    "mass_dry_kg": 2400,
+    "crew_capacity": 2,
+    "attachment_nodes": [
+      {
+        "id": "Node_Aft",
+        "type": "ring_3.2m",
+        "pos": [
+          0,
+          -2.0,
+          0
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ]
+      }
+    ],
+    "features": [
+      "Pressurized Hull",
+      "Panoramic Canopy",
+      "Avionics HUD",
+      "Pilot Seating",
+      "LIDAR Dome"
+    ]
+  },
+  {
+    "id": "SU_Part_Crew_Hab",
+    "name_en": "Crew Habitat Module",
+    "name_mn": "Экипажийн модуль",
+    "category": "Habitat & Life Support",
+    "dimensions": {
+      "width": 3.2,
+      "length": 4.6,
+      "height": 2.8
+    },
+    "mass_dry_kg": 3800,
+    "crew_capacity": 4,
+    "attachment_nodes": [
+      {
+        "id": "Node_Fwd",
+        "type": "ring_3.2m",
+        "pos": [
+          0,
+          2.3,
+          0
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "id": "Node_Aft",
+        "type": "ring_3.2m",
+        "pos": [
+          0,
+          -2.3,
+          0
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ]
+      }
+    ],
+    "features": [
+      "Bunk Beds",
+      "Life Support Scrubber",
+      "Observation Port",
+      "Walkable Interior"
+    ]
+  },
+  {
+    "id": "SU_Part_Cargo_Bay",
+    "name_en": "Cargo Module",
+    "name_mn": "Ачааны модуль",
+    "category": "Logistics & Payload",
+    "dimensions": {
+      "width": 3.2,
+      "length": 3.2,
+      "height": 2.8
+    },
+    "mass_dry_kg": 2100,
+    "cargo_capacity_kg": 8000,
+    "attachment_nodes": [
+      {
+        "id": "Node_Fwd",
+        "type": "ring_3.2m",
+        "pos": [
+          0,
+          1.6,
+          0
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "id": "Node_Aft",
+        "type": "ring_3.2m",
+        "pos": [
+          0,
+          -1.6,
+          0
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ]
+      }
+    ],
+    "features": [
+      "Internal Storage Racks",
+      "Modular Tie-Downs",
+      "Pressurized Shell",
+      "Loading Hatches"
+    ]
+  },
+  {
+    "id": "SU_Part_Fuel_Tank",
+    "name_en": "Fuel Tank Module",
+    "name_mn": "Түлшний сав",
+    "category": "Propulsion Storage",
+    "dimensions": {
+      "width": 3.2,
+      "length": 3.2,
+      "height": 2.8
+    },
+    "mass_dry_kg": 1800,
+    "propellant_capacity_kg": 16000,
+    "propellant_type": "LOX/LH2",
+    "attachment_nodes": [
+      {
+        "id": "Node_Fwd",
+        "type": "ring_3.2m",
+        "pos": [
+          0,
+          1.6,
+          0
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "id": "Node_Aft",
+        "type": "ring_3.2m",
+        "pos": [
+          0,
+          -1.6,
+          0
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ]
+      }
+    ],
+    "features": [
+      "Cryogenic Insulation",
+      "Manifold Valves",
+      "Pressure Monitoring",
+      "Feed System"
+    ]
+  },
+  {
+    "id": "SU_Part_Main_Engine",
+    "name_en": "Main Rocket Engine",
+    "name_mn": "Хөдөлгүүр",
+    "category": "Propulsion",
+    "dimensions": {
+      "width": 3.2,
+      "length": 3.2,
+      "height": 3.0
+    },
+    "mass_dry_kg": 3200,
+    "thrust_vacuum_kn": 1250,
+    "thrust_sea_level_kn": 1050,
+    "isp_vacuum_s": 450,
+    "isp_sea_level_s": 380,
+    "attachment_nodes": [
+      {
+        "id": "Node_Fwd",
+        "type": "ring_3.2m",
+        "pos": [
+          0,
+          1.6,
+          0
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ]
+      }
+    ],
+    "features": [
+      "Regenerative Bell Nozzle",
+      "Turbopump",
+      "Gimbal Actuators",
+      "Exhaust Plume"
+    ]
+  },
+  {
+    "id": "SU_Part_RCS_Block",
+    "name_en": "RCS Thruster Module",
+    "name_mn": "Маневрийн хөдөлгүүр",
+    "category": "Attitude Control",
+    "dimensions": {
+      "width": 1.0,
+      "length": 1.2,
+      "height": 0.9
+    },
+    "mass_dry_kg": 140,
+    "thrust_kn": 12,
+    "isp_s": 310,
+    "attachment_nodes": [
+      {
+        "id": "Node_Base",
+        "type": "surface_mount",
+        "pos": [
+          0,
+          0,
+          -0.45
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ]
+      }
+    ],
+    "features": [
+      "5-Way Orthogonal Nozzles",
+      "Hypergolic Manifold",
+      "Attitude Stabilization"
+    ]
+  },
+  {
+    "id": "SU_Part_Hull_Segment",
+    "name_en": "Hull Segment",
+    "name_mn": "Их биеийн хэсэг",
+    "category": "Structural & Fairing",
+    "dimensions": {
+      "width": 1.0,
+      "length": 1.0,
+      "height": 2.8
+    },
+    "mass_dry_kg": 420,
+    "attachment_nodes": [
+      {
+        "id": "Node_Radial",
+        "type": "fairing_snap",
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ]
+      }
+    ],
+    "features": [
+      "Aerodynamic Fairing",
+      "Heat Shield Backing",
+      "Reinforced Ribs",
+      "Latch System"
+    ]
+  },
+  {
+    "id": "SU_Part_Solar_Array",
+    "name_en": "Solar Panel Array",
+    "name_mn": "Нарны хавтан",
+    "category": "Power Generation",
+    "dimensions": {
+      "width": 0.4,
+      "length": 6.0,
+      "height": 2.4
+    },
+    "mass_dry_kg": 280,
+    "power_output_kw": 25,
+    "attachment_nodes": [
+      {
+        "id": "Node_Base",
+        "type": "rotary_gimbal",
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ]
+      }
+    ],
+    "features": [
+      "Dual Deployable Wings",
+      "Sun Tracking Gimbal",
+      "Photovoltaic Cells",
+      "Folding Hinges"
+    ]
+  },
+  {
+    "id": "SU_Part_Wing_Fin",
+    "name_en": "Aerodynamic Wing / Fin",
+    "name_mn": "Далавч / Сэрвээ",
+    "category": "Aerodynamics & Control",
+    "dimensions": {
+      "width": 0.8,
+      "length": 4.0,
+      "height": 2.8
+    },
+    "mass_dry_kg": 350,
+    "lift_area_m2": 6.4,
+    "attachment_nodes": [
+      {
+        "id": "Node_Root",
+        "type": "spar_mount",
+        "pos": [
+          0,
+          0,
+          -1.3
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ]
+      }
+    ],
+    "features": [
+      "Swept Delta Profile",
+      "Thermal Tile Edge",
+      "Movable Rudder/Elevon",
+      "Atmospheric Stability"
+    ]
+  },
+  {
+    "id": "SU_Part_Landing_Gear",
+    "name_en": "Landing Gear Strut",
+    "name_mn": "Газардах тулгуур",
+    "category": "Landing & Surface",
+    "dimensions": {
+      "width": 2.6,
+      "length": 2.8,
+      "height": 2.4
+    },
+    "mass_dry_kg": 450,
+    "max_impact_force_kn": 400,
+    "attachment_nodes": [
+      {
+        "id": "Node_Bracket",
+        "type": "hinge_mount",
+        "pos": [
+          0,
+          0,
+          1.1
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ]
+      }
+    ],
+    "features": [
+      "Hydraulic Telescoping Piston",
+      "Articulated Footpad",
+      "Scissor Stabilizers",
+      "Impact Damping"
+    ]
+  },
+  {
+    "id": "SU_Part_Docking_Port",
+    "name_en": "APAS Docking Port",
+    "name_mn": "Докингийн холбогч",
+    "category": "Coupling & Transit",
+    "dimensions": {
+      "width": 2.6,
+      "length": 2.4,
+      "height": 2.4
+    },
+    "mass_dry_kg": 520,
+    "attachment_nodes": [
+      {
+        "id": "Node_Port",
+        "type": "androgynous_ring",
+        "pos": [
+          0,
+          0.3,
+          0
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ]
+      }
+    ],
+    "features": [
+      "3 Interlocking Guide Petals",
+      "Capture Latches",
+      "Hermetic Gasket",
+      "Status LED Ring"
+    ]
+  },
+  {
+    "id": "SU_Part_Power_Module",
+    "name_en": "Auxiliary Power Module",
+    "name_mn": "Эрчим хүчний модуль",
+    "category": "Energy Storage",
+    "dimensions": {
+      "width": 2.0,
+      "length": 3.6,
+      "height": 2.2
+    },
+    "mass_dry_kg": 1600,
+    "battery_capacity_kwh": 350,
+    "attachment_nodes": [
+      {
+        "id": "Node_Bus",
+        "type": "power_trunk",
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ]
+      }
+    ],
+    "features": [
+      "4 Cryogenic Solid-State Cells",
+      "Protective Cage",
+      "Bus Connector",
+      "Radiator Grille"
+    ]
+  }
+]

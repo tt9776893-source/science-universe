@@ -1,0 +1,354 @@
+[
+  {
+    "id": "SU_Infra_Solar_Power_Plant",
+    "name": "Solar Power Plant",
+    "category": "Power Generation",
+    "glb": "SU_Infra_Solar_Power_Plant.glb",
+    "dimensions_m": [
+      8.0,
+      5.0,
+      3.8
+    ],
+    "mass_kg": 1850,
+    "power_output_kw": 85.0,
+    "power_consumption_kw": 0.5,
+    "specs": {
+      "cell_type": "Multi-junction Gallium Arsenide / Perovskite Photovoltaic",
+      "efficiency": 0.385,
+      "tracking_axis": "Dual-axis Heliostatic Gimbal",
+      "dust_degradation_rate_per_day": 0.008,
+      "solar_flux_scaling": "1 / (r_AU)^2"
+    },
+    "conduits": [
+      "HV_DC_Power_Bus",
+      "Telemetry_Fiber"
+    ],
+    "description": "High-efficiency bifacial solar array with autonomous dual-axis sun tracking and electrostatic dust-repulsion coating for planetary surfaces."
+  },
+  {
+    "id": "SU_Infra_Wind_Turbine",
+    "name": "Planetary Wind Turbine",
+    "category": "Power Generation",
+    "glb": "SU_Infra_Wind_Turbine.glb",
+    "dimensions_m": [
+      5.0,
+      5.0,
+      10.2
+    ],
+    "mass_kg": 2400,
+    "power_output_kw": 45.0,
+    "power_consumption_kw": 0.8,
+    "specs": {
+      "rotor_type": "Tri-blade Carbon-Aerogel Aerodynamic Impeller",
+      "cut_in_speed_mps": 2.5,
+      "rated_wind_speed_mps": 12.0,
+      "min_atmosphere_pressure_kpa": 0.5,
+      "active_on_planets": [
+        "Mars",
+        "Desert",
+        "Venus",
+        "Titan"
+      ]
+    },
+    "conduits": [
+      "HV_AC_Power_Bus",
+      "Telemetry_Fiber"
+    ],
+    "description": "High-altitude planetary wind turbine designed for low-density Martian atmosphere and high-speed storm winds with dynamic blade feathering."
+  },
+  {
+    "id": "SU_Infra_Compact_Nuclear_Reactor",
+    "name": "Compact Nuclear Reactor",
+    "category": "Power Generation",
+    "glb": "SU_Infra_Compact_Nuclear_Reactor.glb",
+    "dimensions_m": [
+      4.2,
+      4.2,
+      5.0
+    ],
+    "mass_kg": 6800,
+    "power_output_kw": 350.0,
+    "power_consumption_kw": 12.0,
+    "specs": {
+      "fuel_type": "High-Assay Low-Enriched Uranium (HALEU-20%)",
+      "core_thermal_power_kw": 1200.0,
+      "conversion_cycle": "Closed-loop Supercritical CO2 Brayton Turbine",
+      "core_operating_temp_c": 750.0,
+      "fuel_burnup_life_years": 15.0
+    },
+    "conduits": [
+      "HV_Power_Trunk",
+      "Closed_Loop_Coolant",
+      "SCADA_Bus"
+    ],
+    "description": "Base-load nuclear fission micro-reactor with liquid metal heat pipes, boron carbide control drums, and radiation shadow shielding."
+  },
+  {
+    "id": "SU_Infra_Energy_Storage",
+    "name": "Energy Storage Module",
+    "category": "Energy Storage",
+    "glb": "SU_Infra_Energy_Storage.glb",
+    "dimensions_m": [
+      4.0,
+      4.0,
+      3.6
+    ],
+    "mass_kg": 8500,
+    "power_output_kw": 200.0,
+    "power_consumption_kw": 0.0,
+    "specs": {
+      "cell_chemistry": "Solid-State Lithium-Sulfur Nanowire Matrix",
+      "storage_capacity_kwh": 1200.0,
+      "max_charge_rate_kw": 180.0,
+      "round_trip_efficiency": 0.94,
+      "cycle_life": 12000
+    },
+    "conduits": [
+      "HV_DC_Power_Bus",
+      "Liquid_Coolant_Loop",
+      "Battery_Management_Bus"
+    ],
+    "description": "High-density grid-scale battery storage container with modular cryogenic cell thermal stabilization and intelligent load balancing."
+  },
+  {
+    "id": "SU_Infra_Oxygen_Generator",
+    "name": "Oxygen Generation Module",
+    "category": "Atmosphere & Life Support",
+    "glb": "SU_Infra_Oxygen_Generator.glb",
+    "dimensions_m": [
+      3.6,
+      3.6,
+      3.8
+    ],
+    "mass_kg": 3200,
+    "power_output_kw": 0.0,
+    "power_consumption_kw": 28.0,
+    "specs": {
+      "technology": "Solid Oxide Electrolysis (MOXIE) & PEM Water Electrolysis",
+      "o2_production_rate_kg_h": 12.5,
+      "byproducts": [
+        "Carbon Monoxide (Vented/Refined)",
+        "Hydrogen Fuel Feedstock"
+      ],
+      "max_crew_capacity_supported": 32,
+      "buffer_storage_kg": 250.0
+    },
+    "conduits": [
+      "O2_High_Pressure_Conduit",
+      "Water_Feed_Line",
+      "Power_Bus"
+    ],
+    "description": "Industrial atmospheric cracker and electrolysis unit generating breathable oxygen from planetary CO2 and recycled greywater."
+  },
+  {
+    "id": "SU_Infra_Water_Purifier",
+    "name": "Water Purification Module",
+    "category": "Atmosphere & Life Support",
+    "glb": "SU_Infra_Water_Purifier.glb",
+    "dimensions_m": [
+      3.6,
+      3.6,
+      3.5
+    ],
+    "mass_kg": 2900,
+    "power_output_kw": 0.0,
+    "power_consumption_kw": 18.0,
+    "specs": {
+      "technology": "Vapor Compression Distillation (VCD) & Multi-stage Reverse Osmosis",
+      "processing_capacity_l_h": 180.0,
+      "recovery_efficiency": 0.985,
+      "mineral_re_dosing_active": true,
+      "potable_storage_liters": 4500.0
+    },
+    "conduits": [
+      "Potable_Water_Out",
+      "Greywater_In",
+      "Brine_Sludge_Out",
+      "Power_Bus"
+    ],
+    "description": "Closed-loop water treatment facility recycling humidity condensate, hygiene runoff, and urine into medical-grade drinking water."
+  },
+  {
+    "id": "SU_Infra_Air_Filter_Circulator",
+    "name": "Air Filter & Circulator",
+    "category": "Atmosphere & Life Support",
+    "glb": "SU_Infra_Air_Filter_Circulator.glb",
+    "dimensions_m": [
+      3.2,
+      3.2,
+      3.6
+    ],
+    "mass_kg": 2100,
+    "power_output_kw": 0.0,
+    "power_consumption_kw": 14.0,
+    "specs": {
+      "filtration_stages": [
+        "Electrostatic Regolith Pre-filter",
+        "Activated Carbon VOC Scrubber",
+        "HEPA-14 Micro-particulate",
+        "Amine CO2 Scrubber"
+      ],
+      "air_turnover_m3_h": 3200.0,
+      "co2_absorption_kg_h": 8.0,
+      "trace_contaminant_removal_pct": 99.97
+    },
+    "conduits": [
+      "HVAC_Supply_Duct",
+      "HVAC_Return_Duct",
+      "Power_Bus"
+    ],
+    "description": "Base atmospheric life support hub maintaining oxygen-nitrogen partial pressures, scrubbing toxic trace gases, and neutralizing regolith dust."
+  },
+  {
+    "id": "SU_Infra_Thermal_Control",
+    "name": "Thermal Control Module",
+    "category": "Environmental & Thermal",
+    "glb": "SU_Infra_Thermal_Control.glb",
+    "dimensions_m": [
+      4.0,
+      4.0,
+      3.6
+    ],
+    "mass_kg": 2600,
+    "power_output_kw": 0.0,
+    "power_consumption_kw": 22.0,
+    "specs": {
+      "radiator_area_m2": 48.0,
+      "working_fluid": "Ammonia-Glycol Heat Pipe Loop",
+      "heat_rejection_capacity_kw": 220.0,
+      "operating_temp_range_c": [
+        -130.0,
+        115.0
+      ],
+      "habitat_temp_target_c": 21.5
+    },
+    "conduits": [
+      "Coolant_Supply_Loop",
+      "Coolant_Return_Loop",
+      "Power_Bus"
+    ],
+    "description": "High-capacity dual-sided deployable radiator wings and thermal heat pumps maintaining precise colony internal temperature equilibrium."
+  },
+  {
+    "id": "SU_Infra_Food_Grow_Greenhouse",
+    "name": "Food Grow Greenhouse",
+    "category": "Food & Life Support",
+    "glb": "SU_Infra_Food_Grow_Greenhouse.glb",
+    "dimensions_m": [
+      6.0,
+      4.2,
+      3.8
+    ],
+    "mass_kg": 4200,
+    "power_output_kw": 0.0,
+    "power_consumption_kw": 35.0,
+    "specs": {
+      "cultivation_method": "Vertical Aeroponic Racks & Nutrient Film Technique (NFT)",
+      "lighting_spectrum": "Dual Tunable Red/Far-Red/Blue LED Photobioreactors",
+      "crop_types": [
+        "Spirulina Algae",
+        "Dwarf Wheat",
+        "Soybeans",
+        "Tubers",
+        "Crisp Leaf Greens"
+      ],
+      "harvest_cycle_days": 18,
+      "daily_caloric_yield_kcal": 28000,
+      "co2_consumption_kg_d": 14.2
+    },
+    "conduits": [
+      "Potable_Water_In",
+      "Nutrient_Solution_Loop",
+      "O2_Enriched_Air_Out",
+      "Power_Bus"
+    ],
+    "description": "Pressurized climate-controlled bio-dome module cultivating high-protein nutrient crops and microalgae for sustainable long-duration crew nutrition."
+  },
+  {
+    "id": "SU_Infra_Waste_Recycling_Unit",
+    "name": "Waste Recycling Unit",
+    "category": "Food & Life Support",
+    "glb": "SU_Infra_Waste_Recycling_Unit.glb",
+    "dimensions_m": [
+      3.6,
+      3.6,
+      3.4
+    ],
+    "mass_kg": 3100,
+    "power_output_kw": 0.0,
+    "power_consumption_kw": 25.0,
+    "specs": {
+      "process": "Supercritical Water Oxidation (SCWO) & Plasma Pyrolysis",
+      "solid_waste_throughput_kg_d": 160.0,
+      "carbon_recovery_pct": 0.96,
+      "mineral_ash_output_fertilizer_grade": true,
+      "methane_syngas_capture_l_d": 450.0
+    },
+    "conduits": [
+      "Solid_Waste_Chute",
+      "Syngas_Feed_Line",
+      "Fertilizer_Slurry_Out",
+      "Power_Bus"
+    ],
+    "description": "Thermochemical oxidation bioreactor recycling inedible organic biomass, plastics, and solid wastes into sterile nutrient salts and methane fuel."
+  },
+  {
+    "id": "SU_Infra_Environmental_Shield_Dome",
+    "name": "Environmental Shield Dome",
+    "category": "Environmental & Defense",
+    "glb": "SU_Infra_Environmental_Shield_Dome.glb",
+    "dimensions_m": [
+      5.5,
+      5.5,
+      4.5
+    ],
+    "mass_kg": 5400,
+    "power_output_kw": 0.0,
+    "power_consumption_kw": 60.0,
+    "specs": {
+      "shield_type": "Superconducting Magnetic Active Shielding & Plasma Deflector",
+      "effective_radius_m": 85.0,
+      "cosmic_radiation_attenuation_pct": 94.0,
+      "micrometeorite_deflection_velocity_km_s": 22.0,
+      "field_generator_tesla": 4.8
+    },
+    "conduits": [
+      "Cryogenic_Helium_Loop",
+      "HV_Pulse_Bus",
+      "Command_Data_Bus"
+    ],
+    "description": "Electromagnetic and plasma canopy emitter shielding surface base infrastructure against solar particle events, cosmic rays, and micrometeoroids."
+  },
+  {
+    "id": "SU_Infra_Base_Control_Center",
+    "name": "Base Control Center",
+    "category": "Command & Telemetry",
+    "glb": "SU_Infra_Base_Control_Center.glb",
+    "dimensions_m": [
+      4.5,
+      4.5,
+      4.2
+    ],
+    "mass_kg": 4600,
+    "power_output_kw": 0.0,
+    "power_consumption_kw": 30.0,
+    "specs": {
+      "telemetry_system": "Quantum Relay & Ka-Band Surface Transceiver",
+      "simultaneous_modules_managed": 128,
+      "autonomous_failover_time_ms": 12,
+      "holographic_displays": [
+        "Colony Microgrid Flow",
+        "Atmosphere Equilibrium Map",
+        "ECLSS Closed-loop Graph",
+        "Orbital Telemetry"
+      ],
+      "operator_stations": 4
+    },
+    "conduits": [
+      "Master_SCADA_Backbone",
+      "Emergency_Power_Bus",
+      "Optical_Comm_Feed"
+    ],
+    "description": "Central planetary operations hub coordinating microgrid power routing, life support regulation, environmental alerts, and Earth communication."
+  }
+]

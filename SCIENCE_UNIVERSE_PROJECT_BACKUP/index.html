@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <link rel="icon" type="image/svg+xml" href="./public/favicon.svg" />
+  <title>SCIENCE UNIVERSE — FRONTIER | Mars Planetary Survival</title>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "../vendor/three170/build/three.module.js",
+      "three/examples/jsm/loaders/GLTFLoader.js": "../vendor/three170/examples/jsm/loaders/GLTFLoader.js",
+      "three/": "../vendor/three170/"
+    }
+  }
+  </script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      background: #08060a;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      color: #e2f1ff;
+    }
+
+    #game-container {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Sci-Fi HUD Layer */
+    #hud-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    /* Reticle / Crosshair */
+    #crosshair {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .reticle-dot {
+      width: 4px;
+      height: 4px;
+      background: #00ffff;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #00ffff;
+    }
+
+    .reticle-ring {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border: 1.5px solid rgba(0, 255, 255, 0.45);
+      border-radius: 50%;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    /* Target Mineral Inspection Card */
+    #target-card {
+      position: absolute;
+      top: calc(50% + 24px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(10, 16, 26, 0.88);
+      border: 1px solid rgba(0, 240, 255, 0.45);
+      border-radius: 6px;
+      padding: 8px 16px;
+      min-width: 240px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), inset 0 0 12px rgba(0, 240, 255, 0.12);
+      display: none;
+      backdrop-filter: blur(8px);
+    }
+
+    #target-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #00ffff;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    #target-sub {
+      font-size: 11px;
+      color: #9cb4c9;
+      margin: 2px 0 6px 0;
+    }
+
+    .target-hp-track {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 3px;
+    }
+
+    #target-hp-bar {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #ff9900, #ff4400);
+      transition: width 0.1s linear;
+    }
+
+    #target-hp-text {
+      font-size: 10px;
+      color: #d0e0ec;
+    }
+
+    /* Top Left Telemetry */
+    .hud-top-left {
+      position: absolute;
+      top: 20px;
+      left: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .mission-badge {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: #ff9944;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mission-badge::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #ff7700;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #ff7700;
+    }
+
+    .location-text {
+      font-size: 16px;
+      font-weight: 700;
+      color: #e2f1ff;
+      letter-spacing: 0.5px;
+    }
+
+    .telemetry-row {
+      font-size: 11px;
+      color: #7b99b5;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.5px;
+    }
+
+    /* Top Right Compass & Status */
+    .hud-top-right {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .compass-box {
+      background: rgba(10, 16, 26, 0.85);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      border-radius: 6px;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      backdrop-filter: blur(6px);
+    }
+
+    #hud-compass-needle {
+      width: 14px;
+      height: 14px;
+      border: 2px solid #00f0ff;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    #hud-compass-needle::after {
+      content: '';
+      position: absolute;
+      top: 1px;
+      left: 5px;
+      width: 2px;
+      height: 5px;
+      background: #ff3344;
+    }
+
+    #hud-compass-text {
+      font-size: 12px;
+      font-weight: 700;
+      color: #00f0ff;
+      letter-spacing: 1px;
+    }
+
+    .hud-status-tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #9cb4c9;
+    }
+
+    .hud-status-tag.active {
+      color: #ffcc00;
+      border-color: #ffcc00;
+      box-shadow: 0 0 8px rgba(255, 204, 0, 0.3);
+    }
+
+    /* Bottom Left Survival Telemetry */
+    .hud-survival {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: rgba(10, 16, 26, 0.88);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      border-radius: 8px;
+      padding: 14px 18px;
+      min-width: 240px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(0, 240, 255, 0.08);
+      backdrop-filter: blur(8px);
+    }
+
+    .survival-stat {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 700;
+      width: 58px;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-bar-track {
+      flex: 1;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .stat-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.2s ease;
+    }
+
+    .stat-val {
+      font-size: 11px;
+      font-weight: 700;
+      width: 38px;
+      text-align: right;
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Specific Stat Colors */
+    .stat-o2 .stat-label { color: #00f0ff; }
+    .stat-o2 .stat-bar-fill { background: linear-gradient(90deg, #0088cc, #00ffff); }
+    .stat-o2 .stat-val { color: #00ffff; }
+    .stat-o2 .stat-bar-fill.low-warning {
+      background: #ff2244 !important;
+      animation: pulseWarning 0.8s infinite alternate;
+    }
+
+    .stat-power .stat-label { color: #ffcc00; }
+    .stat-power .stat-bar-fill { background: linear-gradient(90deg, #cc8800, #ffcc00); }
+    .stat-power .stat-val { color: #ffcc00; }
+
+    .stat-health .stat-label { color: #00ff88; }
+    .stat-health .stat-bar-fill { background: linear-gradient(90deg, #00aa55, #00ff88); }
+    .stat-health .stat-val { color: #00ff88; }
+
+    .survival-sub-row {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 6px;
+      margin-top: 2px;
+      font-size: 10px;
+      color: #8da4be;
+    }
+
+    .survival-sub-item span {
+      color: #e2f1ff;
+      font-weight: 700;
+    }
+
+    @keyframes pulseWarning {
+      0% { opacity: 0.5; }
+      100% { opacity: 1.0; }
+    }
+
+    /* Bottom Center Hotbar */
+    #hud-hotbar {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      background: rgba(10, 16, 26, 0.9);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      border-radius: 8px;
+      padding: 6px;
+      pointer-events: auto;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+    }
+
+    .hotbar-slot {
+      width: 52px;
+      height: 52px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .hotbar-slot:hover {
+      background: rgba(0, 240, 255, 0.1);
+      border-color: rgba(0, 240, 255, 0.5);
+    }
+
+    .hotbar-slot.active {
+      background: rgba(0, 240, 255, 0.2);
+      border-color: #00ffff;
+      box-shadow: 0 0 12px rgba(0, 255, 255, 0.45), inset 0 0 8px rgba(0, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .slot-num {
+      position: absolute;
+      top: 3px;
+      left: 5px;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 700;
+    }
+
+    .slot-icon {
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slot-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .slot-count {
+      position: absolute;
+      bottom: 3px;
+      right: 5px;
+      font-size: 11px;
+      color: #ffffff;
+      font-weight: 700;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+    }
+
+    /* Toast Notifications */
+    #toast-container {
+      position: absolute;
+      bottom: 96px;
+      right: 24px;
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 8px;
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    .toast-item {
+      background: rgba(10, 16, 26, 0.92);
+      border-left: 3px solid #00f0ff;
+      border-radius: 4px;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #e2f1ff;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+      animation: toastIn 0.25s ease-out;
+      backdrop-filter: blur(6px);
+    }
+
+    .toast-item.fade-out {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease-out;
+    }
+
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateX(20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Modal Screens */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+      background: rgba(5, 8, 14, 0.85);
+      backdrop-filter: blur(12px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      overscroll-behavior: contain;
+      z-index: 13000;
+      pointer-events: auto;
+    }
+
+    .modal-overlay.visible {
+      display: flex;
+    }
+
+    .su-modal-window {
+      background: #0d1522;
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      border-radius: 10px;
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.8), inset 0 0 24px rgba(0, 240, 255, 0.08);
+      width: 820px;
+      max-width: 100%;
+      max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 16px);
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 240, 255, 0.04);
+    }
+
+    .modal-header h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #00f0ff;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .btn-close {
+      background: transparent;
+      border: none;
+      font-size: 22px;
+      color: #9cb4c9;
+      cursor: pointer;
+    }
+
+    .btn-close:hover { color: #ff4466; }
+
+    .modal-body {
+      padding: 20px;
+      display: flex;
+      gap: 20px;
+      overflow-y: auto;
+    }
+
+    /* Inventory Layout */
+    .inv-grids {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .inv-section-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #8da4be;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .inv-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 6px;
+    }
+
+    .inv-slot {
+      aspect-ratio: 1;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .inv-slot:hover {
+      background: rgba(0, 240, 255, 0.12);
+      border-color: #00f0ff;
+    }
+
+    .inv-slot.equipped {
+      border-color: #00ff88;
+      box-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
+    }
+
+    .inv-details-pane {
+      width: 260px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .details-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 10px;
+    }
+
+    .details-icon {
+      font-size: 32px;
+    }
+
+    .details-header h3 {
+      font-size: 14px;
+      color: #00f0ff;
+    }
+
+    .details-mn {
+      font-size: 11px;
+      color: #ffaa44;
+    }
+
+    .details-body {
+      font-size: 12px;
+      color: #b0c4de;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .details-desc {
+      font-size: 11px;
+      color: #8da4be;
+      line-height: 1.4;
+      margin-top: 4px;
+    }
+
+    .details-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .su-btn {
+      padding: 10px 16px;
+      border-radius: 6px;
+      border: none;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.15s ease;
+    }
+
+    .su-btn.primary {
+      background: linear-gradient(135deg, #00b4d8, #0077b6);
+      color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 180, 216, 0.4);
+    }
+
+    .su-btn.primary:hover {
+      background: linear-gradient(135deg, #00d4ff, #0096c7);
+      transform: translateY(-1px);
+    }
+
+    .su-btn.secondary {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #e2f1ff;
+    }
+
+    .su-btn.secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Pause Menu Controls list */
+    .controls-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 16px;
+      font-size: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 14px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 16px;
+    }
+
+    .key-badge {
+      display: inline-block;
+      padding: 2px 6px;
+      background: #1b263b;
+      border: 1px solid #415a77;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 11px;
+      color: #00ffff;
+      margin-right: 6px;
+    }
+
+    /* Loading Screen */
+    #loading-screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #080509;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .loading-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 3px;
+      margin-bottom: 4px;
+      text-align: center;
+    }
+
+    .loading-subtitle {
+      font-size: 13px;
+      font-weight: 600;
+      color: #e07a4f;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+    }
+
+    .loading-bar-track {
+      width: 320px;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      margin-bottom: 12px;
+    }
+
+    #loading-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #ff6633, #00f0ff);
+      transition: width 0.1s linear;
+    }
+
+    #loading-status-text {
+      font-size: 11px;
+      color: #8da4be;
+      font-family: monospace;
+    }
+
+    /* Click to Start Prompt */
+    #start-prompt {
+      position: fixed;
+      inset: 0;
+      width: auto;
+      height: 100vh;
+      height: 100dvh;
+      padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      z-index: 30001;
+      cursor: pointer;
+    }
+
+    .start-card {
+      width: min(620px, 100%);
+      max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 16px);
+      min-width: 0;
+      margin: auto;
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      background: #0d1624;
+      border: 1.5px solid #00f0ff;
+      border-radius: 8px;
+      padding: clamp(12px, 3.2vh, 30px) clamp(14px, 3.2vw, 32px);
+      text-align: center;
+      box-shadow: 0 0 35px rgba(0, 240, 255, 0.25);
+    }
+
+    .start-kicker {
+      font-size: clamp(8px, 1.3vh, 11px);
+      font-weight: 800;
+      color: #38bdf8;
+      text-transform: uppercase;
+    }
+
+    .start-title {
+      margin: 4px 0 6px;
+      color: #fff;
+      font-size: clamp(20px, 7vw, 32px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .start-subtitle {
+      margin-bottom: clamp(8px, 2.2vh, 20px);
+      color: #ea580c;
+      font-size: clamp(9px, 1.8vh, 14px);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .start-options {
+      display: grid;
+      gap: clamp(5px, 1.2vh, 10px);
+      margin-bottom: clamp(8px, 2.2vh, 20px);
+      text-align: left;
+    }
+
+    .start-option {
+      display: flex;
+      width: 100%;
+      min-width: 0;
+      min-height: clamp(44px, 11vh, 62px);
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: clamp(7px, 1.8vh, 12px) clamp(10px, 2vw, 18px);
+      font-size: 12px;
+      text-align: left;
+      letter-spacing: 0;
+    }
+
+    .start-option-copy {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .start-option-title {
+      color: #fff;
+      font-size: clamp(11px, 1.7vh, 14px);
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .start-option-description {
+      margin-top: 2px;
+      color: #b7c9d8;
+      font-size: clamp(9px, 1.35vh, 11px);
+      font-weight: 500;
+      line-height: 1.25;
+      text-transform: none;
+    }
+
+    .start-option-arrow {
+      flex: 0 0 auto;
+      font-size: 17px;
+    }
+
+    .start-card .hub-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(5px, 1vw, 8px);
+      margin-top: 0;
+    }
+
+    .start-card .hub-actions .su-btn {
+      width: 100%;
+      min-width: 0;
+      min-height: clamp(34px, 8vh, 40px);
+      padding: 6px 8px;
+      font-size: clamp(9px, 1.35vh, 11px);
+      overflow-wrap: anywhere;
+    }
+
+    .start-footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px 12px;
+      padding-top: clamp(8px, 1.8vh, 12px);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: #94a3b8;
+      font-size: 10px;
+    }
+
+    .start-footer-controls {
+      max-width: 100%;
+      font-family: monospace;
+      overflow-wrap: anywhere;
+    }
+
+    @media (orientation: landscape) and (max-height: 440px) {
+      .start-card { padding: 9px clamp(12px, 2vw, 18px); }
+      .start-kicker { font-size: 8px; }
+      .start-title { margin: 2px 0 3px; font-size: clamp(19px, 5.4vh, 24px); }
+      .start-subtitle { margin-bottom: 7px; font-size: 9px; }
+      .start-options { gap: 4px; margin-bottom: 7px; }
+      .start-option { min-height: 42px; padding: 6px 10px; }
+      .start-option-title { font-size: 11px; }
+      .start-option-description { font-size: 9px; }
+      .start-card .hub-actions .su-btn { min-height: 31px; padding: 4px 6px; font-size: 9px; }
+      .start-footer { padding-top: 6px; font-size: 9px; }
+    }
+
+    @media (max-width: 600px) {
+      .start-card { padding-inline: clamp(12px, 4vw, 22px); }
+      .start-footer { flex-direction: column; align-items: flex-start; }
+      .start-footer-controls { text-align: left; }
+    }
+
+    /* Mobile Touch Controls */
+    #touch-controls {
+      display: none;
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100dvh;
+      z-index: 50;
+      pointer-events: none;
+      touch-action: none;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+
+    #touch-joystick-base {
+      position: absolute;
+      bottom: calc(20px + env(safe-area-inset-bottom));
+      left: calc(20px + env(safe-area-inset-left));
+      width: clamp(104px, 24vh, 132px);
+      height: clamp(104px, 24vh, 132px);
+      background: rgba(255, 255, 255, 0.08);
+      border: 2px solid rgba(0, 240, 255, 0.4);
+      border-radius: 50%;
+      pointer-events: auto;
+      touch-action: none;
+    }
+
+    #touch-joystick-knob {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 50px;
+      height: 50px;
+      background: #00f0ff;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 14px #00f0ff;
+    }
+
+    #touch-look-zone {
+      position: absolute;
+      top: max(8px, env(safe-area-inset-top));
+      right: 0;
+      width: 50%;
+      bottom: calc(204px + env(safe-area-inset-bottom));
+      pointer-events: auto;
+      touch-action: none;
+    }
+
+    .touch-btn-cluster {
+      position: absolute;
+      bottom: calc(14px + env(safe-area-inset-bottom));
+      right: calc(16px + env(safe-area-inset-right));
+      display: grid;
+      grid-template-columns: repeat(2, 52px);
+      gap: 7px;
+      justify-items: end;
+      align-items: center;
+      pointer-events: auto;
+      touch-action: none;
+    }
+
+    .touch-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(10, 20, 35, 0.85);
+      border: 1.5px solid rgba(0, 240, 255, 0.5);
+      color: #00f0ff;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      pointer-events: auto;
+      touch-action: none;
+    }
+
+    .touch-btn.primary {
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, #ff6600, #cc3300);
+      border-color: #ff9944;
+      color: #ffffff;
+      font-size: 13px;
+    }
+
+    .touch-btn:active {
+      transform: scale(0.92);
+      filter: brightness(1.3);
+    }
+
+    .touch-sensitivity-row {
+      display: grid;
+      grid-template-columns: minmax(100px, 1fr) minmax(100px, 2fr) 42px;
+      align-items: center;
+      gap: 10px;
+      margin: 8px 0;
+      color: #b7c9d8;
+      font-size: 12px;
+    }
+
+    .touch-sensitivity-row input { width: 100%; accent-color: #00f0ff; }
+
+    #science-academy-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 20000;
+      display: grid;
+      place-items: center;
+      padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+      background: rgba(3, 8, 14, 0.88);
+      backdrop-filter: blur(7px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 160ms ease, visibility 160ms ease;
+    }
+
+    #science-academy-overlay.visible {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .academy-window {
+      width: min(940px, 100%);
+      max-height: min(820px, calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 16px));
+      overflow: auto;
+      color: #e2f1ff;
+      background: rgba(8, 14, 24, 0.98);
+      border: 1px solid rgba(0, 240, 255, 0.6);
+      border-radius: 6px;
+      box-shadow: 0 18px 70px rgba(0, 0, 0, 0.65);
+    }
+
+    .academy-heading, .academy-section-heading, .academy-lab-row, .academy-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .academy-heading { padding: 18px 20px 12px; }
+    .academy-heading h2 { font-size: 19px; color: #fff; }
+    .academy-heading p, .academy-muted { color: #91a8bd; font-size: 12px; line-height: 1.5; }
+    .academy-close { width: 36px; height: 36px; font-size: 22px; }
+    .academy-tabs { display: flex; gap: 6px; padding: 0 20px 14px; border-bottom: 1px solid rgba(255,255,255,0.12); }
+    .academy-tabs button { flex: 1; min-height: 38px; }
+    .academy-tabs button.active { color: #00f0ff; border-color: rgba(0,240,255,0.7); }
+    .academy-content { padding: 18px 20px 22px; }
+    .academy-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 18px; }
+    .academy-stat, .academy-lab-row, .academy-question { border: 1px solid rgba(255,255,255,0.13); border-radius: 5px; background: rgba(255,255,255,0.035); }
+    .academy-stat { padding: 12px; }
+    .academy-stat strong { display: block; color: #fff; font-size: 20px; }
+    .academy-stat span { color: #91a8bd; font-size: 11px; text-transform: uppercase; }
+    .academy-section-heading { margin: 18px 0 10px; }
+    .academy-section-heading h3 { font-size: 14px; color: #cceeff; }
+    .academy-lab-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .academy-lab-row { width: 100%; min-height: 58px; padding: 10px 12px; color: #e2f1ff; text-align: left; cursor: pointer; }
+    .academy-lab-row:hover, .academy-choice:hover { border-color: #00f0ff; }
+    .academy-lab-row small { display: block; margin-top: 3px; color: #91a8bd; }
+    .academy-question { max-width: 720px; margin: 0 auto; padding: 18px; }
+    .academy-question h3 { margin: 8px 0 16px; color: #fff; font-size: 18px; line-height: 1.4; }
+    .academy-choice-list { display: grid; gap: 8px; }
+    .academy-choice { width: 100%; padding: 11px 12px; color: #e2f1ff; text-align: left; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.16); border-radius: 4px; cursor: pointer; }
+    .academy-choice:disabled { cursor: default; opacity: 0.72; }
+    .academy-feedback { margin-top: 14px; padding: 12px; color: #b7c9d8; background: rgba(0,0,0,0.22); border-left: 3px solid #f59e0b; font-size: 13px; line-height: 1.5; }
+    .academy-feedback.correct { border-color: #34d399; }
+    .academy-progress-track { height: 8px; margin: 8px 0 14px; overflow: hidden; background: rgba(255,255,255,0.12); border-radius: 4px; }
+    .academy-progress-fill { height: 100%; background: #20c997; }
+    .academy-objectives { display: grid; gap: 8px; margin: 12px 0 18px; }
+    .academy-objective { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.1); color: #b6c8d7; }
+    .academy-objective.complete { color: #75e0b0; }
+    .academy-actions { justify-content: flex-start; flex-wrap: wrap; margin-top: 16px; }
+
+    .life-lab-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; margin-top: 6px; }
+    .life-lab-controls { display: grid; gap: 10px; }
+    .life-slider-row { display: grid; gap: 4px; }
+    .life-slider-label { display: flex; justify-content: space-between; font-size: 12px; color: #cfe6ff; }
+    .life-slider-label strong { color: #00f0ff; }
+    .life-slider { width: 100%; accent-color: #00f0ff; }
+    .life-lab-panel { display: grid; gap: 10px; align-content: start; }
+    .life-log { max-height: 180px; overflow: auto; background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 8px 10px; font-size: 11px; line-height: 1.45; }
+    .life-log-line { color: #b7c9d8; }
+
+    @media (max-width: 760px) {
+      .life-lab-grid { grid-template-columns: 1fr; }
+    }
+
+    .hub-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+    .hub-actions .su-btn { flex: 1 1 43%; min-height: 38px; padding: 8px 10px; font-size: 11px; }
+
+    @media (max-width: 640px) {
+      .academy-heading { padding: 14px 14px 10px; }
+      .academy-tabs { padding: 0 12px 10px; gap: 4px; }
+      .academy-tabs button { padding: 6px 4px; font-size: 10px; }
+      .academy-content { padding: 14px 12px 18px; }
+      .academy-stats { gap: 6px; }
+      .academy-stat { padding: 9px 7px; }
+      .academy-stat strong { font-size: 17px; }
+      .academy-stat span { font-size: 9px; }
+      .academy-lab-list { grid-template-columns: 1fr; }
+      #hud-hotbar { width: calc(100vw - 16px); max-width: 588px; gap: 4px; padding: 5px; }
+      .hotbar-slot { width: 0; height: auto; min-width: 0; flex: 1 1 0; aspect-ratio: 1; }
+      .hotbar-slot .slot-icon { width: 24px; height: 24px; }
+    }
+
+    @media (orientation: landscape) and (max-height: 520px) {
+      .hud-top-left { top: calc(8px + env(safe-area-inset-top)); left: calc(12px + env(safe-area-inset-left)); gap: 2px; }
+      .mission-badge { font-size: 9px; }
+      .location-text { font-size: 12px; }
+      .telemetry-row { font-size: 9px; }
+      .hud-top-right { top: calc(8px + env(safe-area-inset-top)); right: calc(12px + env(safe-area-inset-right)); gap: 3px; }
+      .hud-survival { left: 50%; bottom: calc(54px + env(safe-area-inset-bottom)); transform: translateX(-50%); min-width: 190px; width: min(34vw, 260px); padding: 6px 9px; gap: 4px; }
+      .survival-sub-row { display: none; }
+      .stat-label { width: 48px; font-size: 9px; }
+      .stat-val { width: 34px; font-size: 9px; }
+      .stat-bar-track { height: 6px; }
+      #hud-hotbar { bottom: calc(4px + env(safe-area-inset-bottom)); gap: 3px; padding: 4px; }
+      .hotbar-slot { width: clamp(28px, 7vh, 38px); height: clamp(28px, 7vh, 38px); }
+      .hotbar-slot .slot-icon { width: 19px; height: 19px; }
+      .touch-btn { width: 46px; height: 46px; font-size: 9px; }
+      .touch-btn.primary { width: 50px; height: 50px; font-size: 10px; }
+      .touch-btn-cluster { grid-template-columns: repeat(2, 46px); gap: 5px; }
+      #touch-joystick-base { bottom: calc(12px + env(safe-area-inset-bottom)); left: calc(12px + env(safe-area-inset-left)); }
+      #touch-look-zone { top: calc(8px + env(safe-area-inset-top)); bottom: calc(220px + env(safe-area-inset-bottom)); }
+    }
+
+    @media (max-width: 760px) {
+      .hud-top-left { top: calc(8px + env(safe-area-inset-top)); left: calc(10px + env(safe-area-inset-left)); max-width: calc(50vw - 18px); gap: 2px; }
+      .mission-badge { font-size: clamp(8px, 2.2vw, 10px); }
+      .location-text { max-width: 100%; font-size: clamp(10px, 2.8vw, 13px); overflow-wrap: anywhere; }
+      .telemetry-row { font-size: clamp(8px, 2vw, 10px); }
+      .hud-top-right { top: calc(8px + env(safe-area-inset-top)); right: calc(10px + env(safe-area-inset-right)); max-width: calc(42vw - 18px); gap: 4px; }
+      .hud-top-right .hud-status-tag:last-child { display: none; }
+      .compass-box { padding: 4px 8px; gap: 6px; }
+      .hud-status-tag { font-size: 9px; padding: 2px 5px; }
+      .hud-survival { top: calc(92px + env(safe-area-inset-top)); bottom: auto; left: calc(10px + env(safe-area-inset-left)); width: min(45vw, 180px); min-width: 0; padding: 6px; gap: 4px; }
+      .survival-stat { gap: 5px; }
+      .stat-label { width: 44px; font-size: 8px; }
+      .stat-val { width: 31px; font-size: 8px; }
+      .stat-bar-track { height: 6px; }
+      .survival-sub-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; padding-top: 4px; font-size: 7px; }
+      .survival-sub-item { min-width: 0; white-space: nowrap; }
+      #hud-hotbar { bottom: calc(250px + env(safe-area-inset-bottom)); width: min(calc(100vw - 20px), 520px); gap: 3px; padding: 4px; }
+      .hotbar-slot { width: 0; height: 34px; min-width: 0; flex: 1 1 0; aspect-ratio: auto; }
+      .hotbar-slot .slot-icon { width: 20px; height: 20px; }
+      #touch-joystick-base { width: clamp(100px, 31vw, 124px); height: clamp(100px, 31vw, 124px); bottom: calc(12px + env(safe-area-inset-bottom)); left: calc(12px + env(safe-area-inset-left)); }
+      #touch-look-zone { top: calc(126px + env(safe-area-inset-top)); left: 50%; right: 0; width: auto; bottom: calc(300px + env(safe-area-inset-bottom)); }
+      .touch-btn-cluster { right: calc(12px + env(safe-area-inset-right)); bottom: calc(12px + env(safe-area-inset-bottom)); grid-template-columns: repeat(2, clamp(44px, 13vw, 52px)); gap: 6px; }
+      .touch-btn, .touch-btn.primary { width: 100%; height: auto; aspect-ratio: 1; border-radius: 12px; padding: 3px; font-size: clamp(8px, 2.3vw, 10px); line-height: 1.1; overflow-wrap: normal; word-break: normal; }
+      #toast-container { right: calc(10px + env(safe-area-inset-right)); bottom: calc(292px + env(safe-area-inset-bottom)); max-width: 45vw; }
+      .toast-item { padding: 6px 8px; font-size: 10px; }
+      #target-card { width: min(320px, calc(100vw - 24px)); min-width: 0; padding: 6px 10px; }
+      .modal-overlay { align-items: center; padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left)); }
+      .su-modal-window { width: 100%; max-width: 100%; max-height: 100%; border-radius: 8px; }
+      .modal-header { flex: 0 0 auto; padding: 9px 12px; }
+      .modal-header h2 { font-size: clamp(12px, 3.4vw, 16px); line-height: 1.2; letter-spacing: 0; }
+      .modal-body { min-height: 0; flex-direction: column; padding: 10px; gap: 10px; overflow-x: hidden; overflow-y: auto; }
+      .inv-grids { min-width: 0; gap: 10px; }
+      .inv-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 4px; }
+      .inv-slot { min-width: 0; }
+      .inv-details-pane { width: 100%; min-height: 84px; padding: 10px; }
+      .academy-window { max-height: 100%; }
+      .academy-heading { padding: 10px 12px; }
+      .academy-content { padding: 10px 12px 14px; }
+      .academy-question { padding: 12px; }
+      #spaceflight-hud .spaceflight-title-bar { top: calc(8px + env(safe-area-inset-top)) !important; left: calc(8px + env(safe-area-inset-left)) !important; right: calc(8px + env(safe-area-inset-right)) !important; }
+      #spaceflight-hud .spaceflight-title-card { max-width: 100%; padding: 6px 9px !important; border-radius: 8px !important; }
+      #spaceflight-hud .spaceflight-title-card span { font-size: clamp(9px, 2.8vw, 12px) !important; letter-spacing: 0 !important; }
+      #planet-nav-rail { left: calc(8px + env(safe-area-inset-left)) !important; top: calc(54px + env(safe-area-inset-top)) !important; width: calc(43vw - 12px) !important; max-height: calc(100dvh - 250px) !important; padding: 8px !important; border-radius: 8px !important; }
+      #planet-nav-rail > div:first-child { font-size: 8px !important; line-height: 1.2; }
+      #planet-nav-list { gap: 4px !important; }
+      #planet-nav-list > button { min-height: 32px; padding: 5px !important; gap: 5px !important; font-size: 9px !important; }
+      #planet-nav-list > button > span { width: 8px !important; height: 8px !important; flex: 0 0 8px; }
+      #planet-info-panel { right: calc(8px + env(safe-area-inset-right)) !important; top: calc(54px + env(safe-area-inset-top)) !important; width: calc(55vw - 12px) !important; max-height: calc(100dvh - 240px) !important; overflow-y: auto; padding: 8px !important; border-radius: 8px !important; }
+      #info-target-name { font-size: clamp(13px, 4vw, 18px) !important; }
+      #info-target-sub { font-size: 8px !important; line-height: 1.2; letter-spacing: 0 !important; }
+      #info-target-desc { margin-top: 6px !important; font-size: 10px !important; line-height: 1.35 !important; }
+      #planet-info-panel button { min-width: 0; padding: 7px 5px !important; font-size: 9px !important; letter-spacing: 0 !important; overflow-wrap: anywhere; }
+      #deorbit-banner, #probe-mission-banner { left: 8px !important; right: 8px !important; width: auto !important; max-width: none !important; max-height: calc(100dvh - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); overflow: auto; padding: 10px !important; transform: translateY(-50%) !important; }
+      #deorbit-banner > div:first-child { font-size: clamp(14px, 4vw, 20px) !important; letter-spacing: 0 !important; }
+    }
+
+    @media (orientation: portrait) and (max-width: 760px) {
+      .start-card .hub-actions { grid-template-columns: minmax(0, 1fr); }
+      .start-card .hub-actions .su-btn { min-height: 36px; }
+      .start-footer { align-items: flex-start; }
+      .hud-survival { top: calc(104px + env(safe-area-inset-top)); }
+      #spaceflight-hud .spaceflight-controls { left: calc(8px + env(safe-area-inset-left)) !important; right: calc(122px + env(safe-area-inset-right)) !important; bottom: calc(12px + env(safe-area-inset-bottom)) !important; width: auto !important; max-width: none !important; display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; transform: none !important; }
+      #spaceflight-hud .spaceflight-controls > div:first-child { grid-column: 1 / -1; min-width: 0; padding: 6px 8px !important; font-size: clamp(8px, 2.3vw, 10px) !important; line-height: 1.3; overflow-wrap: anywhere; }
+      #spaceflight-hud .spaceflight-controls > button { min-width: 0; min-height: 40px; padding: 6px 4px !important; font-size: 8px !important; letter-spacing: 0 !important; overflow-wrap: anywhere; }
+    }
+
+    @media (orientation: landscape) and (max-width: 760px) {
+      #touch-look-zone { top: calc(8px + env(safe-area-inset-top)); bottom: calc(220px + env(safe-area-inset-bottom)); }
+      .hud-survival { left: 50%; top: auto; bottom: calc(54px + env(safe-area-inset-bottom)); transform: translateX(-50%); width: min(34vw, 260px); }
+      .survival-sub-row { display: none; }
+      #hud-hotbar { bottom: calc(4px + env(safe-area-inset-bottom)); }
+      .touch-btn-cluster { grid-template-columns: repeat(2, 46px); gap: 5px; }
+      .touch-btn, .touch-btn.primary { min-height: 0; font-size: 8px; }
+      #inventory-modal .modal-body { flex-direction: row; overflow: auto; }
+      #inventory-modal .inv-grids { flex: 1 1 auto; }
+      #inventory-modal .inv-details-pane { width: min(34vw, 240px); flex: 0 0 auto; }
+    }
+
+    @media (max-height: 500px) {
+      .modal-overlay { align-items: flex-start; }
+      .su-modal-window { max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 12px); }
+      #planet-info-panel { top: calc(8px + env(safe-area-inset-top)) !important; max-height: calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important; overflow-y: auto; }
+    }
+
+    @media (orientation: landscape) and (max-height: 380px) {
+      .start-card { padding: 6px clamp(10px, 1.5vw, 14px); }
+      .start-kicker { font-size: 7px; }
+      .start-title { margin: 1px 0 2px; font-size: 18px; }
+      .start-subtitle { margin-bottom: 4px; font-size: 8px; }
+      .start-options { gap: 3px; margin-bottom: 4px; }
+      .start-option { min-height: 38px; padding: 4px 8px; }
+      .start-option-title { font-size: 10px; }
+      .start-option-description { font-size: 8px; }
+      .start-card .hub-actions .su-btn { min-height: 28px; padding: 3px 4px; font-size: 8px; }
+      .start-footer { padding-top: 4px; font-size: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container"></div>
+
+  <!-- In-Game Sci-Fi HUD Overlay -->
+  <div id="hud-overlay">
+    <!-- Reticle -->
+    <div id="crosshair">
+      <div class="reticle-dot"></div>
+      <div class="reticle-ring"></div>
+    </div>
+
+    <!-- Target Inspection Card -->
+    <div id="target-card">
+      <div id="target-name">Hematite Deposit [Fe₂O₃]</div>
+      <div id="target-sub">Гематит (Төмрийн хүдэр) • Hardness: 5.5 Mohs</div>
+      <div class="target-hp-track">
+        <div id="target-hp-bar"></div>
+      </div>
+      <div id="target-hp-text">100/100 HP</div>
+    </div>
+
+    <!-- Top Left Telemetry -->
+    <div class="hud-top-left">
+      <div class="mission-badge">Science Universe Frontier</div>
+      <div class="location-text">SECTOR JEZERO CRATER // MARS</div>
+      <div class="telemetry-row" id="hud-coords">X: 000  Z: 000  ALT: 00m</div>
+      <div class="telemetry-row" id="hud-time">10:45 SOL-TIME</div>
+    </div>
+
+    <!-- Top Right Compass & Status -->
+    <div class="hud-top-right">
+      <div class="compass-box">
+        <div id="hud-compass-needle"></div>
+        <div id="hud-compass-text">N [0°]</div>
+      </div>
+      <div class="hud-status-tag" id="hud-flashlight-status">FLASH: OFF</div>
+      <div class="hud-status-tag" style="font-size: 10px;">[I] INVENTORY • [F5] SAVE • [ESC] MENU</div>
+    </div>
+
+    <!-- Bottom Left Survival Gauges -->
+    <div class="hud-survival">
+      <div class="survival-stat stat-o2">
+        <span class="stat-label">O₂ SUIT</span>
+        <div class="stat-bar-track">
+          <div class="stat-bar-fill" id="hud-o2-bar" style="width: 100%;"></div>
+        </div>
+        <span class="stat-val" id="hud-o2-val">100%</span>
+      </div>
+
+      <div class="survival-stat stat-power">
+        <span class="stat-label">BATTERY</span>
+        <div class="stat-bar-track">
+          <div class="stat-bar-fill" id="hud-power-bar" style="width: 100%;"></div>
+        </div>
+        <span class="stat-val" id="hud-power-val">100%</span>
+      </div>
+
+      <div class="survival-stat stat-health">
+        <span class="stat-label">INTEGRITY</span>
+        <div class="stat-bar-track">
+          <div class="stat-bar-fill" id="hud-health-bar" style="width: 100%;"></div>
+        </div>
+        <span class="stat-val" id="hud-health-val">100%</span>
+      </div>
+
+      <div class="survival-sub-row">
+        <div class="survival-sub-item">TEMP: <span id="hud-temp-val">21°C</span></div>
+        <div class="survival-sub-item">H₂O: <span id="hud-water-val">100%</span></div>
+        <div class="survival-sub-item">FOOD: <span id="hud-food-val">100%</span></div>
+      </div>
+    </div>
+
+    <!-- Bottom Center Hotbar -->
+    <div id="hud-hotbar"></div>
+
+    <!-- Notification Toasts -->
+    <div id="toast-container"></div>
+  </div>
+
+  <!-- Mobile Touch Controls -->
+  <div id="touch-controls">
+    <div id="touch-joystick-base">
+      <div id="touch-joystick-knob"></div>
+    </div>
+    <div id="touch-look-zone"></div>
+    <div class="touch-btn-cluster">
+      <button class="touch-btn" id="touch-btn-inv">🎒 INV</button>
+      <button class="touch-btn" id="touch-btn-mission">MISSION</button>
+      <button class="touch-btn" id="touch-btn-interact">E INTERACT</button>
+      <button class="touch-btn" id="touch-btn-menu">MENU</button>
+      <button class="touch-btn" id="touch-btn-light">💡 LIGHT</button>
+      <button class="touch-btn" id="touch-btn-sprint">⚡ RUN</button>
+      <button class="touch-btn" id="touch-btn-jump">⬆ JUMP</button>
+      <button class="touch-btn primary" id="touch-btn-mine">⛏️ MINE</button>
+    </div>
+  </div>
+
+  <!-- Inventory Modal -->
+  <div class="modal-overlay" id="inventory-modal">
+    <div class="su-modal-window">
+      <div class="modal-header">
+        <h2>Astronaut Field Equipment & Storage (I)</h2>
+        <button class="btn-close" id="btn-close-inventory">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="inv-grids">
+          <div>
+            <div class="inv-section-title">Quick-Access Hotbar (Keys 1-8)</div>
+            <div class="inv-grid" id="inventory-hotbar-grid"></div>
+          </div>
+          <div>
+            <div class="inv-section-title">Survival Backpack Cargo (24 Slots)</div>
+            <div class="inv-grid" id="inventory-backpack-grid"></div>
+          </div>
+        </div>
+        <div class="inv-details-pane" id="inventory-item-details">
+          <p style="color: #6c8299; font-size: 12px; text-align: center; margin: auto;">Select an item from hotbar or backpack to view scientific telemetry</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pause & Settings Modal -->
+  <div class="modal-overlay" id="pause-modal">
+    <div class="su-modal-window" style="width: 580px;">
+      <div class="modal-header">
+        <h2>Mission Control // System Paused</h2>
+      </div>
+      <div class="modal-body" style="flex-direction: column;">
+        <div class="controls-grid">
+          <div><span class="key-badge">W A S D</span> Walk</div>
+          <div><span class="key-badge">SHIFT</span> Sprint</div>
+          <div><span class="key-badge">SPACE</span> Jump</div>
+          <div><span class="key-badge">C / CTRL</span> Crouch</div>
+          <div><span class="key-badge">LMB (HOLD)</span> Excavate Terrain / Mine</div>
+          <div><span class="key-badge">1 - 0 / WHEEL</span> 10-Slot Tool Hotbar</div>
+          <div><span class="key-badge">E</span> Drive Rover / Interact</div>
+          <div><span class="key-badge">R</span> Rotate Base Blueprint</div>
+          <div><span class="key-badge">F</span> Helmet Flashlight</div>
+          <div><span class="key-badge">I / TAB</span> Backpack Inventory</div>
+          <div><span class="key-badge">F5 / F9</span> Quick Save / Load</div>
+          <div><span class="key-badge">ESC</span> Pause & Graphics</div>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <div style="font-size: 11px; font-weight: 700; color: #8da4be; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">
+            Active Expedition Save Slot
+          </div>
+          <div id="save-slots-bar" style="display: flex; gap: 8px;">
+            <button class="su-btn secondary btn-save-slot active" data-slot="slot_1" id="btn-slot-slot_1" style="flex: 1; padding: 7px 6px; font-size: 11px;">Slot 1 (Original)</button>
+            <button class="su-btn secondary btn-save-slot" data-slot="slot_2" id="btn-slot-slot_2" style="flex: 1; padding: 7px 6px; font-size: 11px;">Slot 2 (Empty)</button>
+            <button class="su-btn secondary btn-save-slot" data-slot="slot_3" id="btn-slot-slot_3" style="flex: 1; padding: 7px 6px; font-size: 11px;">Slot 3 (Empty)</button>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <div style="font-size: 11px; font-weight: 700; color: #8da4be; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Touch Control Sensitivity</div>
+          <label class="touch-sensitivity-row" for="touch-move-sensitivity"><span>Joystick</span><input id="touch-move-sensitivity" type="range" min="0.5" max="1.5" step="0.05" value="1"><output id="touch-move-sensitivity-value">100%</output></label>
+          <label class="touch-sensitivity-row" for="touch-look-sensitivity"><span>Camera</span><input id="touch-look-sensitivity" type="range" min="0.5" max="2" step="0.05" value="1"><output id="touch-look-sensitivity-value">100%</output></label>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <div style="font-size: 11px; font-weight: 700; color: #8da4be; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">
+            Terrain Diagnostics & Safety Recovery
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="su-btn secondary" id="btn-toggle-wireframe" style="flex: 1; padding: 6px; font-size: 11px;">[F7] Wireframe</button>
+            <button class="su-btn secondary" id="btn-toggle-chunks" style="flex: 1; padding: 6px; font-size: 11px;">[F4] Chunk Bounds</button>
+            <button class="su-btn secondary" id="btn-respawn" style="flex: 1.2; padding: 6px; font-size: 11px; color: #38bdf8; border-color: rgba(56,189,248,0.45);">🛟 Respawn Surface</button>
+            <button class="su-btn secondary" id="btn-reset-terrain" style="flex: 1; padding: 6px; font-size: 11px; color: #ff6677; border-color: rgba(255,102,119,0.4);">Reset Terrain</button>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <div style="font-size: 11px; font-weight: 700; color: #8da4be; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">
+            Visual Target Quality Presets
+          </div>
+          <div style="display: flex; gap: 6px;">
+            <button class="su-btn secondary btn-gfx-preset" data-preset="LOW" style="flex: 1; padding: 6px; font-size: 11px;">LOW</button>
+            <button class="su-btn secondary btn-gfx-preset" data-preset="BALANCED" style="flex: 1.2; padding: 6px; font-size: 11px;">BALANCED</button>
+            <button class="su-btn secondary btn-gfx-preset" data-preset="HIGH" style="flex: 1; padding: 6px; font-size: 11px;">HIGH</button>
+            <button class="su-btn secondary btn-gfx-preset" data-preset="ULTRA" style="flex: 1; padding: 6px; font-size: 11px;">ULTRA</button>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+          <button class="su-btn primary" id="btn-resume" style="flex: 1.3;">Resume Exploration</button>
+          <button class="su-btn secondary" id="btn-save" style="flex: 1;">Save Game</button>
+          <button class="su-btn secondary" id="btn-load" style="flex: 1;">Load Save</button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+          <button class="su-btn secondary" id="btn-restart-game" style="flex: 1; border-color: rgba(0,240,255,0.4); color: #bae6fd;">🔄 Restart Current Game</button>
+          <button class="su-btn secondary" id="btn-new-game" style="flex: 1; border-color: rgba(245,158,11,0.45); color: #fcd34d;">✨ New Game (Separate Slot)</button>
+        </div>
+        <button class="su-btn secondary" id="btn-open-academy" style="width: 100%;">Open Science Academy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- New Game Confirmation Modal (Protects Original Save) -->
+  <div class="modal-overlay" id="new-game-confirm-modal">
+    <div class="su-modal-window" style="width: 480px;">
+      <div class="modal-header">
+        <h2>Start New Expedition?</h2>
+      </div>
+      <div class="modal-body" style="flex-direction: column; gap: 14px;">
+        <p style="font-size: 13px; color: #e2f1ff; line-height: 1.55;">
+          Your existing progress in <strong style="color: #00f0ff;">Slot 1 (Original Save)</strong> will be safely preserved and backed up.
+        </p>
+        <p style="font-size: 12px; color: #94a3b8; line-height: 1.5;">
+          A clean world, starter equipment loadout, and pristine Martian terrain will be initialized in a separate save slot. You can return to your original save anytime from the Pause Menu.
+        </p>
+        <div style="display: flex; gap: 10px; margin-top: 6px;">
+          <button class="su-btn secondary" id="btn-cancel-new-game" style="flex: 1;">Cancel</button>
+          <button class="su-btn primary" id="btn-confirm-new-game" style="flex: 1.3;">Confirm New Game</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="science-academy-overlay" role="dialog" aria-modal="true" aria-labelledby="academy-title">
+    <section class="academy-window">
+      <header class="academy-heading">
+        <div>
+          <h2 id="academy-title">Science Academy</h2>
+          <p>Research, field science, and mission training</p>
+        </div>
+        <button id="btn-close-academy" class="su-btn secondary academy-close" aria-label="Close Academy">&times;</button>
+      </header>
+      <nav class="academy-tabs" aria-label="Academy sections">
+        <button class="su-btn secondary" data-academy-tab="labs">Labs</button>
+        <button class="su-btn secondary" data-academy-tab="academy">Academy</button>
+        <button class="su-btn secondary" data-academy-tab="life">Life Lab</button>
+        <button class="su-btn secondary" data-academy-tab="missions">Mission Control</button>
+      </nav>
+      <div id="academy-content" class="academy-content"></div>
+    </section>
+  </div>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="loading-title">SCIENCE UNIVERSE</div>
+    <div class="loading-subtitle">FRONTIER // PHASE 1 FOUNDATION</div>
+    <div class="loading-bar-track">
+      <div id="loading-bar-fill"></div>
+    </div>
+    <div id="loading-status-text">Initializing planetary exploration engine...</div>
+    <div id="loading-error-box" style="display: none; max-width: 440px; background: rgba(30, 10, 20, 0.95); border: 1.5px solid #ff3355; border-radius: 8px; padding: 18px; margin-top: 15px; text-align: center; box-shadow: 0 0 24px rgba(255, 51, 85, 0.35);"></div>
+  </div>
+
+  <!-- High-Tech Sci-Fi Main Menu & Mission Launchpad -->
+  <div id="start-prompt">
+    <div class="start-card">
+      <div class="start-kicker">AEROSPACE SURVIVAL SIMULATION</div>
+      <h1 class="start-title">SCIENCE UNIVERSE</h1>
+      <div class="start-subtitle">FRONTIER // V3 RESTORATION</div>
+
+      <div class="start-options">
+        <!-- Option 1: Spacecraft Cockpit -->
+        <button id="btn-menu-cockpit" class="su-btn primary start-option">
+          <div class="start-option-copy">
+            <div class="start-option-title">🚀 START EXPEDITION (ORBITAL COCKPIT)</div>
+            <div class="start-option-description">Enter Spacecraft in Mars Orbit • Cockpit View • De-Orbit Descent</div>
+          </div>
+          <span class="start-option-arrow">➔</span>
+        </button>
+
+        <!-- Option 2: Surface Jezero Crater -->
+        <button id="btn-menu-surface" class="su-btn secondary start-option start-option-surface">
+          <div class="start-option-copy">
+            <div class="start-option-title">🏕️ EXPLORE JEZERO CRATER BASE</div>
+            <div class="start-option-description">Deploy EVA Astronaut • Explorer Rover • Deep Underground Caves</div>
+          </div>
+          <span class="start-option-arrow">➔</span>
+        </button>
+
+        <!-- Option 3: Solar System Navigation -->
+        <button id="btn-menu-space" class="su-btn secondary start-option">
+          <div class="start-option-copy">
+            <div class="start-option-title">🪐 SOLAR SYSTEM SPACEFLIGHT</div>
+            <div class="start-option-description">Interplanetary Navigation • 8 Planets + Moon • TON 618</div>
+          </div>
+          <span class="start-option-arrow">➔</span>
+        </button>
+
+        <div class="hub-actions">
+          <button id="btn-menu-academy" class="su-btn secondary">Science Academy</button>
+          <button id="btn-menu-mission-control" class="su-btn secondary">Mission Control</button>
+          <button id="btn-menu-space-explorer" class="su-btn secondary">Space Explorer</button>
+          <button id="btn-menu-rocket-launch" class="su-btn primary">Rocket Launch</button>
+        </div>
+      </div>
+
+      <div class="start-footer">
+        <div>PRESET: <span class="start-preset-value">HIGH PBR</span></div>
+        <div class="start-footer-controls">[WASD] MOVE • [LMB] MINE • [V] CAM • [ESC] PAUSE</div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

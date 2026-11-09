@@ -1,0 +1,25 @@
+{
+  "results": {
+    "gameLoaded": true,
+    "rocketOnSurface": true,
+    "cockpitEntered": true,
+    "rocketAscent": true,
+    "spaceflightActive": true,
+    "planetSelection": true,
+    "transferTrajectory": true,
+    "landingInitiated": true,
+    "surfaceSpawnAndTools": true,
+    "excavationWorks": true,
+    "saveLoadSuccess": true
+  },
+  "consoleLogs": [
+    "[debug] [vite] connecting...",
+    "[debug] [vite] connected.",
+    "[log] Starting SCIENCE UNIVERSE — FRONTIER v3.0.0-planetary-realism",
+    "[log] [AssetRegistry] Successfully resolved asset base path: /assets",
+    "[warn] THREE.GLTFLoader: Unknown extension \"KHR_materials_pbrSpecularGlossiness\".",
+    "[log] Game state saved successfully at 10/28/2026, 12:11:05 AM",
+    "[log] Game state loaded successfully from 10/28/2026, 12:11:05 AM"
+  ],
+  "errors": []
+}

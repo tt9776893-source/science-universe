@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Science Universe · AI Assistant</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Markdown & KaTeX Math & Code Highlight -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark-dimmed.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+
+  <style>
+    :root {
+      --bg-base: #090814;
+      --bg-sidebar: #0d0c1e;
+      --bg-card: #15132d;
+      --bg-input: #191638;
+      --bg-input-focus: #1d1a42;
+      --border-subtle: #231f47;
+      --accent: #7c3aed;
+      --accent-gradient: linear-gradient(135deg, #7c3aed, #6366f1);
+      --text-main: #f3f4f8;
+      --text-muted: #9691c2;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      background-image: 
+        radial-gradient(circle at 50% 15%, rgba(124, 58, 237, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 60%);
+    }
+x
+    /* Minimal subtle grid */
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ================= SIDEBAR ================= */
+    .sidebar {
+      width: 250px;
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      z-index: 10;
+      transition: transform 0.3s ease;
+    }
+
+    .brand-area {
+      padding: 24px 20px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .brand-name {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      color: #fff;
+    }
+
+    .search-wrap {
+      padding: 0 16px 14px;
+    }
+
+    .sidebar-search {
+      width: 100%;
+      background: #14122b;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: var(--text-main);
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .sidebar-search:focus {
+      border-color: var(--accent);
+    }
+
+    .menu-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      padding: 10px 20px 6px;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      padding: 9px 14px;
+      border-radius: 8px;
+      color: #b0abdb;
+      font-size: 13.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .nav-btn:hover {
+      background: #181534;
+      color: #fff;
+    }
+    .nav-btn.active {
+      background: var(--accent-gradient);
+      color: #ffffff;
+      font-weight: 600;
+      box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
+    }
+
+    .status-card {
+      margin: 12px 14px;
+      padding: 12px 14px;
+      background: rgba(124, 58, 237, 0.08);
+      border: 1px solid rgba(124, 58, 237, 0.2);
+      border-radius: 10px;
+    }
+    .status-card-header {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #c4b5fd;
+      margin-bottom: 4px;
+    }
+    .status-card p {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+    .btn-card-action {
+      width: 100%;
+      background: #241f4d;
+      border: 1px solid #3c347a;
+      color: #fff;
+      padding: 6px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-card-action:hover {
+      background: #312a68;
+    }
+
+    .sidebar-footer {
+      padding: 12px 16px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .user-tag {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #7c3aed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .user-details b {
+      font-size: 13px;
+      color: #fff;
+      display: block;
+      line-height: 1.2;
+    }
+    .user-details small {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .btn-new-chat-minimal {
+      background: #1a1738;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-new-chat-minimal:hover {
+      background: #231f4a;
+    }
+
+    /* ================= MAIN VIEW ================= */
+    .main-view {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    /* Top Header Bar */
+    .top-header {
+      height: 60px;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      flex-shrink: 0;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .header-title {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-header-clean {
+      background: #14122b;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-header-clean:hover {
+      background: #1d1a40;
+      border-color: var(--accent);
+    }
+
+    /* Content Area */
+    .content-scroll {
+      flex: 1;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ================= HERO SCREEN (Clean DataNest Style) ================= */
+    .hero-container {
+      max-width: 760px;
+      width: 100%;
+      margin: auto;
+      padding: 40px 20px 20px 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .clean-orb {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #a78bfa 15%, #7c3aed 70%, #4c1d95 100%);
+      box-shadow: 0 0 35px rgba(139, 92, 246, 0.5);
+      margin-bottom: 22px;
+      animation: floatOrb 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-6px); }
+    }
+
+    .hero-title {
+      font-size: 30px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 28px;
+      letter-spacing: -0.4px;
+    }
+
+    /* Large Clean Input Box */
+    .hero-input-card {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 16px 18px 12px 18px;
+      text-align: left;
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.4);
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 24px;
+    }
+    .hero-input-card:focus-within {
+      border-color: #6366f1;
+      background: var(--bg-input-focus);
+      box-shadow: 0 16px 50px rgba(99, 102, 241, 0.2);
+    }
+
+    textarea.hero-textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-family: inherit;
+      font-size: 15px;
+      line-height: 1.5;
+      resize: none;
+      min-height: 48px;
+      max-height: 160px;
+    }
+    textarea.hero-textarea::placeholder {
+      color: #726b9e;
+    }
+
+    /* Image Attachment Thumbnail Preview */
+    .attached-preview-box {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 10px;
+      margin-bottom: 10px;
+      background: rgba(124, 58, 237, 0.15);
+      border: 1px solid rgba(124, 58, 237, 0.3);
+      border-radius: 8px;
+      width: fit-content;
+    }
+    .thumb-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+    .thumb-name {
+      font-size: 12.5px;
+      color: #c4b5fd;
+      font-weight: 500;
+    }
+    .btn-close-thumb {
+      background: rgba(239, 68, 68, 0.25);
+      border: none;
+      color: #fca5a5;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 10px;
+    }
+
+    .input-bottom-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+      padding-top: 6px;
+    }
+
+    .btn-attach-clean {
+      background: transparent;
+      border: none;
+      color: #8c86be;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: all 0.15s;
+    }
+    .btn-attach-clean:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+
+    .btn-send-round {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      box-shadow: 0 4px 14px rgba(124, 58, 237, 0.4);
+      transition: all 0.2s ease;
+    }
+    .btn-send-round:hover {
+      transform: scale(1.05);
+    }
+    .btn-send-round:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Clean Prompt Cards (Without emojis) */
+    .prompt-cards-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      width: 100%;
+    }
+
+    .hero-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px 16px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .hero-card:hover {
+      background: #1c183a;
+      border-color: #4a4382;
+      transform: translateY(-2px);
+    }
+    .hero-card b {
+      display: block;
+      font-size: 13.5px;
+      color: #fff;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+    .hero-card span {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      display: block;
+    }
+
+    /* ================= CONVERSATION STREAM ================= */
+    .chat-stream-wrapper {
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 20px 140px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .chat-row {
+      display: flex;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .chat-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 6px;
+      height: fit-content;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+    .chat-row.user .chat-tag {
+      background: #312a68;
+      color: #c4b5fd;
+    }
+    .chat-row.ai .chat-tag {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .chat-bubble {
+      flex: 1;
+      min-width: 0;
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: #eceff8;
+      word-break: break-word;
+    }
+
+    .chat-bubble p {
+      margin-bottom: 14px;
+    }
+    .chat-bubble p:last-child {
+      margin-bottom: 0;
+    }
+
+    .chat-bubble h1, .chat-bubble h2, .chat-bubble h3 {
+      color: #fff;
+      margin: 18px 0 10px 0;
+      font-weight: 600;
+    }
+    .chat-bubble h2 { font-size: 17px; color: #c4b5fd; }
+    .chat-bubble h3 { font-size: 15px; color: #a5b4fc; }
+
+    .chat-bubble hr {
+      border: none;
+      border-top: 1px solid rgba(124, 58, 237, 0.25);
+      margin: 18px 0;
+    }
+
+    .chat-bubble ul, .chat-bubble ol {
+      margin: 10px 0 14px 20px;
+    }
+    .chat-bubble li {
+      margin-bottom: 6px;
+    }
+
+    .chat-bubble pre {
+      background: #0f0d22;
+      border: 1px solid #292454;
+      border-radius: 10px;
+      margin: 14px 0;
+      overflow: hidden;
+    }
+    .code-topbar {
+      background: #181535;
+      padding: 6px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      border-bottom: 1px solid #292454;
+    }
+    .btn-copy-code {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 11.5px;
+    }
+    .btn-copy-code:hover { color: #fff; }
+    .chat-bubble pre code {
+      padding: 12px 14px;
+      display: block;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .chat-bubble :not(pre) > code {
+      background: rgba(124, 58, 237, 0.15);
+      border: 1px solid rgba(124, 58, 237, 0.25);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: #c4b5fd;
+    }
+
+    .chat-img-attachment {
+      max-width: 360px;
+      max-height: 280px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    /* Verified Live Sources Styles */
+    .live-sources-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px 11px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #34d399;
+      margin-left: 14px;
+    }
+    .pulse-green {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulseGreenAnim 2s infinite ease-in-out;
+    }
+    @keyframes pulseGreenAnim {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .sources-panel {
+      margin-top: 18px;
+      padding: 14px 16px;
+      background: rgba(18, 16, 40, 0.85);
+      border: 1px solid rgba(124, 58, 237, 0.3);
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+    }
+    .sources-panel-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #c4b5fd;
+    }
+    .sources-panel-header svg {
+      stroke: #a78bfa;
+    }
+    .sources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 10px;
+    }
+    .source-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: rgba(10, 9, 24, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 9px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s ease;
+    }
+    .source-card:hover {
+      border-color: rgba(124, 58, 237, 0.7);
+      background: rgba(124, 58, 237, 0.12);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    }
+    .source-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      color: #93c5fd;
+      margin-bottom: 5px;
+    }
+    .source-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #f3f4f8;
+      line-height: 1.4;
+      margin-bottom: 4px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      overflow: hidden;
+    }
+    .source-snippet {
+      font-size: 11.5px;
+      color: #9ca3af;
+      line-height: 1.45;
+      margin-bottom: 8px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      overflow: hidden;
+    }
+    .source-link-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #a78bfa;
+      font-weight: 500;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 6px;
+    }
+    .source-link-row svg {
+      transition: transform 0.2s ease;
+    }
+    .source-card:hover .source-link-row svg {
+      transform: translateX(2px) translateY(-2px);
+    }
+
+    /* Fixed Bottom Bar */
+    .bottom-floating-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(180deg, transparent, var(--bg-base) 40%);
+      padding: 12px 20px 24px 20px;
+      display: flex;
+      justify-content: center;
+      z-index: 20;
+    }
+
+    .floating-card-inner {
+      max-width: 800px;
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+    .floating-card-inner:focus-within {
+      border-color: #6366f1;
+      background: var(--bg-input-focus);
+    }
+
+    /* Thinking State */
+    .thinking-bubble {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #a78bfa;
+      font-size: 13.5px;
+    }
+    .pulse-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #8b5cf6;
+      animation: pulse 1.4s infinite ease-in-out both;
+    }
+    .pulse-dot:nth-child(2) { animation-delay: 0.2s; }
+    .pulse-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes pulse {
+      0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
+      40% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Modal */
+    .modal-veil {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-body-card {
+      background: #14122d;
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      max-width: 460px;
+      width: 100%;
+      padding: 22px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+    }
+    .modal-body-card h3 {
+      font-size: 17px;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+    .modal-body-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    .guide-chip {
+      background: rgba(124, 58, 237, 0.08);
+      border: 1px solid rgba(124, 58, 237, 0.2);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 12.5px;
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    .guide-chip a {
+      color: #a78bfa;
+      font-weight: 600;
+      text-decoration: underline;
+    }
+    .modal-input-field {
+      width: 100%;
+      padding: 10px 12px;
+      background: #0d0c1e;
+      border: 1px solid #292454;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 13.5px;
+      margin-bottom: 14px;
+      outline: none;
+    }
+    .modal-input-field:focus {
+      border-color: #8b5cf6;
+    }
+    .modal-btn-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        left: -250px;
+        top: 0;
+        bottom: 0;
+      }
+      .sidebar.open { transform: translateX(250px); }
+      .prompt-cards-row { grid-template-columns: 1fr; }
+    }
+  
+    /* Colorless / Monochrome Emojis */
+    .emoji-mono, span.emoji-mono, .emoji-bw {
+      display: inline-block !important;
+      filter: grayscale(100%) contrast(1.15) brightness(0.95) !important;
+      -webkit-filter: grayscale(100%) contrast(1.15) brightness(0.95) !important;
+      vertical-align: -0.06em !important;
+      line-height: 1 !important;
+      font-style: normal !important;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ================= CLEAN SIDEBAR (No Emojis) ================= -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand-area">
+      <div class="brand-dot"></div>
+      <div class="brand-name">Science Universe</div>
+    </div>
+
+    <!-- Search Box -->
+    <div class="search-wrap">
+      <input type="text" class="sidebar-search" placeholder="Хайх..."/>
+    </div>
+
+    <!-- 8 Science Labs / Workspaces -->
+    <div class="menu-title">Лабораториуд</div>
+    <div class="sidebar-nav" id="labNavList">
+      <div class="nav-btn active" data-lab="auto">Бүх 8 Лаб</div>
+      <div class="nav-btn" data-lab="physics">Physics Lab</div>
+      <div class="nav-btn" data-lab="chemistry">Chemistry Lab</div>
+      <div class="nav-btn" data-lab="biology">Biology Lab</div>
+      <div class="nav-btn" data-lab="ai">AI Lab</div>
+      <div class="nav-btn" data-lab="math">Math Lab</div>
+      <div class="nav-btn" data-lab="engineering">Engineering Lab</div>
+      <div class="nav-btn" data-lab="space">Space Lab</div>
+      <div class="nav-btn" data-lab="computer">Computer Lab</div>
+    </div>
+
+    <!-- Model Status Card -->
+    <div class="status-card">
+      <div class="status-card-header">Science Pro</div>
+      <p id="modelStatusHint">Зураг таних & 8 лабораторийн мэдлэгийн систем идэвхтэй.</p>
+      <button class="btn-card-action" id="btnOpenKeyModal">API Түлхүүр холбох</button>
+    </div>
+
+    <!-- User Profile Footer -->
+    <div class="sidebar-footer">
+      <div class="user-tag">
+        <div class="user-avatar">SU</div>
+        <div class="user-details">
+          <b>Судлаач</b>
+          <small id="userModeSub">Online Mode</small>
+        </div>
+      </div>
+      <button class="btn-new-chat-minimal" id="btnNewChatSidebar">Шинэ чат</button>
+    </div>
+  </aside>
+
+  <!-- ================= MAIN VIEW ================= -->
+  <main class="main-view" id="mainView">
+
+    <!-- Top Header Bar (Clean, no emojis) -->
+    <header class="top-header">
+      <div class="header-left">
+        <div class="header-title" id="activeLabName">Бүх 8 Лаб</div>
+        <div class="live-sources-pill" title="Википедиа, arXiv, PubChem болон шууд сүлжээнээс мэдээлэл татна">
+          <span class="pulse-green"></span>
+          <span>Live Sources Active</span>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <button class="btn-header-clean" id="btnResetChat">Шинэ чат</button>
+        <button class="btn-header-clean" id="btnOpenKeyModalHeader">API Түлхүүр</button>
+        <a href="index.html" class="btn-header-clean">Лаб руу буцах</a>
+      </div>
+    </header>
+
+    <!-- Scrollable Content Area -->
+    <div class="content-scroll" id="contentScroll">
+
+      <!-- ================= HERO SCREEN (Clean DataNest Style) ================= -->
+      <div class="hero-container" id="heroContainer">
+        
+        <!-- Clean Glowing Purple Orb (No icons) -->
+        <div class="clean-orb"></div>
+
+        <h1 class="hero-title">What can I help with?</h1>
+
+        <!-- Clean Input Card -->
+        <div class="hero-input-card" id="heroInputCard">
+          
+          <!-- Image Attachment Thumbnail Preview -->
+          <div class="attached-preview-box" id="attachedPreviewBox">
+            <img src="" id="attachedThumb" class="thumb-img" alt="Uploaded"/>
+            <span class="thumb-name" id="attachedName">Зураг сонгогдлоо</span>
+            <button class="btn-close-thumb" id="btnCloseThumb"></button>
+          </div>
+
+          <textarea class="hero-textarea" id="heroTextarea" placeholder="Шинжлэх ухаан, бодлого эсвэл зургаа оруулна уу... (Ctrl+V дэмжинэ)" rows="2"></textarea>
+
+          <div class="input-bottom-actions">
+            <div>
+              <input type="file" id="imageFileInput" accept="image/*" style="display: none;"/>
+              <button class="btn-attach-clean" id="btnTriggerUpload">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+                <span>Зураг хавсаргах</span>
+              </button>
+            </div>
+            <div>
+              <button class="btn-send-round" id="btnSendHero" disabled title="Илгээх">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="19" x2="12" y2="5"></line>
+                  <polyline points="5 12 12 5 19 12"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Prompt Cards (Pure clean text, no emojis) -->
+        <div class="prompt-cards-row">
+          <div class="hero-card" data-prompt="Савлуурын хөдөлгөөний үе T=2π√(L/g) томьёоны учир холбогдлыг жишээгээр тайлбарлаж өгөөрэй.">
+            <b>Савлуурын физик</b>
+            <span>Галилейн нээлт ба хэлбэлзлийн үеийн нууц</span>
+          </div>
+          <div class="hero-card" data-prompt="ДНХ-ийн давхар спираль бүтэц болон удамшлын мэдээлэл хэрхэн уураг болж хувирдаг вэ?">
+            <b>Молекул биологи</b>
+            <span>Төв Догма ба эсийн амьдралын дүрэм</span>
+          </div>
+          <div class="hero-card" data-prompt="Хиймэл оюун (AI) ба ердийн компьютерийн кодын гол ялгаа юу вэ?">
+            <b>Хиймэл оюун ухаан</b>
+            <span>Машин сургалт ба хүн шиг сэтгэхүйн үндэс</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= CONVERSATION STREAM ================= -->
+      <div class="chat-stream-wrapper" id="chatStreamWrapper" style="display: none;"></div>
+
+    </div>
+
+    <!-- Fixed Bottom Bar for active chat -->
+    <div class="bottom-floating-bar" id="bottomFloatingBar" style="display: none;">
+      <div class="floating-card-inner">
+        <!-- Floating Thumbnail preview -->
+        <div class="attached-preview-box" id="floatingPreviewBox">
+          <img src="" id="floatingThumb" class="thumb-img" alt="Uploaded"/>
+          <span class="thumb-name" id="floatingName">Зураг сонгогдлоо</span>
+          <button class="btn-close-thumb" id="btnCloseFloatingThumb"></button>
+        </div>
+
+        <textarea class="hero-textarea" id="floatingTextarea" placeholder="Хариу бичих эсвэл зураг хуулах (Ctrl+V)..." rows="1"></textarea>
+
+        <div class="input-bottom-actions">
+          <div>
+            <button class="btn-attach-clean" id="btnFloatingUpload">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+              <span>Зураг хавсаргах</span>
+            </button>
+          </div>
+          <div>
+            <button class="btn-send-round" id="btnSendFloating" disabled title="Илгээх">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="19" x2="12" y2="5"></line>
+                <polyline points="5 12 12 5 19 12"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ================= API KEY MODAL ================= -->
+  <div class="modal-veil" id="apiKeyModal">
+    <div class="modal-body-card">
+      <h3>Gemini Vision Pro API холболт</h3>
+      <p>Зургийг өндөр нарийвчлалтай уншиж, бодлого томьёог тайлбарлуулахын тулд Google AI Studio-ийн албан ёсны үнэгүй түлхүүрээ холбоно уу.</p>
+
+      <div class="guide-chip">
+        <b>Үнэгүй түлхүүр авах (30 секунд):</b><br>
+        1. <a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio хуудас руу орох</a><br>
+        2. <b>"Create API key"</b> товчийг дараад түлхүүрээ хуулж авах (Үнэгүй, карт шаардахгүй).<br>
+        3. Доорх талбарт хуулж тавиад <b>"Хадгалах"</b> дарна.
+      </div>
+
+      <input type="password" class="modal-input-field" id="keyField" placeholder="AIzaSy... түлхүүрээ оруулна уу"/>
+
+      <div class="modal-btn-row">
+        <button class="btn-header-clean" id="btnCancelModal">Хаах</button>
+        <button class="btn-header-clean" id="btnSaveKeyDirect" style="background: var(--accent-gradient); color:#fff; border:none;">Хадгалах</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentLab = 'auto';
+    let currentAttachedB64 = null;
+    let chatHistory = [];
+    let isWaiting = false;
+
+    const LAB_LABELS = {
+      auto: 'Бүх 8 Лаб',
+      physics: 'Physics Lab',
+      chemistry: 'Chemistry Lab',
+      biology: 'Biology Lab',
+      ai: 'AI Lab',
+      math: 'Math Lab',
+      engineering: 'Engineering Lab',
+      space: 'Space Lab',
+      computer: 'Computer Lab'
+    };
+
+    // DOM Elements
+    const heroContainer = document.getElementById('heroContainer');
+    const chatStreamWrapper = document.getElementById('chatStreamWrapper');
+    const bottomFloatingBar = document.getElementById('bottomFloatingBar');
+    const contentScroll = document.getElementById('contentScroll');
+    const activeLabName = document.getElementById('activeLabName');
+
+    const heroTextarea = document.getElementById('heroTextarea');
+    const btnSendHero = document.getElementById('btnSendHero');
+    const floatingTextarea = document.getElementById('floatingTextarea');
+    const btnSendFloating = document.getElementById('btnSendFloating');
+
+    const imageFileInput = document.getElementById('imageFileInput');
+    const btnTriggerUpload = document.getElementById('btnTriggerUpload');
+    const btnFloatingUpload = document.getElementById('btnFloatingUpload');
+
+    const attachedPreviewBox = document.getElementById('attachedPreviewBox');
+    const attachedThumb = document.getElementById('attachedThumb');
+    const attachedName = document.getElementById('attachedName');
+    const btnCloseThumb = document.getElementById('btnCloseThumb');
+
+    const floatingPreviewBox = document.getElementById('floatingPreviewBox');
+    const floatingThumb = document.getElementById('floatingThumb');
+    const floatingName = document.getElementById('floatingName');
+    const btnCloseFloatingThumb = document.getElementById('btnCloseFloatingThumb');
+
+    const apiKeyModal = document.getElementById('apiKeyModal');
+    const btnOpenKeyModal = document.getElementById('btnOpenKeyModal');
+    const btnOpenKeyModalHeader = document.getElementById('btnOpenKeyModalHeader');
+    const btnCancelModal = document.getElementById('btnCancelModal');
+    const btnSaveKeyDirect = document.getElementById('btnSaveKeyDirect');
+    const keyField = document.getElementById('keyField');
+    const modelStatusHint = document.getElementById('modelStatusHint');
+
+    const btnResetChat = document.getElementById('btnResetChat');
+    const btnNewChatSidebar = document.getElementById('btnNewChatSidebar');
+
+    // Sidebar navigation
+    document.querySelectorAll('#labNavList .nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#labNavList .nav-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentLab = btn.dataset.lab;
+        activeLabName.textContent = LAB_LABELS[currentLab] || 'Бүх 8 Лаб';
+      });
+    });
+
+    // Prompt cards click
+    document.querySelectorAll('.hero-card').forEach(card => {
+      card.addEventListener('click', () => {
+        heroTextarea.value = card.dataset.prompt;
+        checkInputs();
+        heroTextarea.focus();
+      });
+    });
+
+    // Auto-expand Textareas
+    [heroTextarea, floatingTextarea].forEach(ta => {
+      ta.addEventListener('input', () => {
+        ta.style.height = 'auto';
+        ta.style.height = Math.min(ta.scrollHeight, 160) + 'px';
+        checkInputs();
+      });
+    });
+
+    function checkInputs() {
+      const heroHasText = heroTextarea.value.trim().length > 0 || currentAttachedB64 !== null;
+      btnSendHero.disabled = !heroHasText || isWaiting;
+
+      const floatHasText = floatingTextarea.value.trim().length > 0 || currentAttachedB64 !== null;
+      btnSendFloating.disabled = !floatHasText || isWaiting;
+    }
+
+    [heroTextarea, floatingTextarea].forEach(ta => {
+      ta.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          if (heroContainer.style.display !== 'none') {
+            if (!btnSendHero.disabled) triggerSend(heroTextarea.value.trim());
+          } else {
+            if (!btnSendFloating.disabled) triggerSend(floatingTextarea.value.trim());
+          }
+        }
+      });
+    });
+
+    btnSendHero.addEventListener('click', () => triggerSend(heroTextarea.value.trim()));
+    btnSendFloating.addEventListener('click', () => triggerSend(floatingTextarea.value.trim()));
+
+    // Image Upload Handlers
+    [btnTriggerUpload, btnFloatingUpload].forEach(btn => {
+      btn?.addEventListener('click', () => imageFileInput.click());
+    });
+
+    imageFileInput.addEventListener('change', (e) => {
+      if (e.target.files && e.target.files[0]) {
+        processImageFile(e.target.files[0]);
+      }
+    });
+
+    function processImageFile(file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        currentAttachedB64 = e.target.result;
+        
+        attachedThumb.src = currentAttachedB64;
+        attachedName.textContent = file.name || 'Зураг';
+        attachedPreviewBox.style.display = 'flex';
+
+        floatingThumb.src = currentAttachedB64;
+        floatingName.textContent = file.name || 'Зураг';
+        floatingPreviewBox.style.display = 'flex';
+
+        checkInputs();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Remove image
+    [btnCloseThumb, btnCloseFloatingThumb].forEach(btn => {
+      btn?.addEventListener('click', () => {
+        currentAttachedB64 = null;
+        attachedPreviewBox.style.display = 'none';
+        floatingPreviewBox.style.display = 'none';
+        imageFileInput.value = '';
+        checkInputs();
+      });
+    });
+
+    // Paste Image from Clipboard (Ctrl+V)
+    window.addEventListener('paste', (e) => {
+      const items = e.clipboardData?.items;
+      if (!items) return;
+      for (let item of items) {
+        if (item.type.indexOf('image') !== -1) {
+          const file = item.getAsFile();
+          processImageFile(file);
+          break;
+        }
+      }
+    });
+
+    // Reset / New Chat
+    function startNewChat() {
+      chatHistory = [];
+      chatStreamWrapper.innerHTML = '';
+      chatStreamWrapper.style.display = 'none';
+      bottomFloatingBar.style.display = 'none';
+      heroContainer.style.display = 'flex';
+      heroTextarea.value = '';
+      floatingTextarea.value = '';
+      currentAttachedB64 = null;
+      attachedPreviewBox.style.display = 'none';
+      floatingPreviewBox.style.display = 'none';
+      checkInputs();
+    }
+    btnResetChat.addEventListener('click', startNewChat);
+    btnNewChatSidebar.addEventListener('click', startNewChat);
+
+    // Format Markdown, Math & Code blocks
+    function formatRenderedText(el) {
+      el.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightElement(block);
+        const pre = block.parentElement;
+        if (!pre.querySelector('.code-topbar')) {
+          const bar = document.createElement('div');
+          bar.className = 'code-topbar';
+          bar.innerHTML = `<span>Код</span><button class="btn-copy-code">Хуулах</button>`;
+          bar.querySelector('.btn-copy-code').onclick = () => {
+            navigator.clipboard.writeText(block.innerText);
+            bar.querySelector('.btn-copy-code').innerHTML = 'Хуулагдлаа';
+            setTimeout(() => bar.querySelector('.btn-copy-code').innerHTML = 'Хуулах', 2000);
+          };
+          pre.insertBefore(bar, block);
+        }
+      });
+
+      if (window.renderMathInElement) {
+        renderMathInElement(el, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+            {left: '\\[', right: '\\]', display: true},
+            {left: '\\(', right: '\\)', display: false}
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    function appendMessageRow(role, text, imageB64 = null, sources = []) {
+      if (heroContainer.style.display !== 'none') {
+        heroContainer.style.display = 'none';
+        chatStreamWrapper.style.display = 'flex';
+        bottomFloatingBar.style.display = 'flex';
+      }
+
+      const row = document.createElement('div');
+      row.className = `chat-row ${role}`;
+
+      const tag = document.createElement('div');
+      tag.className = 'chat-tag';
+      tag.textContent = role === 'user' ? 'Та' : 'AI';
+
+      const bubble = document.createElement('div');
+      bubble.className = 'chat-bubble';
+
+      if (imageB64) {
+        const img = document.createElement('img');
+        img.className = 'chat-img-attachment';
+        img.src = imageB64;
+        bubble.appendChild(img);
+      }
+
+      if (text) {
+        if (role === 'ai') {
+          const contentDiv = document.createElement('div');
+          contentDiv.innerHTML = marked.parse(text);
+          formatRenderedText(contentDiv);
+          bubble.appendChild(contentDiv);
+
+          // Render Verified Live Sources (Wikipedia, arXiv, PubChem, Google)
+          if (sources && sources.length > 0) {
+            const sourcesPanel = document.createElement('div');
+            sourcesPanel.className = 'sources-panel';
+            
+            const header = document.createElement('div');
+            header.className = 'sources-panel-header';
+            header.innerHTML = `
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+              </svg>
+              <span>Баталгаажсан бодит эх сурвалжууд (${sources.length})</span>
+            `;
+            sourcesPanel.appendChild(header);
+
+            const grid = document.createElement('div');
+            grid.className = 'sources-grid';
+
+            sources.forEach(s => {
+              const card = document.createElement('a');
+              card.className = 'source-card';
+              card.href = s.url || '#';
+              card.target = '_blank';
+              card.rel = 'noopener noreferrer';
+
+              card.innerHTML = `
+                <div>
+                  <div class="source-badge">${escapeHtml(s.badge || s.source || 'Эх сурвалж')}</div>
+                  <div class="source-title">${escapeHtml(s.title || 'Шинжлэх ухааны хуудас')}</div>
+                  <div class="source-snippet">${escapeHtml(s.snippet || '')}</div>
+                </div>
+                <div class="source-link-row">
+                  <span>Эх сурвалж үзэх</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </div>
+              `;
+              grid.appendChild(card);
+            });
+
+            sourcesPanel.appendChild(grid);
+            bubble.appendChild(sourcesPanel);
+          }
+        } else {
+          const p = document.createElement('p');
+          p.textContent = text;
+          bubble.appendChild(p);
+        }
+      }
+
+      row.appendChild(tag);
+      row.appendChild(bubble);
+      chatStreamWrapper.appendChild(row);
+
+      contentScroll.scrollTop = contentScroll.scrollHeight;
+      return row;
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function showThinkingIndicator() {
+      const row = document.createElement('div');
+      row.className = 'chat-row ai';
+      row.id = 'thinkingRow';
+
+      const tag = document.createElement('div');
+      tag.className = 'chat-tag';
+      tag.textContent = 'AI';
+
+      const bubble = document.createElement('div');
+      bubble.className = 'chat-bubble';
+      bubble.innerHTML = `
+        <div class="thinking-bubble">
+          <span>Бодит эх сурвалжаас хайж, дүн шинжилгээ хийж байна</span>
+          <div class="pulse-dot"></div>
+          <div class="pulse-dot"></div>
+          <div class="pulse-dot"></div>
+        </div>
+      `;
+
+      row.appendChild(tag);
+      row.appendChild(bubble);
+      chatStreamWrapper.appendChild(row);
+      contentScroll.scrollTop = contentScroll.scrollHeight;
+    }
+
+    function removeThinkingIndicator() {
+      const el = document.getElementById('thinkingRow');
+      if (el) el.remove();
+    }
+
+    // API Backend Base URL (Auto-routes to port 5000 even if opened in VS Code Live Server 5500/5501)
+    const API_BASE = (window.location.protocol.startsWith('http') && window.location.port === '5000') 
+      ? '' 
+      : 'http://localhost:5000';
+
+    // Send Message
+    async function triggerSend(text) {
+      const img = currentAttachedB64;
+      if (!text && !img) return;
+
+      isWaiting = true;
+      checkInputs();
+
+      heroTextarea.value = '';
+      floatingTextarea.value = '';
+      currentAttachedB64 = null;
+      attachedPreviewBox.style.display = 'none';
+      floatingPreviewBox.style.display = 'none';
+      imageFileInput.value = '';
+
+      appendMessageRow('user', text, img);
+      chatHistory.push({ role: 'user', content: text, image: img });
+
+      showThinkingIndicator();
+
+      try {
+        const response = await fetch(API_BASE + '/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            messages: chatHistory.slice(-10),
+            selected_lab: currentLab
+          })
+        });
+
+        if (!response.ok) {
+          const errText = await response.text();
+          throw new Error(errText || `Сервер холболтын алдаа буцаалаа: ${response.status}`);
+        }
+
+        const data = await response.json();
+        removeThinkingIndicator();
+
+        if (data.error && !data.reply) {
+          appendMessageRow('ai', 'Уучлаарай, алдаа гарлаа: ' + data.error);
+        } else {
+          appendMessageRow('ai', data.reply, null, data.sources || []);
+          chatHistory.push({ role: 'assistant', content: data.reply });
+        }
+      } catch (err) {
+        removeThinkingIndicator();
+        let msg = err.message;
+        if (msg.includes('Failed to fetch') || msg.includes('NetworkError') || msg.includes('Unexpected end of JSON')) {
+          msg = 'AI Сервертэй холбогдож чадсангүй (http://localhost:5000 ажиллаагүй байна). Төслийн хавтас дахь "start_ai.bat" файлыг ажиллуулна уу!';
+        }
+        appendMessageRow('ai', 'Холболтод алдаа гарлаа: ' + msg);
+      } finally {
+        isWaiting = false;
+        checkInputs();
+      }
+    }
+
+    // Modal
+    [btnOpenKeyModal, btnOpenKeyModalHeader].forEach(btn => {
+      btn?.addEventListener('click', () => apiKeyModal.style.display = 'flex');
+    });
+    btnCancelModal.addEventListener('click', () => apiKeyModal.style.display = 'none');
+
+    btnSaveKeyDirect.addEventListener('click', async () => {
+      const key = keyField.value.trim();
+      if (!key) return alert('API түлхүүрээ оруулна уу.');
+      try {
+        const res = await fetch(API_BASE + '/api/save-key', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key })
+        });
+        const d = await res.json();
+        if (d.success) {
+          alert('Gemini Vision Pro API амжилттай холбогдлоо!');
+          apiKeyModal.style.display = 'none';
+          checkBackendStatus();
+        } else {
+          alert('Алдаа: ' + d.error);
+        }
+      } catch (e) {
+        alert('Хадгалж чадсангүй: ' + e.message);
+      }
+    });
+
+    async function checkBackendStatus() {
+      try {
+        const res = await fetch(API_BASE + '/api/status');
+        const data = await res.json();
+        if (data.has_gemini_key) {
+          modelStatusHint.textContent = 'Gemini 2.5 Flash Vision Pro + Шууд сүлжээ ба Википедиа, arXiv холбогдсон.';
+          document.getElementById('userModeSub').textContent = 'Gemini Grounded Mode';
+        } else {
+          modelStatusHint.textContent = 'Википедиа, arXiv, PubChem баталгаажсан эх сурвалжууд холбогдсон.';
+          document.getElementById('userModeSub').textContent = 'Live Sources Active';
+        }
+      } catch (e) {
+        modelStatusHint.textContent = 'Сервер унтарсан (start_ai.bat нээнэ үү)';
+        document.getElementById('userModeSub').textContent = 'Server Offline';
+      }
+    }
+
+    checkBackendStatus();
+  </script>
+
+
+
+
+<script id="universal-emoji-remover">
+(function(){
+  'use strict';
+  const EMOJI_RE = /([\u{1F300}-\u{1FAFF}\u{1F1E6}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{2B50}-\u{2B55}\u{203C}\u{2049}\u{2122}\u{2139}\u{231A}-\u{231B}\u{2328}\u{23CF}\u{23E9}-\u{23FA}\u{24C2}\u{25AA}-\u{25AB}\u{25B6}\u{25C0}\u{25FB}-\u{25FE}\u{2934}-\u{2935}\u{2B05}-\u{2B07}\u{2B1B}-\u{2B1C}])[\uFE00-\uFE0F]?/gu;
+  
+  function removeEmojis(root){
+    if(!root) return;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node){
+        if(!node.nodeValue || !EMOJI_RE.test(node.nodeValue)) return NodeFilter.FILTER_REJECT;
+        const parent = node.parentElement;
+        if(!parent) return NodeFilter.FILTER_REJECT;
+        const tag = parent.tagName.toUpperCase();
+        if(tag==='SCRIPT' || tag==='STYLE') return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    const nodes = [];
+    while(walker.nextNode()) nodes.push(walker.currentNode);
+    for(const node of nodes){
+      node.nodeValue = node.nodeValue.replace(EMOJI_RE, '').replace(/  +/g, ' ');
+    }
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', () => removeEmojis(document.body));
+  } else {
+    removeEmojis(document.body);
+  }
+
+  const obs = new MutationObserver(mutations => {
+    for(const m of mutations){
+      for(const n of m.addedNodes){
+        if(n.nodeType === Node.ELEMENT_NODE){
+          removeEmojis(n);
+        } else if(n.nodeType === Node.TEXT_NODE && n.parentNode){
+          removeEmojis(n.parentNode);
+        }
+      }
+    }
+  });
+  obs.observe(document.documentElement, { childList: true, subtree: true });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,811 @@
+/* Space Lab (REALITY FORGE) — surface_dimension.html, converted into an embeddable section module.
+   Original logic is unchanged; only environment bindings (document/window/location/timers)
+   and asset base paths were adapted. */
+import * as THREE from 'three180';
+import {OrbitControls} from 'three180/examples/jsm/controls/OrbitControls.js';
+import {GLTFLoader} from 'three180/examples/jsm/loaders/GLTFLoader.js';
+
+const RF_BASE = './REALITY_FORGE_V38_SURFACE_ROCKET_INTERACTION_FIXED/REALITY-FORGE-ROCKET-SOLAR-ONLY/';
+const SURFACE_GLB_CACHE = new Map();
+function resolveRfAssetPath(p) {
+  if (!p) return RF_BASE + 'assets/rockets/vulcan_centaur_rocket.glb';
+  const s = String(p).trim();
+  if (s.startsWith('./') || s.startsWith('../') || s.startsWith('http://') || s.startsWith('https://')) return s;
+  if (s.startsWith('REALITY_FORGE_')) return './' + s;
+  if (s.startsWith('assets/')) return RF_BASE + s;
+  return RF_BASE + 'assets/rockets/' + s.replace(/^\/+/, '');
+}
+function loadCachedGLB(url) {
+  const key = resolveRfAssetPath(url);
+  if (!SURFACE_GLB_CACHE.has(key)) {
+    const loader = new GLTFLoader();
+    const p = loader.loadAsync(key).catch((err) => {
+      SURFACE_GLB_CACHE.delete(key);
+      throw err;
+    });
+    SURFACE_GLB_CACHE.set(key, p);
+  }
+  return SURFACE_GLB_CACHE.get(key);
+}
+
+const SURF_ICO = {
+  planet: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;flex-shrink:0"><circle cx="12" cy="12" r="6.5"/><ellipse cx="12" cy="12" rx="11" ry="4.2" transform="rotate(-24 12 12)"/></svg>',
+  rocket: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;flex-shrink:0"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>'
+};
+
+export const css = "\n*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#02040a;color:#eef8ff;font-family:Inter,Arial,sans-serif}canvas{display:block}.glass{background:linear-gradient(180deg,rgba(5,15,27,.91),rgba(2,7,14,.84));border:1px solid rgba(88,205,255,.3);box-shadow:0 12px 40px #0008;backdrop-filter:blur(10px);border-radius:14px}.top{position:fixed;z-index:10;left:14px;right:14px;top:56px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;pointer-events:none}.top-nav{display:flex;gap:8px;align-items:center;pointer-events:auto}.surf-nav-btn{pointer-events:auto;min-height:44px;padding:9px 14px;font:800 12px Inter,Arial,sans-serif;color:#e6f7ff;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:border-color .18s,background .18s}.surf-nav-btn:hover{border-color:#58d5ff;background:rgba(12,38,68,.92)}.brand,.status{padding:10px 13px;font-weight:900;letter-spacing:.8px}.brand{color:#c9f4ff;display:inline-flex;align-items:center;gap:7px}.status{font-size:11px;color:#9ee7ff}.hud{position:fixed;z-index:11;left:14px;bottom:14px;padding:12px 14px;min-width:260px;font-size:11px;line-height:1.65}.hud b{color:#72dcff}.actions{position:fixed;z-index:12;right:14px;bottom:14px;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.actions button{border:1px solid #43cfff;background:#072237;color:#fff;border-radius:11px;padding:12px 16px;min-height:44px;font-weight:900;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px}.actions button.primary{background:linear-gradient(135deg,#087ea4,#2563eb)}.actions button:disabled{opacity:.35;cursor:not-allowed}.center{position:fixed;z-index:9;left:50%;top:15%;transform:translateX(-50%);text-align:center;pointer-events:none;text-shadow:0 2px 12px #000}.phase{font-size:18px;font-weight:1000;letter-spacing:1.5px}.sub{font-size:11px;color:#c4dce8;margin-top:5px}.tip{position:fixed;z-index:9;left:50%;bottom:78px;transform:translateX(-50%);padding:8px 12px;font-size:10px;color:#cbefff;pointer-events:none;white-space:nowrap}.crosshair{display:none;position:fixed;z-index:8;left:50%;top:50%;width:14px;height:14px;transform:translate(-50%,-50%);pointer-events:none}.crosshair:before,.crosshair:after{content:\"\";position:absolute;background:#fff9;box-shadow:0 0 5px #000}.crosshair:before{width:14px;height:1px;top:6px}.crosshair:after{height:14px;width:1px;left:6px}.crosshair.show{display:block}@media(max-width:650px){.top{top:52px;left:10px;right:10px}.brand,.status{display:none}.hud{min-width:0;left:10px;right:10px;bottom:76px;padding:10px 12px}.actions{left:10px;right:10px;bottom:10px}.actions button{flex:1}.tip{display:none}}@media(orientation:landscape) and (max-height:600px),(orientation:landscape) and (max-width:1280px) and (max-height:720px){.top{top:max(6px,env(safe-area-inset-top,0px));left:max(8px,env(safe-area-inset-left,0px));right:calc(52px + env(safe-area-inset-right,0px))}.surf-nav-btn{min-height:36px;padding:6px 10px;font-size:11px;border-radius:10px}.brand{display:none}.status{padding:6px 10px;font-size:10px}.hud{min-width:0;width:clamp(155px,22vw,210px);left:max(8px,env(safe-area-inset-left,0px));right:auto;bottom:max(8px,env(safe-area-inset-bottom,0px));padding:7px 10px;font-size:10px;line-height:1.4}.actions{left:auto;right:max(8px,env(safe-area-inset-right,0px));bottom:max(8px,env(safe-area-inset-bottom,0px))}.actions button{min-height:36px;padding:8px 12px;font-size:11px;flex:0 0 auto}.tip{bottom:max(8px,env(safe-area-inset-bottom,0px));padding:5px 10px;font-size:9.5px}}\n";
+export const html = `<div class="top"><div class="top-nav"><button id="backToSolarBtn" class="glass surf-nav-btn" type="button">‹ Нарны аймаг</button><button id="backToMainBtn" class="glass surf-nav-btn" type="button">‹ Үндсэн лаб</button><div class="glass brand">${SURF_ICO.planet}<span>REALITY FORGE • SURFACE DIMENSION</span></div></div><div id="planetName" class="glass status">PLANET</div></div><div class="center"><div id="phase" class="phase">DESCENT</div><div id="phaseSub" class="sub">High altitude → controlled landing</div></div><div class="glass hud">ALTITUDE: <b id="alt">--</b><br>SPEED: <b id="speed">--</b><br>STATE: <b id="state">LANDING</b><br>GRAVITY: <b id="gravityVal">--</b><br>ROCKET: <b id="rocketDist">0 m</b><br>SKY: <b id="skyState">--</b></div><div class="glass tip" id="tip">Drag = 360° look • Scroll = zoom</div><div id="crosshair" class="crosshair"></div><div id="interactPrompt" class="glass" style="display:none;position:fixed;z-index:13;left:50%;top:56%;transform:translateX(-50%);padding:9px 14px;font-weight:900;font-size:12px;pointer-events:none">E • ENTER ROCKET</div><div class="actions"><button id="exitBtn" type="button" disabled>EXIT ROCKET</button><button id="launchBtn" class="primary" type="button" disabled>${SURF_ICO.rocket}<span>LAUNCH</span></button></div>\n`;
+export default async function boot(ctx) {
+  const { document, window, location, requestAnimationFrame, cancelAnimationFrame, setTimeout, clearTimeout,
+          setInterval, clearInterval, addEventListener, removeEventListener } = ctx;
+
+
+
+const NO_LANDING_GIANTS=['Jupiter','Saturn','Uranus','Neptune'];
+const rawPlanet=sessionStorage.getItem('rfSurfacePlanet')||'Mars';
+if(NO_LANDING_GIANTS.includes(rawPlanet)){
+  sessionStorage.removeItem('rfSurfacePlanet');
+  sessionStorage.removeItem('rfSurfaceEntry');
+  location.replace('solar_system.html');
+}
+const planet=NO_LANDING_GIANTS.includes(rawPlanet)?'Mars':rawPlanet;
+const rocketFile=resolveRfAssetPath(sessionStorage.getItem('rfSurfaceRocket')||sessionStorage.getItem('rfRocketFile')||window.SU_ROCKET_BRIDGE?.getState?.()?.rocketConfig?.modelFile);
+document.querySelector('#planetName').textContent=planet.toUpperCase()+' • VAST SURFACE MAP';
+if(window.SU_ROCKET_BRIDGE?.markInSpace)window.SU_ROCKET_BRIDGE.markInSpace({scene:'surface',orbit:planet});
+
+const moonLike=['Moon','Phobos','Deimos','Io','Europa','Ganymede','Callisto','Enceladus','Mimas','Tethys','Rhea','Titan','Titania','Oberon','Triton'];
+// Gas & Ice Giants (Jupiter, Saturn, Uranus, Neptune) have been completely removed from surface presets as they have no solid surface.
+const presets={
+  Earth:{sky:0x5b91c9,ground:0x596b3d,fog:0x9fc7df,sun:0xffffff,gravity:1,weather:'CLEAR • EARTH ATMOSPHERE',visibility:.86,storm:.10},
+  Moon:{sky:0x010207,ground:0x77736e,fog:0x090a0d,sun:0xe8efff,gravity:.16,weather:'CLEAR • NO ATMOSPHERE',visibility:1,storm:0},
+  Mercury:{sky:0x050508,ground:0x6b655e,fog:0x161519,sun:0xffffff,gravity:.38,weather:'CLEAR • THIN EXOSPHERE',visibility:.98,storm:0},
+  Mars:{sky:0x9a5536,ground:0x8a3f24,fog:0xb46f4d,sun:0xffd0a0,gravity:.38,weather:'DUST HAZE',visibility:.82,storm:.28},
+  Venus:{sky:0x8b5414,ground:0x9a681f,fog:0xb87922,sun:0xffdf8a,gravity:.90,weather:'THICK CO₂ CLOUDS',visibility:.22,storm:.68},
+  Titan:{sky:0x8a531f,ground:0x76502d,fog:0xb97a38,sun:0xffc979,gravity:.14,weather:'THICK NITROGEN HAZE',visibility:.28,storm:.28}
+};
+const env=presets[planet]||(moonLike.includes(planet)?{sky:0x02040a,ground:0x77736e,fog:0x0b0d12,sun:0xeaf4ff,gravity:.15,weather:'CLEAR • AIRLESS/THIN',visibility:.96,storm:0}:{sky:0x241711,ground:0x75503b,fog:0x604333,sun:0xffffff,gravity:1,weather:'VARIABLE',visibility:.65,storm:.25});
+
+const scene=new THREE.Scene(),clearSky=new THREE.Color(env.sky),stormSky=new THREE.Color(env.fog).multiplyScalar(.72);
+scene.background=clearSky.clone();
+scene.fog=new THREE.FogExp2(env.fog,.00035+(1-env.visibility)*.0018);
+
+const camera=new THREE.PerspectiveCamera(65,innerWidth/innerHeight,.08,24000),renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});
+renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.2;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;document.body.prepend(renderer.domElement);
+
+const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.dampingFactor=.055;controls.enablePan=false;controls.minDistance=6;controls.maxDistance=220;controls.maxPolarAngle=Math.PI*.985;
+
+const airless=['Moon','Mercury'].includes(planet)||(moonLike.includes(planet)&&planet!=='Titan');
+const skyProfiles={Earth:{zen:0x2d6cc2,hor:0xbdd9ee,glow:0xfff0cc,fog:0xbdd9ee},Mars:{zen:0xa9774f,hor:0xd9b08a,glow:0x9fbce6,fog:0xd2a883}};
+const skyProf=skyProfiles[planet]||{zen:env.sky,hor:env.fog,glow:env.sun,fog:env.fog};
+const sunDir=new THREE.Vector3(-.55,.43,-.7).normalize();
+if(!airless)scene.fog.color.set(skyProf.fog);
+renderer.toneMappingExposure=airless?.85:1.12;
+
+scene.add(new THREE.HemisphereLight(airless?0x2b2d34:skyProf.hor,airless?0x15120f:new THREE.Color(env.ground).multiplyScalar(.45),airless?.32:1.0));
+const sunLight=new THREE.DirectionalLight(airless?0xffffff:env.sun,airless?5.4:4.4);sunLight.position.copy(sunDir).multiplyScalar(320);sunLight.castShadow=true;sunLight.shadow.mapSize.set(2048,2048);Object.assign(sunLight.shadow.camera,{left:-110,right:110,top:110,bottom:-110,near:1,far:950});sunLight.shadow.camera.updateProjectionMatrix();sunLight.shadow.bias=-.0004;sunLight.shadow.normalBias=.05;scene.add(sunLight,sunLight.target);
+
+function hash2(i,j,s){let n=(Math.imul(i,374761393)+Math.imul(j,668265263)+Math.imul(s,1442695041))|0;n=Math.imul(n^(n>>>13),1274126177);n^=n>>>16;return (n>>>0)/4294967296}
+function vnoise(x,z,s){const i=Math.floor(x),j=Math.floor(z),fx=x-i,fz=z-j,u=fx*fx*(3-2*fx),v=fz*fz*(3-2*fz),a=hash2(i,j,s),b=hash2(i+1,j,s),c=hash2(i,j+1,s),d=hash2(i+1,j+1,s);return (a+(b-a)*u+(c-a)*v+(a-b-c+d)*u*v)*2-1}
+function fbm(x,z,oct,s){let a=1,f=1,sum=0,norm=0;for(let o=0;o<oct;o++){sum+=a*vnoise(x*f,z*f,s+o*7);norm+=a;a*=.5;f*=2.03}return sum/norm}
+function ridged(x,z,oct,s){let a=1,f=1,sum=0,norm=0,w=1;for(let o=0;o<oct;o++){let n=1-Math.abs(vnoise(x*f,z*f,s+o*7));n*=n;n*=w;w=Math.min(1,n*1.8);sum+=n*a;norm+=a;a*=.5;f*=2.1}return sum/norm}
+function sstep(a,b,x){const t=Math.min(1,Math.max(0,(x-a)/(b-a)));return t*t*(3-2*t)}
+const SEED=planet.split('').reduce((a,c)=>(a*31+c.charCodeAt(0))|0,7);
+
+// Expanded planetary terrain recipes (no gas/ice giants)
+const MOONY=[[1400,.55],[580,.6],[240,.65],[95,.7]];
+const landStyles={
+  Earth:{hill:[24,420],mtn:[460,650,2400,1500],ripple:[.45,9]},
+  Mars:{hill:[12,480],mtn:[320,800,2600,1650],craters:[[1100,.38],[420,.5],[150,.5]],crDepth:.13,dune:[2.4,85,.6],ripple:[.22,6]},
+  Moon:{hill:[14,520],mtn:[240,900,2800,1800],craters:MOONY,crDepth:.18,ripple:[.18,6]},
+  Mercury:{hill:[16,460],mtn:[190,900,2800,1600],craters:MOONY,crDepth:.17,crack:[11,480],ripple:[.18,6]},
+  Venus:{hill:[18,620],mtn:[360,750,2400,1400],craters:[[1300,.16]],crDepth:.1,crack:[5,140],ripple:[.35,7]},
+  Titan:{hill:[18,480],mtn:[180,1000,2800,1500],dune:[9,180,.1],craters:[[1300,.12]],crDepth:.08,ripple:[.25,7]},
+  Io:{hill:[14,460],mtn:[380,680,2100,1200],craters:[[900,.5],[340,.4]],crDepth:.22,ripple:[.28,6]},
+  Europa:{hill:[6,750],crack:[9,220],craters:[[800,.15],[220,.2]],crDepth:.06,ripple:[.12,5]},
+  Enceladus:{hill:[9,480],crack:[14,300],craters:[[800,.3],[240,.4]],crDepth:.1,ripple:[.12,5]},
+  Triton:{hill:[12,160],crack:[5,110],craters:[[800,.1]],crDepth:.08,ripple:[.18,5]},
+  Phobos:{hill:[22,200],craters:[[650,.5],[190,.6]],crDepth:.22,ripple:[.24,4]},
+  Deimos:{hill:[16,170],craters:[[500,.5],[160,.6]],crDepth:.2,ripple:[.24,4]}
+};
+landStyles.Ganymede=landStyles.Callisto=landStyles.Rhea=landStyles.Tethys=landStyles.Mimas=landStyles.Oberon=landStyles.Titania=Object.assign({},landStyles.Moon,{mtn:[140,900,2800,1600]});
+const landStyle=landStyles[planet]||(moonLike.includes(planet)?landStyles.Moon:landStyles.Mars);
+
+function craterField(x,z,list,depthK){let h=0;for(let si=0;si<list.length;si++){const C=list[si][0],pr=list[si][1],ci=Math.floor(x/C),cj=Math.floor(z/C);for(let a=-1;a<=1;a++)for(let b=-1;b<=1;b++){const i=ci+a,j=cj+b;if(hash2(i,j,SEED+si*13)>pr)continue;const cx=(i+.15+hash2(i,j,SEED+101+si)*.7)*C,cz=(j+.15+hash2(i,j,SEED+211+si)*.7)*C,R=C*(.18+.3*hash2(i,j,SEED+307+si)),t=Math.hypot(x-cx,z-cz)/R;if(t>2.6)continue;const age=.5+.5*hash2(i,j,SEED+401+si);const bowl=t<1?-(1-t*t):0,rim=.22*Math.exp(-((t-1)/.16)*((t-1)/.16)),eject=t>1?.05*Math.exp(-(t-1)*1.8):0;h+=(bowl+rim+eject)*R*depthK*age}}return h}
+function rawHeight(x,z){const d=Math.hypot(x,z),st=landStyle;let h=0;
+ if(st.hill)h+=st.hill[0]*fbm(x/st.hill[1],z/st.hill[1],4,SEED);
+ if(st.mtn){const m=sstep(st.mtn[1],st.mtn[2],d)*(1-sstep(6200,7600,d));if(m>0){const rm=sstep(-.25,.3,fbm(x/2400,z/2400,2,SEED+60));if(rm>0){const wl=st.mtn[3],wx=x+vnoise(x*.0008,z*.0008,SEED+91)*340,wz=z+vnoise(x*.0008+7.3,z*.0008+3.1,SEED+92)*340;h+=st.mtn[0]*m*rm*(ridged(wx/wl,wz/wl,5,SEED+50)*1.2-.2)}}}
+ if(st.craters)h+=craterField(x,z,st.craters,st.crDepth);
+ if(st.crack){const r=ridged(x/st.crack[1],z/st.crack[1],3,SEED+70);h-=st.crack[0]*r*r}
+ if(st.dune){const A=st.dune[0],wl=st.dune[1],ang=st.dune[2]*Math.PI,u=x*Math.cos(ang)+z*Math.sin(ang),v=-x*Math.sin(ang)+z*Math.cos(ang);h+=A*Math.sin((u/wl+.9*fbm(v/(wl*5),u/(wl*7),2,SEED+80))*Math.PI*2)*(.65+.35*fbm(x/(wl*4),z/(wl*4),2,SEED+81))}
+ if(st.ripple){const wl=Math.max(26,st.ripple[1]*4);h+=st.ripple[0]*2.5*fbm(x/wl,z/wl,3,SEED+90)}
+ return h*sstep(18,125,d)}
+
+// Vast 16 km x 16 km planetary surface map (was 6000)
+const T_SIZE=16000,T_SEG=768,T_HALF=T_SIZE/2,T_CELL=T_SIZE/T_SEG;let terrainHts=null;
+function terrainHeight(x,z){if(!terrainHts)return rawHeight(x,z);const gx=Math.min(T_SEG-1e-6,Math.max(0,(x+T_HALF)/T_CELL)),gz=Math.min(T_SEG-1e-6,Math.max(0,(z+T_HALF)/T_CELL)),ix=Math.floor(gx),iz=Math.floor(gz),fx=gx-ix,fz=gz-iz,W=T_SEG+1,a=terrainHts[iz*W+ix],b=terrainHts[iz*W+ix+1],c=terrainHts[(iz+1)*W+ix],e=terrainHts[(iz+1)*W+ix+1];return a+(b-a)*fx+(c-a)*fz+(a-b-c+e)*fx*fz;}
+
+const terrainGeo=new THREE.PlaneGeometry(T_SIZE,T_SIZE,T_SEG,T_SEG);terrainGeo.rotateX(-Math.PI/2);const tp=terrainGeo.attributes.position,hts=new Float32Array(tp.count);
+for(let i=0;i<tp.count;i++){const h=rawHeight(tp.getX(i),tp.getZ(i));hts[i]=h;tp.setY(i,h);}terrainHts=hts;terrainGeo.computeVertexNormals();
+const _tc=new THREE.Color(),_tc1=new THREE.Color(),_tc2=new THREE.Color();
+function terrainColor(out,x,z,h,sl){const tv=fbm(x/260,z/260,3,SEED+5),fv=fbm(x/18,z/18,2,SEED+6);out.set(env.ground).multiplyScalar(1+tv*.2+fv*.08);
+ if(planet==='Earth'){_tc1.set(0x4d6b32);_tc2.set(0x8a7c4c);out.copy(_tc1).lerp(_tc2,sstep(-.25,.55,tv)*.7).multiplyScalar(.9+fv*.18);_tc1.set(0x6f6a62);out.lerp(_tc1,Math.min(1,Math.max(sstep(.35,.8,sl),sstep(160,310,h))));_tc1.set(0xeef2f5);out.lerp(_tc1,sstep(220,340,h)*(1-sstep(.6,1.2,sl)))}
+ else if(planet==='Mars'){_tc1.set(0x3a1d14);out.lerp(_tc1,sstep(.1,.5,fbm(x/420,z/420,3,SEED+9))*.55+sstep(.3,.8,sl)*.35)}
+ else if(airless){_tc1.set(env.ground).multiplyScalar(.5);out.lerp(_tc1,sstep(.1,.45,fbm(x/1400,z/1400,3,SEED+9))*.7);_tc2.set(env.ground).multiplyScalar(1.35);out.lerp(_tc2,sstep(.3,.9,sl)*.5)}
+ else{_tc1.set(env.ground).multiplyScalar(.6);out.lerp(_tc1,sstep(.2,.8,sl)*.6+sstep(.1,.5,fbm(x/700,z/700,3,SEED+9))*.25)}}
+const tn=terrainGeo.attributes.normal,tcol=new Float32Array(tp.count*3);for(let i=0;i<tp.count;i++){const nY=Math.max(.05,tn.getY(i)),sl=Math.sqrt(Math.max(0,1-nY*nY))/nY;terrainColor(_tc,tp.getX(i),tp.getZ(i),tp.getY(i),sl);tcol[i*3]=_tc.r;tcol[i*3+1]=_tc.g;tcol[i*3+2]=_tc.b}terrainGeo.setAttribute('color',new THREE.BufferAttribute(tcol,3));
+const terrainMat=new THREE.MeshStandardMaterial({vertexColors:true,roughness:1,metalness:0});
+terrainMat.onBeforeCompile=sh=>{sh.vertexShader=sh.vertexShader.replace('#include <common>','#include <common>\nvarying vec3 vWP;').replace('#include <begin_vertex>','#include <begin_vertex>\nvWP=(modelMatrix*vec4(transformed,1.)).xyz;');
+ sh.fragmentShader=sh.fragmentShader.replace('#include <common>',`#include <common>
+varying vec3 vWP;
+float rfH(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float rfN(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(rfH(i),rfH(i+vec2(1.,0.)),f.x),mix(rfH(i+vec2(0.,1.)),rfH(i+vec2(1.,1.)),f.x),f.y);}
+float rfF(vec2 p){return rfN(p)*.5+rfN(p*2.1)*.25+rfN(p*4.3)*.125+rfN(p*8.7)*.0625;}`)
+ .replace('#include <color_fragment>',`#include <color_fragment>
+float rfD=length(vWP-cameraPosition);float rfNear=1.-smoothstep(65.,650.,rfD);
+float rfG=rfF(vWP.xz*.8)*.55+rfF(vWP.xz*.09)*.45;diffuseColor.rgb*=mix(1.,.72+.56*rfG,.6+.4*rfNear);`)
+ .replace('#include <normal_fragment_maps>',`#include <normal_fragment_maps>
+vec2 rfP=vWP.xz*1.6;float rfB0=rfF(rfP);vec2 rfGr=vec2(rfF(rfP+vec2(.18,0.))-rfB0,rfF(rfP+vec2(0.,.18))-rfB0)/.18;
+normal=normalize(normal+(viewMatrix*vec4(-rfGr.x,0.,-rfGr.y,0.)).xyz*.55*rfNear);`)};
+const terrain=new THREE.Mesh(terrainGeo,terrainMat);terrain.receiveShadow=true;scene.add(terrain);
+
+// Scattered planetary rocks across the larger map with real 3D climbable colliders
+const rockColliders=[];{const rockGeo=new THREE.IcosahedronGeometry(1,2),rp=rockGeo.attributes.position;for(let i=0;i<rp.count;i++){const x=rp.getX(i),y=rp.getY(i),z=rp.getZ(i),n=1+vnoise(x*1.7+3,z*1.7,9)*.22+vnoise(y*2.3,x*2.1,19)*.14+vnoise(z*4.1,y*3.7,29)*.07;rp.setXYZ(i,x*n,y*n,z*n)}rockGeo.computeVertexNormals();
+const rockCount=airless?3800:(planet==='Earth'?800:2400),rocks=new THREE.InstancedMesh(rockGeo,new THREE.MeshStandardMaterial({color:0xffffff,roughness:1,metalness:0}),rockCount),dm=new THREE.Object3D(),rcol=new THREE.Color(),rockBase=new THREE.Color(planet==='Earth'?0x77736b:env.ground);
+for(let i=0;i<rockCount;i++){
+  const k=Math.random(),r=k<.025?3.0+Math.random()*4.2:(k<.14?.9+Math.random()*2.0:.14+Math.pow(Math.random(),2.2)*.95),a=Math.random()*Math.PI*2,d=32+Math.pow(Math.random(),1.45)*5600,x=Math.cos(a)*d,z=Math.sin(a)*d,sy=r*(.5+Math.random()*.4);
+  const by=terrainHeight(x,z)+sy*.35;
+  dm.position.set(x,by,z);
+  dm.rotation.set((Math.random()-.5)*.5,Math.random()*Math.PI*2,(Math.random()-.5)*.5);
+  dm.scale.set(r*(.8+Math.random()*.5),sy,r*(.8+Math.random()*.5));
+  dm.updateMatrix();
+  rocks.setMatrixAt(i,dm.matrix);
+  rcol.copy(rockBase).multiplyScalar(.5+Math.random()*.6);
+  rocks.setColorAt(i,rcol);
+  if(r>.45)rockColliders.push({x,z,baseY:by-sy*.45,topY:by+sy*.85,r:r*.9,sy});
+}
+rocks.castShadow=true;rocks.receiveShadow=true;rocks.instanceMatrix.needsUpdate=true;rocks.instanceColor.needsUpdate=true;scene.add(rocks);}
+
+// 3D physical surface height including rock tops (allows player to jump & walk onto rocks)
+function getSurfaceHeight(x,z){
+  let h=terrainHeight(x,z);
+  for(let i=0;i<rockColliders.length;i++){
+    const c=rockColliders[i];
+    const dx=x-c.x,dz=z-c.z;
+    const d2=dx*dx+dz*dz;
+    const r2=c.r*c.r;
+    if(d2<r2){
+      const normD=Math.sqrt(d2)/c.r;
+      const rockH=c.topY-(c.topY-c.baseY)*(normD*normD*0.48);
+      if(rockH>h)h=rockH;
+    }
+  }
+  return h;
+}
+
+// 3D rock collision: only blocks horizontal movement if player is below the rock top ledge
+function resolveRockCollision(pos,radius){
+  for(let i=0;i<rockColliders.length;i++){
+    const c=rockColliders[i];
+    const dx=pos.x-c.x,dz=pos.z-c.z;
+    const rr=radius+c.r;
+    const d2=dx*dx+dz*dz;
+    if(d2<rr*rr&&d2>1e-6){
+      // If player's feet are near or above the rock's top, allow stepping/standing on top!
+      if(pos.y>=c.topY-0.75){
+        continue;
+      }
+      const d=Math.sqrt(d2),push=rr-d;
+      pos.x+=dx/d*push;
+      pos.z+=dz/d*push;
+      return true;
+    }
+  }
+  return false;
+}
+
+// REALISTIC BILLOWING LAUNCH & LANDING BLAST SMOKE SYSTEM (Falcon 9 / Artemis style liftoff smoke cloud)
+function createGroundSmokeTexture(){
+  const c=document.createElement('canvas');c.width=c.height=128;
+  const ctx=c.getContext('2d');
+  const puffs=[[64,64,54,1.0],[48,52,42,0.85],[78,54,40,0.8],[56,76,38,0.75],[74,72,36,0.7]];
+  puffs.forEach(([px,py,r,alpha])=>{
+    const g=ctx.createRadialGradient(px,py,0,px,py,r);
+    g.addColorStop(0,`rgba(255,255,255,${alpha})`);
+    g.addColorStop(0.42,`rgba(242,240,236,${alpha*0.75})`);
+    g.addColorStop(0.78,`rgba(220,215,208,${alpha*0.25})`);
+    g.addColorStop(1,'rgba(200,195,190,0)');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(px,py,r,0,Math.PI*2);ctx.fill();
+  });
+  const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;return t;
+}
+const smokePuffTex=createGroundSmokeTexture();
+
+const SMOKE_N=380;
+const smkPos=new Float32Array(SMOKE_N*3);
+const smkVel=new Float32Array(SMOKE_N*3);
+const smkAge=new Float32Array(SMOKE_N).fill(999);
+const smkLife=new Float32Array(SMOKE_N).fill(1);
+const smkSize=new Float32Array(SMOKE_N);
+const smkAlpha=new Float32Array(SMOKE_N);
+const smkColor=new Float32Array(SMOKE_N*3);
+let smkHead=0;
+
+const smkGeo=new THREE.BufferGeometry();
+smkGeo.setAttribute('position',new THREE.BufferAttribute(smkPos,3));
+smkGeo.setAttribute('aSize',new THREE.BufferAttribute(smkSize,1));
+smkGeo.setAttribute('aAlpha',new THREE.BufferAttribute(smkAlpha,1));
+smkGeo.setAttribute('aColor',new THREE.BufferAttribute(smkColor,3));
+
+const smkMat=new THREE.ShaderMaterial({
+  uniforms:{map:{value:smokePuffTex},uPR:{value:renderer.getPixelRatio()}},
+  transparent:true,depthWrite:false,
+  vertexShader:`
+    attribute float aSize;
+    attribute float aAlpha;
+    attribute vec3 aColor;
+    uniform float uPR;
+    varying float vAlpha;
+    varying vec3 vColor;
+    void main(){
+      vAlpha=aAlpha;
+      vColor=aColor;
+      vec4 mv=modelViewMatrix*vec4(position,1.0);
+      gl_PointSize=clamp(aSize*uPR*360.0/max(0.1,-mv.z),1.0,460.0);
+      gl_Position=projectionMatrix*mv;
+    }
+  `,
+  fragmentShader:`
+    uniform sampler2D map;
+    varying float vAlpha;
+    varying vec3 vColor;
+    void main(){
+      if(vAlpha<0.005)discard;
+      vec4 t=texture2D(map,gl_PointCoord);
+      gl_FragColor=vec4(vColor*t.rgb,t.a*vAlpha);
+    }
+  `
+});
+const smokeMesh=new THREE.Points(smkGeo,smkMat);
+smokeMesh.frustumCulled=false;
+scene.add(smokeMesh);
+
+const blastLight=new THREE.PointLight(0xff9e38,0,180,1.4);
+blastLight.position.set(0,terrainHeight(0,0)+3.0,0);
+scene.add(blastLight);
+
+function emitGroundSmoke(count,blastIntensity=1.0){
+  const groundY=terrainHeight(0,0);
+  const baseCol=new THREE.Color(env.ground).lerp(new THREE.Color(0xf5f0ea),0.75);
+  for(let c=0;c<count;c++){
+    const i=smkHead;
+    smkHead=(smkHead+1)%SMOKE_N;
+    const j=i*3;
+    const ang=Math.random()*Math.PI*2;
+    const rStart=Math.random()*7.5;
+    smkPos[j]=Math.cos(ang)*rStart;
+    smkPos[j+1]=groundY+0.4+Math.random()*3.0;
+    smkPos[j+2]=Math.sin(ang)*rStart;
+
+    const blastSpeed=(24+Math.random()*42)*blastIntensity;
+    smkVel[j]=Math.cos(ang)*blastSpeed+(Math.random()-0.5)*9;
+    smkVel[j+1]=2.0+Math.random()*11.0*blastIntensity;
+    smkVel[j+2]=Math.sin(ang)*blastSpeed+(Math.random()-0.5)*9;
+
+    smkAge[i]=0;
+    smkLife[i]=3.4+Math.random()*2.8;
+    smkSize[i]=9+Math.random()*7;
+
+    if(Math.random()<0.38){
+      smkColor[j]=1.0;
+      smkColor[j+1]=0.75+Math.random()*0.2;
+      smkColor[j+2]=0.34+Math.random()*0.2;
+    }else{
+      smkColor[j]=baseCol.r*(0.92+Math.random()*0.16);
+      smkColor[j+1]=baseCol.g*(0.92+Math.random()*0.16);
+      smkColor[j+2]=baseCol.b*(0.92+Math.random()*0.16);
+    }
+  }
+}
+
+function updateGroundSmoke(dt){
+  const groundY=terrainHeight(0,0);
+  for(let i=0;i<SMOKE_N;i++){
+    const j=i*3;
+    if(smkAge[i]>=smkLife[i]){
+      smkAlpha[i]=0;
+      continue;
+    }
+    smkAge[i]+=dt;
+    const progress=smkAge[i]/smkLife[i];
+
+    const drag=Math.exp(-dt*1.35);
+    smkVel[j]*=drag;
+    smkVel[j+2]*=drag;
+
+    smkVel[j+1]+=dt*2.4;
+    smkVel[j+1]*=Math.exp(-dt*0.42);
+
+    smkPos[j]+=smkVel[j]*dt;
+    smkPos[j+1]=Math.max(groundY+0.2,smkPos[j+1]+smkVel[j+1]*dt);
+    smkPos[j+2]+=smkVel[j+2]*dt;
+
+    smkSize[i]=9.0+progress*52.0;
+
+    const fadeIn=Math.min(1.0,progress/0.12);
+    const fadeOut=Math.pow(1.0-progress,1.8);
+    smkAlpha[i]=fadeIn*fadeOut*0.72;
+
+    const cool=Math.min(1.0,progress*2.8);
+    smkColor[j]=THREE.MathUtils.lerp(smkColor[j],0.92,cool*0.08);
+    smkColor[j+1]=THREE.MathUtils.lerp(smkColor[j+1],0.90,cool*0.08);
+    smkColor[j+2]=THREE.MathUtils.lerp(smkColor[j+2],0.88,cool*0.08);
+  }
+  smkGeo.attributes.position.needsUpdate=true;
+  smkGeo.attributes.aSize.needsUpdate=true;
+  smkGeo.attributes.aAlpha.needsUpdate=true;
+  smkGeo.attributes.aColor.needsUpdate=true;
+}
+
+const skyGroup=new THREE.Group();scene.add(skyGroup);let skyStorm=0,skyVisNow=1;
+const starVis=airless?1:(planet==='Mars'?.04:0),starTint=[[.66,.78,1],[.85,.9,1],[1,1,1],[1,.96,.86],[1,.84,.62],[1,.7,.5]];
+function starLayer(count,size,band){const p=[],c=[],eu=new THREE.Euler(.9,.4,.3);for(let i=0;i<count;i++){let v;if(band){const a=Math.random()*Math.PI*2,lat=(Math.random()+Math.random()+Math.random()-1.5)*.2;v=new THREE.Vector3(Math.cos(lat)*Math.cos(a),Math.sin(lat),Math.cos(lat)*Math.sin(a)).applyEuler(eu)}else{v=new THREE.Vector3().randomDirection();v.y=Math.abs(v.y)}v.multiplyScalar(9000);const t=starTint[Math.floor(Math.pow(Math.random(),1.3)*starTint.length)],b=band?.16+Math.random()*.3:Math.pow(Math.random(),3)*.85+.15;p.push(v.x,v.y,v.z);c.push(t[0]*b,t[1]*b,t[2]*b)}const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(p,3));g.setAttribute('color',new THREE.Float32BufferAttribute(c,3));const pts=new THREE.Points(g,new THREE.PointsMaterial({vertexColors:true,size,sizeAttenuation:false,transparent:true,opacity:0,depthWrite:false,fog:false,toneMapped:false}));pts.frustumCulled=false;skyGroup.add(pts);return pts}
+const stars=starLayer(9000,1.5,false),milky=starLayer(20000,1.3,true),brightStars=starLayer(260,2.8,false);
+const zenC=new THREE.Color(skyProf.zen),horC=new THREE.Color(skyProf.hor);let skyDome=null;
+if(!airless){skyDome=new THREE.Mesh(new THREE.SphereGeometry(18000,48,32),new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,depthTest:false,fog:false,toneMapped:false,uniforms:{zen:{value:zenC.clone()},hor:{value:horC.clone()},glow:{value:new THREE.Color(skyProf.glow)},sunDir:{value:sunDir.clone()}},vertexShader:'varying vec3 vD;void main(){vD=normalize(position);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',fragmentShader:'uniform vec3 zen;uniform vec3 hor;uniform vec3 glow;uniform vec3 sunDir;varying vec3 vD;void main(){float h=clamp(vD.y,0.,1.);vec3 c=mix(zen,hor,pow(1.-h,2.6));float s=max(dot(normalize(vD),sunDir),0.);c+=glow*(pow(s,6.)*.14+pow(s,48.)*.38+pow(s,600.)*.6)*(.6+.4*(1.-h));c+=glow*.12*pow(s,2.)*pow(1.-h,4.);gl_FragColor=vec4(c,1.);\n#include <colorspace_fragment>\n}'}));skyDome.renderOrder=-100;skyDome.frustumCulled=false;scene.add(skyDome);}
+function radialTex(stops){const c=document.createElement('canvas');c.width=c.height=128;const x=c.getContext('2d'),g=x.createRadialGradient(64,64,0,64,64,64);stops.forEach(s=>g.addColorStop(s[0],s[1]));x.fillStyle=g;x.fillRect(0,0,128,128);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;return t}
+const sunSize=planet==='Mars'?28:46;
+const sunDisc=new THREE.Sprite(new THREE.SpriteMaterial({map:radialTex([[0,'#ffffff'],[.9,'#fffdf4'],[1,'rgba(255,250,235,0)']]),transparent:true,depthWrite:false,toneMapped:false,fog:false}));
+const sunGlow=new THREE.Sprite(new THREE.SpriteMaterial({map:radialTex([[0,'rgba(255,255,255,.85)'],[.1,'rgba(255,244,214,.45)'],[.3,'rgba(255,222,165,.13)'],[1,'rgba(255,205,130,0)']]),blending:THREE.AdditiveBlending,transparent:true,depthWrite:false,toneMapped:false,fog:false}));
+sunDisc.scale.setScalar(sunSize);sunGlow.scale.setScalar(sunSize*(airless?3.2:13));sunDisc.renderOrder=2;sunGlow.renderOrder=1;sunDisc.position.copy(sunDir).multiplyScalar(4500);sunGlow.position.copy(sunDisc.position);skyGroup.add(sunGlow,sunDisc);
+function updateSky(){skyGroup.position.copy(camera.position);if(skyDome){skyDome.position.copy(camera.position);skyDome.material.uniforms.zen.value.copy(zenC).lerp(stormSky,skyStorm*.5);skyDome.material.uniforms.hor.value.copy(horC).lerp(stormSky,skyStorm*.5)}sunDisc.material.opacity=airless?1:THREE.MathUtils.clamp(skyVisNow*1.35,0,1);sunGlow.material.opacity=airless?.55:THREE.MathUtils.clamp(skyVisNow*1.1,0,1);const fp=mode==='walking'?player:holder.position;sunLight.target.position.copy(fp);sunLight.position.copy(fp).addScaledVector(sunDir,320)}
+
+const skyModels=[];async function addSkyGLB(file,name,dir,visualSize,pick){try{const g=await loadCachedGLB(file);let o=g.scene.clone(true);if(pick){const src=g.scene.getObjectByName(pick);if(!src)throw new Error('GLB node not found: '+pick);o=src.clone(true);o.position.set(0,0,0);o.rotation.set(0,0,0)}const b=new THREE.Box3().setFromObject(o),sz=b.getSize(new THREE.Vector3()),c=b.getCenter(new THREE.Vector3());o.position.sub(c);const wrap=new THREE.Group();wrap.add(o);const max=Math.max(sz.x,sz.y,sz.z)||1;wrap.scale.setScalar(visualSize/max);const anchor=new THREE.Group();anchor.name=name;anchor.position.copy(new THREE.Vector3(...dir).normalize().multiplyScalar(4500));anchor.add(wrap);anchor.traverse(x=>{if(x.isMesh){x.material=x.material.clone();x.material.transparent=true;x.material.opacity=env.visibility;x.material.depthWrite=false;x.material.fog=false;}});skyGroup.add(anchor);skyModels.push(anchor);return anchor}catch(e){console.warn('Sky GLB failed',file,e);return null}}
+const moonSky=planet==='Earth'?await addSkyGLB(RF_BASE+'assets/models/moon.glb','Moon',[.46,.34,-.82],48):null;const earthSky=planet==='Moon'?await addSkyGLB(RF_BASE+'assets/models/solar_system.glb','Earth',[.7,.4,-.35],140,'erath_BezierCircle_11_9'):null;
+
+let weatherClock=Math.random()*10;const cloudGeo=new THREE.BufferGeometry(),cloudArr=[];for(let i=0;i<680;i++){const v=new THREE.Vector3().randomDirection().multiplyScalar(2200+Math.random()*2400);if(v.y<160)v.y=Math.abs(v.y)+160;cloudArr.push(v.x,v.y,v.z)}cloudGeo.setAttribute('position',new THREE.Float32BufferAttribute(cloudArr,3));const clouds=new THREE.Points(cloudGeo,new THREE.PointsMaterial({color:env.fog,size:14+env.storm*28,transparent:true,opacity:env.storm*.15,depthWrite:false}));scene.add(clouds);
+
+const gltf=await loadCachedGLB(rocketFile),rocket=gltf.scene.clone(true),rawBox=new THREE.Box3().setFromObject(rocket),size=rawBox.getSize(new THREE.Vector3()),center=rawBox.getCenter(new THREE.Vector3());rocket.position.sub(center);rocket.scale.setScalar(50/Math.max(size.x,size.y,size.z));rocket.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;if(o.material){o.material=o.material.clone();o.material.side=THREE.DoubleSide;}}});const holder=new THREE.Group();holder.add(rocket);scene.add(holder);const scaledBox=new THREE.Box3().setFromObject(rocket),scaledSize=scaledBox.getSize(new THREE.Vector3()),rocketBottom=-scaledBox.min.y,rocketFootprint=Math.max(scaledSize.x,scaledSize.z)*.5,landedY=terrainHeight(0,0)+rocketBottom+.12;holder.position.set(0,860,0);
+
+// REALISTIC MULTI-STAGE ROCKET EXHAUST FLAME / PLUME (Mach Shock Diamonds + Volumetric Core + Dynamic Fire Particles + Nozzle Light)
+function createRealisticRocketPlume(nozzleRadius=1.45,plumeLength=16.5){
+  const group=new THREE.Group();
+  const plumeUniforms={uTime:{value:0},uThrust:{value:1}};
+
+  const flameVert=`
+    varying vec2 vUv;
+    varying vec3 vPos;
+    uniform float uTime;
+    uniform float uThrust;
+    void main(){
+      vUv=uv;
+      vec3 p=position;
+      float down=1.0-uv.y;
+      float flutter=sin(down*9.0-uTime*42.0)*0.08+cos(down*17.0-uTime*58.0)*0.05;
+      p.xz*=1.0+down*(0.55+0.25*uThrust)+flutter*down;
+      vPos=p;
+      gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.0);
+    }
+  `;
+  const outerFrag=`
+    varying vec2 vUv;
+    varying vec3 vPos;
+    uniform float uTime;
+    uniform float uThrust;
+    float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+    float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.0-2.0*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
+    void main(){
+      float down=1.0-vUv.y;
+      float radial=abs(vUv.x-0.5)*2.0;
+      float n=noise(vec2(vUv.x*6.0,down*8.0-uTime*26.0))*0.6+noise(vec2(vUv.x*14.0,down*18.0-uTime*44.0))*0.4;
+      float edge=smoothstep(1.0,0.08,radial+down*0.32*(n-0.45));
+      float tipFade=smoothstep(0.0,0.06,down)*(1.0-smoothstep(0.45,1.0,down));
+      // Supersonic Mach shock diamonds along exhaust axis
+      float shock=pow(max(0.0,sin(down*24.0-uTime*36.0)),4.0)*(1.0-down)*smoothstep(0.55,0.0,radial);
+      vec3 hotCore=vec3(1.0,0.98,0.92);
+      vec3 midFlame=vec3(1.0,0.62,0.14);
+      vec3 tailFlame=vec3(0.92,0.18,0.03);
+      vec3 shockCol=vec3(0.68,0.90,1.0);
+      vec3 col=mix(hotCore,midFlame,smoothstep(0.05,0.45,down));
+      col=mix(col,tailFlame,smoothstep(0.42,0.95,down));
+      col+=shockCol*shock*0.95;
+      float alpha=edge*tipFade*(0.65+0.35*n)*uThrust;
+      gl_FragColor=vec4(col*(1.4+shock*0.8),clamp(alpha,0.0,1.0));
+    }
+  `;
+  const coreFrag=`
+    varying vec2 vUv;
+    uniform float uTime;
+    uniform float uThrust;
+    void main(){
+      float down=1.0-vUv.y;
+      float radial=abs(vUv.x-0.5)*2.0;
+      float diamond=pow(max(0.0,sin(down*28.0-uTime*42.0)),3.0)*(1.0-down);
+      float coreMask=smoothstep(0.85,0.0,radial)*(1.0-smoothstep(0.0,0.88,down));
+      vec3 c=mix(vec3(0.82,0.95,1.0),vec3(1.0,0.88,0.45),down);
+      c+=vec3(0.9,0.98,1.0)*diamond*0.9;
+      float a=coreMask*(0.85+0.25*diamond)*uThrust;
+      gl_FragColor=vec4(c*1.85,clamp(a,0.0,1.0));
+    }
+  `;
+
+  const outerMat=new THREE.ShaderMaterial({uniforms:plumeUniforms,vertexShader:flameVert,fragmentShader:outerFrag,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,side:THREE.DoubleSide,toneMapped:false});
+  const coreMat=new THREE.ShaderMaterial({uniforms:plumeUniforms,vertexShader:flameVert,fragmentShader:coreFrag,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,side:THREE.DoubleSide,toneMapped:false});
+
+  // Outer volumetric cone + crossed planes
+  const outerConeGeo=new THREE.CylinderGeometry(nozzleRadius*0.58,nozzleRadius*2.15,plumeLength,32,24,true);
+  outerConeGeo.translate(0,-plumeLength*0.5,0);
+  const outerCone=new THREE.Mesh(outerConeGeo,outerMat);
+  group.add(outerCone);
+
+  for(let k=0;k<3;k++){
+    const planeGeo=new THREE.PlaneGeometry(nozzleRadius*2.8,plumeLength,8,24);
+    planeGeo.translate(0,-plumeLength*0.5,0);
+    const pm=new THREE.Mesh(planeGeo,outerMat);
+    pm.rotation.y=(k*Math.PI)/3;
+    group.add(pm);
+  }
+
+  // Inner bright plasma/Mach cone
+  const coreLen=plumeLength*0.62;
+  const coreGeo=new THREE.CylinderGeometry(nozzleRadius*0.36,nozzleRadius*0.95,coreLen,24,16,true);
+  coreGeo.translate(0,-coreLen*0.5,0);
+  const coreCone=new THREE.Mesh(coreGeo,coreMat);
+  group.add(coreCone);
+
+  // Nozzle flare sprite
+  const flareSprite=new THREE.Sprite(new THREE.SpriteMaterial({
+    map:radialTex([[0,'rgba(255,255,255,1)'],[.18,'rgba(255,240,185,.92)'],[.45,'rgba(255,145,35,.48)'],[1,'rgba(255,70,0,0)']]),
+    blending:THREE.AdditiveBlending,transparent:true,depthWrite:false,toneMapped:false
+  }));
+  flareSprite.scale.setScalar(nozzleRadius*6.2);
+  flareSprite.position.y=-0.35;
+  group.add(flareSprite);
+
+  // Dynamic high-velocity fire/ember particles
+  const pCount=220;
+  const pPos=new Float32Array(pCount*3);
+  const pCol=new Float32Array(pCount*3);
+  const pPhase=new Float32Array(pCount);
+  const pRad=new Float32Array(pCount);
+  const pAng=new Float32Array(pCount);
+  for(let i=0;i<pCount;i++){
+    pPhase[i]=Math.random();
+    pRad[i]=Math.pow(Math.random(),0.7)*nozzleRadius*1.65;
+    pAng[i]=Math.random()*Math.PI*2;
+  }
+  const pGeo=new THREE.BufferGeometry();
+  pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+  pGeo.setAttribute('color',new THREE.BufferAttribute(pCol,3));
+  const pMat=new THREE.PointsMaterial({
+    map:radialTex([[0,'rgba(255,255,255,1)'],[.35,'rgba(255,215,130,.85)'],[.7,'rgba(255,95,20,.35)'],[1,'rgba(255,40,0,0)']]),
+    size:2.3,vertexColors:true,transparent:true,opacity:0.95,depthWrite:false,blending:THREE.AdditiveBlending,toneMapped:false
+  });
+  const firePoints=new THREE.Points(pGeo,pMat);
+  group.add(firePoints);
+
+  // Engine illumination light
+  const engineLight=new THREE.PointLight(0xff9a36,18,65,1.6);
+  engineLight.position.set(0,-2.2,0);
+  group.add(engineLight);
+
+  group.userData.update=(dt,thrust=1)=>{
+    plumeUniforms.uTime.value+=dt;
+    const flicker=0.88+0.12*Math.sin(plumeUniforms.uTime.value*55)+0.07*Math.cos(plumeUniforms.uTime.value*83);
+    const eff=thrust*flicker;
+    plumeUniforms.uThrust.value=eff;
+    const scaleY=0.75+0.42*eff;
+    outerCone.scale.set(0.92+0.12*eff,scaleY,0.92+0.12*eff);
+    coreCone.scale.set(0.9+0.15*eff,scaleY,0.9+0.15*eff);
+    flareSprite.scale.setScalar(nozzleRadius*(5.4+1.8*eff));
+    flareSprite.material.opacity=Math.min(1,0.85*eff);
+    engineLight.intensity=24*eff;
+
+    const posAttr=pGeo.attributes.position;
+    const colAttr=pGeo.attributes.color;
+    for(let i=0;i<pCount;i++){
+      pPhase[i]=(pPhase[i]+dt*(2.6+1.6*(i%5)*0.25)*Math.max(0.4,thrust))%1;
+      const u=pPhase[i];
+      const spread=0.28+u*1.55;
+      const r=pRad[i]*spread;
+      const a=pAng[i]+plumeUniforms.uTime.value*3.5*(i%2?1:-1);
+      posAttr.setXYZ(i,Math.cos(a)*r,-u*plumeLength*1.18*scaleY,Math.sin(a)*r);
+      if(u<0.25){
+        colAttr.setXYZ(i,1.0,0.96,0.82);
+      }else if(u<0.65){
+        const k=(u-0.25)/0.4;
+        colAttr.setXYZ(i,1.0,0.88-k*0.42,0.55-k*0.45);
+      }else{
+        const k=(u-0.65)/0.35;
+        colAttr.setXYZ(i,0.95-k*0.45,0.42*(1-k),0.08*(1-k));
+      }
+    }
+    posAttr.needsUpdate=true;
+    colAttr.needsUpdate=true;
+    pMat.opacity=Math.min(1,0.95*thrust);
+  };
+  return group;
+}
+
+const plume=createRealisticRocketPlume(rocketFootprint*0.75,26.0);
+plume.position.y=-rocketBottom+.15;
+holder.add(plume);
+
+// Realistic procedural Web Audio rocket engine sound synthesizer
+class RocketAudio {
+  constructor(){
+    this.ctx=null;this.noiseNode=null;this.filter=null;this.gain=null;this.subOsc=null;this.subGain=null;this.initialized=false;
+  }
+  init(){
+    if(this.initialized)return;
+    try{
+      const AC=window.AudioContext||window.webkitAudioContext;
+      if(!AC)return;
+      this.ctx=new AC();
+      const bLen=this.ctx.sampleRate*2,buf=this.ctx.createBuffer(1,bLen,this.ctx.sampleRate),out=buf.getChannelData(0);
+      let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0;
+      for(let i=0;i<bLen;i++){
+        const w=Math.random()*2-1;
+        b0=0.99886*b0+w*0.0555;b1=0.99332*b1+w*0.075;b2=0.969*b2+w*0.153;b3=0.8665*b3+w*0.31;b4=0.55*b4+w*0.533;b5=-0.7616*b5-w*0.0169;
+        out[i]=(b0+b1+b2+b3+b4+b5+b6+w*0.536)*0.11;b6=w*0.1159;
+      }
+      this.noiseNode=this.ctx.createBufferSource();this.noiseNode.buffer=buf;this.noiseNode.loop=true;
+      this.filter=this.ctx.createBiquadFilter();this.filter.type='lowpass';this.filter.frequency.value=180;this.filter.Q.value=3.2;
+      this.gain=this.ctx.createGain();this.gain.gain.value=0;
+      this.noiseNode.connect(this.filter);this.filter.connect(this.gain);
+
+      this.subOsc=this.ctx.createOscillator();this.subOsc.type='sawtooth';this.subOsc.frequency.value=38;
+      this.subFilter=this.ctx.createBiquadFilter();this.subFilter.type='lowpass';this.subFilter.frequency.value=75;
+      this.subGain=this.ctx.createGain();this.subGain.gain.value=0;
+      this.subOsc.connect(this.subFilter);this.subFilter.connect(this.subGain);
+
+      this.master=this.ctx.createGain();this.master.gain.value=0.75;
+      this.gain.connect(this.master);this.subGain.connect(this.master);this.master.connect(this.ctx.destination);
+      this.noiseNode.start(0);this.subOsc.start(0);this.initialized=true;
+    }catch(e){}
+  }
+  setThrust(thrust=0,pitchFactor=1.0){
+    if(!this.initialized||!this.ctx)return;
+    if(this.ctx.state==='suspended')this.ctx.resume();
+    const now=this.ctx.currentTime,t=Math.max(0,Math.min(1.5,thrust));
+    if(t<0.02){
+      this.gain.gain.setTargetAtTime(0,now,0.08);
+      this.subGain.gain.setTargetAtTime(0,now,0.08);
+    }else{
+      this.gain.gain.setTargetAtTime(Math.min(0.65,t*0.52),now,0.05);
+      this.filter.frequency.setTargetAtTime(140+t*480*pitchFactor,now,0.05);
+      this.subGain.gain.setTargetAtTime(Math.min(0.42,t*0.35),now,0.05);
+      this.subOsc.frequency.setTargetAtTime(32+t*24*pitchFactor,now,0.05);
+    }
+  }
+  playJump(){
+    if(!this.initialized||!this.ctx)return;
+    try{
+      const now=this.ctx.currentTime,o=this.ctx.createOscillator(),g=this.ctx.createGain();
+      o.type='triangle';o.frequency.setValueAtTime(110,now);o.frequency.exponentialRampToValueAtTime(55,now+0.18);
+      g.gain.setValueAtTime(0.18,now);g.gain.exponentialRampToValueAtTime(0.001,now+0.18);
+      o.connect(g);g.connect(this.master);o.start(now);o.stop(now+0.19);
+    }catch(e){}
+  }
+}
+const rocketAudio=new RocketAudio();
+['pointerdown','keydown','click'].forEach(evt=>addEventListener(evt,()=>rocketAudio.init(),{once:true}));
+
+let mode='landing',t=0,prevY=holder.position.y,inside=true,yaw=Math.PI,pitch=0;
+let playerVelY=0,isGrounded=true;
+const planetG=env.gravity??1;
+const gAccel=Math.max(2.6,18.0*planetG);
+const jumpVel=6.6+(1-Math.min(1,planetG))*2.5;
+
+const eyeHeight=1.72,playerSpawnRadius=Math.max(rocketFootprint+3.8,10.5),player=new THREE.Vector3(playerSpawnRadius,getSurfaceHeight(playerSpawnRadius,0),0),keys={};
+addEventListener('keydown',e=>{
+  keys[e.key.toLowerCase()]=true;
+  if(e.code==='Space'||e.key===' '){
+    keys['space']=true;
+    if(mode==='walking'&&isGrounded){
+      playerVelY=jumpVel;
+      isGrounded=false;
+      rocketAudio.playJump();
+    }
+  }
+});
+addEventListener('keyup',e=>{
+  keys[e.key.toLowerCase()]=false;
+  if(e.code==='Space'||e.key===' '){
+    keys['space']=false;
+  }
+});
+const phase=document.querySelector('#phase'),phaseSub=document.querySelector('#phaseSub'),alt=document.querySelector('#alt'),speed=document.querySelector('#speed'),state=document.querySelector('#state'),rocketDist=document.querySelector('#rocketDist'),skyState=document.querySelector('#skyState'),gravityVal=document.querySelector('#gravityVal'),exitBtn=document.querySelector('#exitBtn'),launchBtn=document.querySelector('#launchBtn'),tip=document.querySelector('#tip'),crosshair=document.querySelector('#crosshair'),interactPrompt=document.querySelector('#interactPrompt');
+skyState.textContent=env.weather;
+if(gravityVal)gravityVal.textContent=(planetG*9.8).toFixed(1)+' m/s² ('+planetG.toFixed(2)+' G)';
+
+let lastFollowAnchor=new THREE.Vector3();
+function followRocket(initial=false,shake=0){controls.enabled=true;controls.enablePan=false;const anchor=holder.position.clone();if(initial){camera.position.copy(anchor).add(new THREE.Vector3(32,16,46));lastFollowAnchor.copy(anchor);}else{const delta=anchor.clone().sub(lastFollowAnchor);camera.position.add(delta);lastFollowAnchor.copy(anchor);}controls.target.copy(anchor);if(shake>0){camera.position.x+=(Math.random()-.5)*shake;camera.position.y+=(Math.random()-.5)*shake*.55;camera.position.z+=(Math.random()-.5)*shake;}}
+function enterFirstPerson(){controls.enabled=false;crosshair.classList.add('show');renderer.domElement.requestPointerLock?.();camera.position.set(player.x,terrainHeight(player.x,player.z)+eyeHeight,player.z);}
+function fpLook(){camera.rotation.order='YXZ';camera.rotation.y=yaw;camera.rotation.x=pitch;camera.rotation.z=0;}
+renderer.domElement.addEventListener('click',()=>{if(mode==='walking'&&document.pointerLockElement!==renderer.domElement)renderer.domElement.requestPointerLock?.();});
+addEventListener('mousemove',e=>{if(document.pointerLockElement!==renderer.domElement||mode!=='walking')return;yaw-=e.movementX*.0022;pitch=THREE.MathUtils.clamp(pitch-e.movementY*.0022,-Math.PI*.49,Math.PI*.49);});
+function exitPointer(){if(document.pointerLockElement===renderer.domElement)document.exitPointerLock?.();crosshair.classList.remove('show');}
+followRocket(true);
+
+const raycaster=new THREE.Raycaster();raycaster.far=55;let interactTarget=null;
+function isChildOf(o,p){while(o){if(o===p)return true;o=o.parent}return false}
+function updateInteraction(){
+  interactTarget=null;interactPrompt.style.display='none';
+  if(mode!=='walking')return;
+  raycaster.setFromCamera(new THREE.Vector2(0,0),camera);
+  const hits=raycaster.intersectObjects([holder],true);
+  if(!hits.length)return;
+  const h=hits[0].object;
+  if(isChildOf(h,holder)&&Math.hypot(player.x-holder.position.x,player.z-holder.position.z)<rocketFootprint+10){
+    interactTarget='rocket';
+    interactPrompt.textContent='E • ENTER ROCKET';
+    interactPrompt.style.display='block';
+  }
+}
+function enterRocket(){inside=true;mode='landed';exitPointer();followRocket(true);state.textContent='IN ROCKET';phase.textContent='READY TO LAUNCH';phaseSub.textContent='Rocket remained at the exact touchdown point';launchBtn.disabled=false;exitBtn.style.display='inline-block';tip.textContent='Drag = 360° look • Scroll = zoom';interactPrompt.style.display='none'}
+
+addEventListener('keydown',e=>{if(e.key.toLowerCase()!=='e'||e.repeat)return;if(mode==='walking'&&interactTarget==='rocket')enterRocket();});
+exitBtn.onclick=()=>{if(mode!=='landed')return;inside=false;mode='walking';player.set(playerSpawnRadius,getSurfaceHeight(playerSpawnRadius,0),0);playerVelY=0;isGrounded=true;rocketAudio.setThrust(0);phase.textContent='FIRST PERSON EXPLORATION';phaseSub.textContent='Crosshair-аар пуужин дээр онилоод E дарж орно';state.textContent='ON FOOT';exitBtn.style.display='none';launchBtn.disabled=true;tip.textContent='Mouse = 360° look • WASD = walk • SHIFT = sprint • SPACE = JUMP ('+planetG.toFixed(2)+'G) • Чулуун дээр үсэрч гарч болно • E = enter rocket';enterFirstPerson();};
+launchBtn.onclick=()=>{if(!inside||mode!=='landed')return;mode='launching';t=0;prevY=holder.position.y;lastFollowAnchor.copy(holder.position);exitBtn.disabled=true;launchBtn.disabled=true;plume.visible=true;phase.textContent='LAUNCH';phaseSub.textContent=planet+' surface → atmosphere → low orbit';state.textContent='ASCENT';};
+const backToSolarBtn=document.querySelector('#backToSolarBtn');
+if(backToSolarBtn){
+  backToSolarBtn.onclick=()=>{
+    exitPointer();
+    try{rocketAudio.setThrust(0);}catch(e){}
+    sessionStorage.setItem('rfSurfaceReturn',planet);
+    sessionStorage.removeItem('rfSurfaceEntry');
+    location.href='solar_system.html';
+  };
+}
+const backToMainBtn=document.querySelector('#backToMainBtn');
+if(backToMainBtn){
+  backToMainBtn.onclick=()=>{
+    exitPointer();
+    try{rocketAudio.setThrust(0);}catch(e){}
+    if(window.SU&&typeof window.SU.open==='function')window.SU.open('home');
+    else location.href='index.html';
+  };
+}
+window.REALITY_FORGE_SURFACE={planet,getState:()=>({mode,planet,inside,altitude:holder.position.y-landedY})};
+
+const clock=new THREE.Clock();
+function loop(){
+  requestAnimationFrame(loop);
+  const dt=Math.min(.04,clock.getDelta());
+  weatherClock+=dt;
+  const wave=.5+.5*Math.sin(weatherClock*.14),stormStrength=env.storm*(.42+.58*wave),skyVis=THREE.MathUtils.clamp(env.visibility*(1-stormStrength*.72),.02,1);
+  stars.material.opacity=skyVis*.92*starVis;milky.material.opacity=brightStars.material.opacity=stars.material.opacity;
+  skyStorm=stormStrength;skyVisNow=skyVis;
+  for(const a of skyModels)a.traverse(o=>{if(o.isMesh&&o.material)o.material.opacity=skyVis;});
+  clouds.material.opacity=env.storm*(.05+.3*wave);clouds.rotation.y+=dt*(.025+env.storm*.08);
+  scene.fog.density=airless?.000018:(planet==='Earth'?.00022+(1-skyVis)*.0014:.00042+(1-skyVis)*.0038);
+  scene.background.copy(clearSky).lerp(stormSky,stormStrength*.5);
+  skyState.textContent=env.weather+(env.storm>0?' • VIS '+Math.round(skyVis*100)+'%':'');
+
+  if(mode==='landing'){
+    t=Math.min(1,t+dt/18);
+    const e=1-Math.pow(1-t,3),y=Math.max(landedY,THREE.MathUtils.lerp(860,landedY,e));
+    holder.position.y=y;
+    plume.visible=true;
+    const retroThrust=t<.85?(0.95+0.25*Math.sin(t*8)):THREE.MathUtils.lerp(1.2,0.35,(t-.85)/.15);
+    plume.userData.update(dt,retroThrust);
+    rocketAudio.setThrust(retroThrust,0.92);
+
+    const hAbove=Math.max(0,y-landedY);
+    if(hAbove<120){
+      const blast=Math.max(0,1.0-(hAbove/120));
+      const count=Math.round(dt*80*blast);
+      if(count>0)emitGroundSmoke(count,0.9+blast*0.5);
+      blastLight.intensity=(42+Math.random()*26)*blast;
+    }else{
+      blastLight.intensity=0;
+    }
+
+    const vy=Math.abs(y-prevY)/Math.max(dt,.001);prevY=y;
+    alt.textContent=Math.max(0,Math.round((y-landedY)*90))+' m';
+    speed.textContent=Math.round(vy*3.6)+' m/s';
+    state.textContent=t<.45?'HIGH ALTITUDE':t<.8?'CONTROLLED RETRO DESCENT':'FINAL APPROACH';
+    followRocket(false,t>.7?0.035:0.015);
+    if(y<=landedY+.001||t>=1){
+      holder.position.y=landedY;mode='landed';plume.visible=false;blastLight.intensity=0;
+      rocketAudio.setThrust(0);
+      phase.textContent='TOUCHDOWN • '+planet.toUpperCase();
+      phaseSub.textContent='Soft landing complete • EXIT ROCKET for first-person exploration';
+      state.textContent='LANDED';alt.textContent='0 m';speed.textContent='0 m/s';
+      exitBtn.disabled=false;launchBtn.disabled=false;
+    }
+  }else if(mode==='walking'){
+    blastLight.intensity=0;
+    rocketAudio.setThrust(0);
+    const f=new THREE.Vector3(0,0,-1).applyEuler(new THREE.Euler(0,yaw,0)),side=new THREE.Vector3(1,0,0).applyEuler(new THREE.Euler(0,yaw,0)),mv=new THREE.Vector3();
+    if(keys.w)mv.add(f);if(keys.s)mv.sub(f);if(keys.d)mv.add(side);if(keys.a)mv.sub(side);
+    const airControl=isGrounded?1.0:0.85;
+    const v=4.2*(keys.shift?2.1:1)*airControl;
+    if(mv.lengthSq()){
+      mv.normalize().multiplyScalar(dt*v);
+      player.x+=mv.x;
+      player.z+=mv.z;
+      resolveRockCollision(player,.48);
+      const rdx=player.x-holder.position.x,rdz=player.z-holder.position.z,rd=Math.hypot(rdx,rdz),minRocketR=rocketFootprint+.65;
+      if(rd<minRocketR&&rd>1e-4){player.x=holder.position.x+rdx/rd*minRocketR;player.z=holder.position.z+rdz/rd*minRocketR;}
+      player.x=THREE.MathUtils.clamp(player.x,-7200,7200);
+      player.z=THREE.MathUtils.clamp(player.z,-7200,7200);
+    }
+
+    // Planet-specific vertical gravity & jump physics with 3D climbable rock height
+    const groundH=getSurfaceHeight(player.x,player.z);
+    if((keys[' ']||keys['space'])&&isGrounded){
+      playerVelY=jumpVel;
+      isGrounded=false;
+      rocketAudio.playJump();
+    }
+    if(!isGrounded){
+      playerVelY-=gAccel*dt;
+      player.y+=playerVelY*dt;
+      if(player.y<=groundH){
+        player.y=groundH;
+        playerVelY=0;
+        isGrounded=true;
+      }
+    }else{
+      player.y=groundH;
+    }
+
+    camera.position.set(player.x,player.y+eyeHeight,player.z);
+    fpLook();
+    updateInteraction();
+    rocketDist.textContent=Math.round(Math.hypot(player.x,player.z))+' m';
+    alt.textContent=Math.max(0,Math.round(player.y-groundH))+' m';
+    const horizSpd=mv.length()/Math.max(dt,.001);
+    speed.textContent=Math.hypot(horizSpd,playerVelY).toFixed(1)+' m/s';
+    if(gravityVal)gravityVal.textContent=(planetG*9.8).toFixed(1)+' m/s² ('+planetG.toFixed(2)+' G)';
+  }else if(mode==='landed'){
+    blastLight.intensity=0;
+    rocketAudio.setThrust(0);
+    holder.position.y=Math.max(holder.position.y,landedY);
+    plume.visible=false;
+    followRocket(false);
+    rocketDist.textContent='0 m';
+  }else if(mode==='launching'){
+    t+=dt;
+    const verticalPhase=Math.min(1,t/10),totalPhase=Math.min(1,t/14);
+    let rise;
+    if(t<2){const q=t/2;rise=10*q*q;}
+    else if(t<=10){const q=(t-2)/8;rise=10+880*(q*q*(3-2*q));}
+    else{const q=(t-10)/4;rise=890+1050*(q*q*(3-2*q));}
+    holder.position.y=Math.max(landedY,landedY+rise);
+    const pitch=t<=10?0:THREE.MathUtils.smootherstep((t-10)/4,0,1)*Math.PI*.22;
+    holder.rotation.z=-pitch;
+    plume.visible=true;
+    const launchThrust=t<2?(0.75+0.35*(t/2)):(1.35+0.15*Math.sin(t*18));
+    plume.userData.update(dt,launchThrust);
+    rocketAudio.setThrust(launchThrust,1.18);
+
+    const hAbove=Math.max(0,holder.position.y-landedY);
+    if(hAbove<180){
+      const blast=Math.max(0,1.0-(hAbove/180));
+      const count=Math.round(dt*90*(t<2?0.65:1.25)*blast);
+      if(count>0)emitGroundSmoke(count,1.15*blast);
+      blastLight.intensity=(48+Math.random()*32)*blast;
+    }else{
+      blastLight.intensity=0;
+    }
+
+    const engineShake=t<2?.045:t<10?(.075+.045*verticalPhase):.035*(1-totalPhase);
+    followRocket(false,engineShake);
+    const vy=Math.max(0,(holder.position.y-prevY)/Math.max(dt,.001));prevY=holder.position.y;
+    alt.textContent=Math.round((holder.position.y-landedY)*90)+' m';
+    speed.textContent=Math.round(vy*3.6)+' m/s';
+    state.textContent=t<2?'ENGINE THRUST BUILD-UP':t<10?'VERTICAL POWER ASCENT':t<13?'UPPER ATMOSPHERE / PITCH':'LOW ORBIT INSERTION';
+    phaseSub.textContent=t<10?'10 s vertical ascent • realistic plume • engine vibration':planet+' surface → space → low orbit';
+    if(t>=14){sessionStorage.setItem('rfSurfaceReturn',planet);sessionStorage.removeItem('rfSurfaceEntry');location.href='solar_system.html';}
+  }
+  updateGroundSmoke(dt);
+  if(controls.enabled)controls.update();
+  updateSky();
+  renderer.render(scene,camera);
+}
+loop();
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
+
+}

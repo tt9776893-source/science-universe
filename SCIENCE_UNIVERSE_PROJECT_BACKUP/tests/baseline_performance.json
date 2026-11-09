@@ -1,0 +1,70 @@
+{
+  "scenarios": [
+    {
+      "scenario": "Surface Spawn",
+      "fps": 34,
+      "avgFrameTimeMs": 29.82,
+      "minFrameTimeMs": 25.1,
+      "maxFrameTimeMs": 48.1,
+      "drawCalls": 948,
+      "triangles": 334944,
+      "geometries": 151,
+      "textures": 6,
+      "activeChunks": 49
+    },
+    {
+      "scenario": "Near Base Habitat",
+      "fps": 24,
+      "avgFrameTimeMs": 41.85,
+      "minFrameTimeMs": 34.3,
+      "maxFrameTimeMs": 63,
+      "drawCalls": 1244,
+      "triangles": 402200,
+      "geometries": 156,
+      "textures": 6,
+      "activeChunks": 49
+    },
+    {
+      "scenario": "Near Rover",
+      "fps": 16,
+      "avgFrameTimeMs": 64.29,
+      "minFrameTimeMs": 14.1,
+      "maxFrameTimeMs": 94.1,
+      "drawCalls": 1086,
+      "triangles": 357684,
+      "geometries": 200,
+      "textures": 6,
+      "activeChunks": 49
+    },
+    {
+      "scenario": "While Excavating",
+      "fps": 17,
+      "avgFrameTimeMs": 60.08,
+      "minFrameTimeMs": 59.5,
+      "maxFrameTimeMs": 64.8,
+      "drawCalls": 1086,
+      "triangles": 357876,
+      "geometries": 200,
+      "textures": 6,
+      "activeChunks": 49,
+      "remeshTimeMs": 68.3
+    },
+    {
+      "scenario": "Deep Underground (-15m)",
+      "fps": 37,
+      "avgFrameTimeMs": 26.82,
+      "minFrameTimeMs": 11.1,
+      "maxFrameTimeMs": 45.6,
+      "drawCalls": 716,
+      "triangles": 285796,
+      "geometries": 200,
+      "textures": 6,
+      "activeChunks": 49
+    }
+  ],
+  "undergroundCheck": {
+    "intendedY": -12,
+    "actualFloorY": -16.050748825073242,
+    "playerPositionY": -14.250748825073241
+  }
+}

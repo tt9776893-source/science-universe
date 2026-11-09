@@ -1,0 +1,26 @@
+{
+  "name": "science-universe",
+  "version": "1.0.0",
+  "description": "Science Universe — Interactive Science, Physics, Space & Exploration Mobile Application",
+  "main": "index.html",
+  "scripts": {
+    "dev:test-access": "node tools/developer-access.mjs --development",
+    "preview:production": "node tools/developer-access.mjs",
+    "test:developer-access": "node tests/developer-access.mjs",
+    "build": "node tools/build_integration.mjs && node tools/sync_web.mjs",
+    "cap:sync": "npx cap sync",
+    "cap:build:android": "npx cap build android",
+    "cap:open:android": "npx cap open android",
+    "cap:open:ios": "npx cap open ios"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.6.0",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/cli": "^8.6.0",
+    "@capacitor/core": "^8.6.0",
+    "@capacitor/ios": "^8.6.0",
+    "@capacitor/screen-orientation": "^8.0.2",
+    "@capacitor/splash-screen": "^8.0.2",
+    "@capacitor/status-bar": "^8.0.4"
+  }
+}

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Science Universe</string>
+    <string name="title_activity_main">Science Universe</string>
+    <string name="package_name">com.scienceuniverse.app</string>
+    <string name="custom_url_scheme">com.scienceuniverse.app</string>
+</resources>

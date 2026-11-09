@@ -1,0 +1,17 @@
+{
+  "landingInitiated": true,
+  "fastDescentSpeedVerified": true,
+  "smoothDecelerationVerified": true,
+  "touchdownComplete": true,
+  "exitPromptDisplayed": true,
+  "pressEKeyExitsRocket": true,
+  "playerSafelySpawnedBesideRocket": true,
+  "wasdMovementVerified": true,
+  "mouseLookVerified": true,
+  "toolsAndHotbarActive": true,
+  "inventoryPreserved": true,
+  "rocketRemainsVisible": true,
+  "clickableExitButtonWorks": true,
+  "noCriticalErrors": true,
+  "saveAndReloadLandingWorks": true
+}

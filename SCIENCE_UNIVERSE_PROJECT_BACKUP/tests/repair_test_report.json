@@ -1,0 +1,122 @@
+{
+  "report": {
+    "stageA": {
+      "chunksAudited": 49,
+      "totalVertices": 86742,
+      "totalTriangles": 28914,
+      "hasNaNOrInf": false,
+      "degenerateTriangles": 0,
+      "invertedTriangles": 0,
+      "normalLengthsValid": true,
+      "boundarySeamsDetected": false,
+      "pass": true
+    },
+    "stageB": {
+      "preFloor": 4.744035959243774,
+      "postFloor": 3.0833975076675415,
+      "holeDepth": 1.66,
+      "holeCreated": true,
+      "playerYInHole": 4.733397507667542,
+      "playerEnteredHole": true,
+      "tunnelCreated": true,
+      "saveSuccess": true,
+      "persistentChunksCount": 2,
+      "pass": true
+    },
+    "stageC": {
+      "ambientLightIntensity": 0.6299024736167931,
+      "hemiLightIntensity": 0.793873215701831,
+      "sunLightIntensity": 1.595590389190531,
+      "shadowBias": -0.0001,
+      "shadowNormalBias": 0.02,
+      "toneMapping": 4,
+      "toneMappingExposure": 1.1,
+      "materialRoughness": 0.86,
+      "materialMetalness": 0.08,
+      "pass": true
+    },
+    "stageD": {
+      "roverAvailable": true,
+      "roverPosition": {
+        "x": 6,
+        "y": 4.840916290080247,
+        "z": 8
+      },
+      "roverFloorY": 4.8394389152526855,
+      "roverSittingOnGround": true,
+      "resourcesCount": 80,
+      "floatingResourcesDetected": 0,
+      "pass": true
+    },
+    "stageE": {
+      "hotbarSlots": 10,
+      "toolsMountedCount": 10,
+      "toolsVerified": [
+        {
+          "slot": 0,
+          "id": "tool_mining_laser",
+          "name": "Mining Laser MK-1",
+          "mounted": true
+        },
+        {
+          "slot": 1,
+          "id": "tool_rock_hammer",
+          "name": "Geological Pick Hammer",
+          "mounted": true
+        },
+        {
+          "slot": 2,
+          "id": "tool_thermal_drill",
+          "name": "Thermal Core Drill",
+          "mounted": true
+        },
+        {
+          "slot": 3,
+          "id": "tool_terrain_manipulator",
+          "name": "Gravimetric Manipulator",
+          "mounted": true
+        },
+        {
+          "slot": 4,
+          "id": "tool_sample_collector",
+          "name": "Cryo Sample Vacuum",
+          "mounted": true
+        },
+        {
+          "slot": 5,
+          "id": "tool_scanner",
+          "name": "Geological PIXL Scanner",
+          "mounted": true
+        },
+        {
+          "slot": 6,
+          "id": "tool_multispectral_scanner",
+          "name": "Multispectral Scanner",
+          "mounted": true
+        },
+        {
+          "slot": 7,
+          "id": "tool_gpr_radar",
+          "name": "Subsurface GPR Radar",
+          "mounted": true
+        },
+        {
+          "slot": 8,
+          "id": "tool_construction",
+          "name": "Modular Fabricator Tool",
+          "mounted": true
+        },
+        {
+          "slot": 9,
+          "id": "tool_welding_tool",
+          "name": "Plasma Arc Welder",
+          "mounted": true
+        }
+      ],
+      "svgThumbnailsCount": 10,
+      "pass": true
+    }
+  },
+  "consoleErrors": [],
+  "allPassed": true
+}

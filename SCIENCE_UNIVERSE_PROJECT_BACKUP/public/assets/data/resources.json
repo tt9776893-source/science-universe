@@ -1,0 +1,699 @@
+[
+  {
+    "id": "res_rock_basalt",
+    "code": "01",
+    "name_en": "Basalt Rock",
+    "name_mn": "Базальт чулуулаг",
+    "category": "rocks",
+    "file": "SU_Rock_Basalt.glb",
+    "chemical_composition": "45-52% SiO2, rich in FeO and MgO, plagioclase, pyroxene",
+    "hardness_mohs": 6.0,
+    "mining_difficulty": "Medium",
+    "formation": "Mafic extrusive igneous rock formed from rapid cooling of magnesium- and iron-rich lava",
+    "planetary_occurrence": [
+      "Earth",
+      "Moon (Maria)",
+      "Mars",
+      "Venus",
+      "Mercury"
+    ],
+    "suitable_instruments": [
+      "Mining Laser",
+      "Rock Hammer",
+      "Geological Scanner (PIXL)"
+    ],
+    "extraction_method": "Laser fracturing or hammer strike",
+    "inventory_id": "basalt",
+    "yield": {
+      "basalt": 3,
+      "silicate": 1
+    },
+    "description": "Хар саарал өнгөтэй, нарийн ширхэгтэй галт уулын базальт чулуулаг. Сарны тэнгис болон Ангарагийн гадаргын ихэнх хэсгийг бүрдүүлдэг үндсэн эрдэс."
+  },
+  {
+    "id": "res_rock_granite",
+    "code": "02",
+    "name_en": "Granite Rock",
+    "name_mn": "Боржин чулуу (Гранит)",
+    "category": "rocks",
+    "file": "SU_Rock_Granite.glb",
+    "chemical_composition": "70-77% SiO2, 11-14% Al2O3, 3-5% K2O, quartz, feldspar, biotite",
+    "hardness_mohs": 6.5,
+    "mining_difficulty": "High",
+    "formation": "Felsic intrusive igneous rock crystallized slowly from silica-rich magma under planetary crusts",
+    "planetary_occurrence": [
+      "Earth",
+      "Moon (Highlands traces)",
+      "Mars (Ancient crustal terranes)"
+    ],
+    "suitable_instruments": [
+      "Thermal Drill",
+      "Mining Laser",
+      "Portable Analyzer"
+    ],
+    "extraction_method": "High-temperature core drilling",
+    "inventory_id": "granite",
+    "yield": {
+      "silicate": 3,
+      "quartz": 1
+    },
+    "description": "Кварц, хээрийн жонш, гялтгануурын том ширхэг бүхий ягаан-саарал гүний магмын боржин чулуу. Дээд зэргийн бат бөх, бүтцийн үндсэн түүхий эд."
+  },
+  {
+    "id": "res_rock_sandstone",
+    "code": "03",
+    "name_en": "Sandstone",
+    "name_mn": "Элсэн чулуу (Sandstone)",
+    "category": "rocks",
+    "file": "SU_Rock_Sandstone.glb",
+    "chemical_composition": "Quartz sand grains (SiO2) cemented by silica, iron oxide, or calcium carbonate",
+    "hardness_mohs": 5.0,
+    "mining_difficulty": "Low",
+    "formation": "Sedimentary clastic rock formed by consolidation and cementation of wind-blown or aqueous sand beds",
+    "planetary_occurrence": [
+      "Earth",
+      "Mars (Gale Crater, Jezero Crater eolian strata)"
+    ],
+    "suitable_instruments": [
+      "Rock Hammer",
+      "Sample Collector",
+      "Geological Scanner"
+    ],
+    "extraction_method": "Mechanical hammer strike or pneumatic chisel",
+    "inventory_id": "sandstone",
+    "yield": {
+      "silicate": 2
+    },
+    "description": "Улаавтар өнгийн давхаргат тунамал элсэн чулуулаг. Эртний салхи, усны урсгалаар хуримтлагдсан үелэлийг хадгалсан геологийн чухал индикатор."
+  },
+  {
+    "id": "res_rock_obsidian",
+    "code": "04",
+    "name_en": "Obsidian",
+    "name_mn": "Галт уулын шил (Обсидиан)",
+    "category": "rocks",
+    "file": "SU_Rock_Obsidian.glb",
+    "chemical_composition": "70% or more SiO2 (Amorphous silicate glass with magnetite micro-crystallites)",
+    "hardness_mohs": 5.5,
+    "mining_difficulty": "Medium",
+    "formation": "Extrusive igneous rock formed when felsic lava cools rapidly with minimal crystal growth",
+    "planetary_occurrence": [
+      "Earth",
+      "Mars (Volcanic calderas)",
+      "Venus"
+    ],
+    "suitable_instruments": [
+      "Multispectral Scanner",
+      "Sample Collector",
+      "Rock Hammer"
+    ],
+    "extraction_method": "Precision chipping along conchoidal fracture plane",
+    "inventory_id": "obsidian",
+    "yield": {
+      "silicon_glass": 2
+    },
+    "description": "Шил мэт гялгар, туйлын хурц ирмэгтэй хар өнгийн галт уулын царцмал шил. Нано-оптикийн линз болон лазер тусгаарлагчийн түүхий эд."
+  },
+  {
+    "id": "res_rock_large_boulder",
+    "code": "05",
+    "name_en": "Large Boulder",
+    "name_mn": "Аварга бул чулуу (Large Boulder)",
+    "category": "rocks",
+    "file": "SU_Rock_LargeBoulder.glb",
+    "chemical_composition": "Mixed basaltic-anorthositic impact megabreccia (SiO2, Al2O3, FeO, CaO)",
+    "hardness_mohs": 6.5,
+    "mining_difficulty": "Very High",
+    "formation": "Massive monolithic rock block excavated and deposited by impact cratering or glacial mass transport",
+    "planetary_occurrence": [
+      "Moon",
+      "Mars",
+      "Mercury",
+      "Asteroids (Ryugu, Bennu)"
+    ],
+    "suitable_instruments": [
+      "Mining Laser",
+      "Thermal Drill",
+      "Terrain Manipulator"
+    ],
+    "extraction_method": "Continuous high-output laser blasting",
+    "inventory_id": "boulder_core",
+    "yield": {
+      "basalt": 5,
+      "hematite": 2,
+      "silicate": 2
+    },
+    "description": "Хэдэн зуун тонн жинтэй, солирын цохилтоор шидэгдсэн аварга том чулуу. Олон төрлийн гүний эрдсийн баялаг агуулдаг мега-блок."
+  },
+  {
+    "id": "res_rock_small_stone",
+    "code": "06",
+    "name_en": "Small Stone",
+    "name_mn": "Бяцхан хайрга чулуу (Small Stone)",
+    "category": "rocks",
+    "file": "SU_Rock_SmallStone.glb",
+    "chemical_composition": "Weathered basaltic-silicate pebble with desert varnish coat (Fe/Mn oxides)",
+    "hardness_mohs": 5.5,
+    "mining_difficulty": "Very Low",
+    "formation": "Eolian saltation and abrasion (ventifact pebble) polished by sandstorms",
+    "planetary_occurrence": [
+      "Earth",
+      "Mars",
+      "Titan"
+    ],
+    "suitable_instruments": [
+      "Sample Collector",
+      "Rock Hammer"
+    ],
+    "extraction_method": "Handheld collection or pneumatic suction",
+    "inventory_id": "pebble",
+    "yield": {
+      "basalt": 1
+    },
+    "description": "Салхины ширхэгт элсээр байгалийн жамаар мөлгөрч өнгөлөгдсөн жижиг хайрга чулуу. Хээрийн хялбар цуглуулгад хамгийн тохиромжтой."
+  },
+  {
+    "id": "res_mineral_hematite",
+    "code": "07",
+    "name_en": "Hematite",
+    "name_mn": "Гематит (Улаан төмрийн хүдэр)",
+    "category": "minerals",
+    "file": "SU_Mineral_Hematite.glb",
+    "chemical_composition": "Fe2O3 (Iron(III) oxide: ~70% Iron by mass)",
+    "hardness_mohs": 6.0,
+    "mining_difficulty": "Medium",
+    "formation": "Sedimentary precipitation in aqueous or thermal spring environments (Blueberry concretions)",
+    "planetary_occurrence": [
+      "Mars (Meridiani Planum)",
+      "Earth",
+      "Moon"
+    ],
+    "suitable_instruments": [
+      "Mining Laser",
+      "Geological Scanner (PIXL)",
+      "Thermal Drill"
+    ],
+    "extraction_method": "Laser thermal extraction or magnetic core drill",
+    "inventory_id": "hematite",
+    "yield": {
+      "hematite": 3,
+      "iron_plate": 1
+    },
+    "description": "Төмрийн исэл (Fe2O3) агуулсан бөөрөнхий хэлбэрт улаан-саарал эрдэс. Ангарагийн хөрсөнд ус урсаж байсныг нотолсон гол төмөрлөг баялаг."
+  },
+  {
+    "id": "res_mineral_magnetite",
+    "code": "08",
+    "name_en": "Magnetite",
+    "name_mn": "Магнетит (Соронзон төмрийн хүдэр)",
+    "category": "minerals",
+    "file": "SU_Mineral_Magnetite.glb",
+    "chemical_composition": "Fe3O4 (Iron(II,III) oxide: natural ferromagnetic mineral)",
+    "hardness_mohs": 6.0,
+    "mining_difficulty": "Medium",
+    "formation": "Magmatic segregation and contact metamorphic skarn deposits",
+    "planetary_occurrence": [
+      "Mars",
+      "Earth",
+      "Moon",
+      "Asteroids"
+    ],
+    "suitable_instruments": [
+      "Mining Laser",
+      "Sample Collector",
+      "Rock Hammer"
+    ],
+    "extraction_method": "Magnetic induction attraction or laser cleavage",
+    "inventory_id": "magnetite",
+    "yield": {
+      "hematite": 2,
+      "iron_plate": 1
+    },
+    "description": "Байгалийн өндөр соронзон чанартай, октаэдр талст бүтцээрээ танигддаг бараан хар төмрийн эрдэс. Сансрын соронзон хамгаалалт ба цахилгаан мотор үйлдвэрлэлд чухал."
+  },
+  {
+    "id": "res_mineral_quartz",
+    "code": "09",
+    "name_en": "Quartz Crystal",
+    "name_mn": "Кварцын талст (Quartz Crystal)",
+    "category": "minerals",
+    "file": "SU_Mineral_Quartz.glb",
+    "chemical_composition": "SiO2 (Silicon dioxide trigonal-trapezohedral crystal system)",
+    "hardness_mohs": 7.0,
+    "mining_difficulty": "High",
+    "formation": "Hydrothermal pegmatite veins and cavity druses crystallized from hot silica solutions",
+    "planetary_occurrence": [
+      "Earth",
+      "Mars (Silica-rich hydrothermal vents)",
+      "Moon (Silicic domes)"
+    ],
+    "suitable_instruments": [
+      "Thermal Drill",
+      "Portable Analyzer",
+      "Sample Collector"
+    ],
+    "extraction_method": "Resonance acoustic fracturing or core drilling",
+    "inventory_id": "silicate",
+    "yield": {
+      "silicate": 3,
+      "silicon_glass": 1
+    },
+    "description": "Зургаан талт призм хошуутай тунгалаг цахиурын болор талст. Пьезоэлектрик шинж чанартай, сансрын өндөр давтамжит процессор ба микросхемийн үндэс."
+  },
+  {
+    "id": "res_mineral_sulfur",
+    "code": "10",
+    "name_en": "Sulfur Crystal",
+    "name_mn": "Хүхрийн талст (Sulfur Crystal)",
+    "category": "minerals",
+    "file": "SU_Mineral_Sulfur.glb",
+    "chemical_composition": "S8 (Native orthorhombic elemental sulfur)",
+    "hardness_mohs": 2.0,
+    "mining_difficulty": "Very Low",
+    "formation": "Sublimation from volcanic solfataras, fumaroles, and sulfate evaporite lakes",
+    "planetary_occurrence": [
+      "Mars",
+      "Io (Jupiter moon)",
+      "Venus",
+      "Earth"
+    ],
+    "suitable_instruments": [
+      "Rock Hammer",
+      "Sample Collector",
+      "Geological Scanner"
+    ],
+    "extraction_method": "Mechanical scraper or low-power laser sublimator",
+    "inventory_id": "sulfur",
+    "yield": {
+      "silicate": 1,
+      "o2_canister": 1
+    },
+    "description": "Хурц тод шар өнгөтэй галт уулын хүхрийн кристаллан хуримтлал. Батарейны электролит болон хүхрийн хүчил гарган авахад ашиглагддаг нэн үнэ цэнтэй элемент."
+  },
+  {
+    "id": "res_mineral_olivine",
+    "code": "11",
+    "name_en": "Olivine",
+    "name_mn": "Оливин (Перидот)",
+    "category": "minerals",
+    "file": "SU_Mineral_Olivine.glb",
+    "chemical_composition": "(Mg, Fe)2SiO4 (Magnesium-iron silicate solid solution series)",
+    "hardness_mohs": 6.5,
+    "mining_difficulty": "Medium",
+    "formation": "Primary mineral in planetary upper mantles and ultramafic volcanic basalts",
+    "planetary_occurrence": [
+      "Mars (Nili Fossae)",
+      "Moon",
+      "Earth (Mantle)",
+      "Asteroids"
+    ],
+    "suitable_instruments": [
+      "Multispectral Scanner",
+      "Mining Laser",
+      "Rock Hammer"
+    ],
+    "extraction_method": "Precision hammer cleavage and laser excision",
+    "inventory_id": "olivine",
+    "yield": {
+      "silicate": 2,
+      "basalt": 1
+    },
+    "description": "Базальт чулуун дотор ногоовтор туяаран гялалзах үнэт талст эрдэс. Гаригийн гүний мантийн чулуулаг ил гадаргуу дээр гарсныг илтгэх эрдэм шинжилгээний чухал олдвор."
+  },
+  {
+    "id": "res_mineral_gypsum",
+    "code": "12",
+    "name_en": "Gypsum",
+    "name_mn": "Гөлтгөнө (Селенит / Gypsum)",
+    "category": "minerals",
+    "file": "SU_Mineral_Gypsum.glb",
+    "chemical_composition": "CaSO4·2H2O (Calcium sulfate dihydrate)",
+    "hardness_mohs": 2.0,
+    "mining_difficulty": "Very Low",
+    "formation": "Evaporite mineral formed by extensive evaporation of mineral-rich saline water basins",
+    "planetary_occurrence": [
+      "Mars (Olympia Undae dunes, Endeavour crater veins)",
+      "Earth"
+    ],
+    "suitable_instruments": [
+      "Sample Collector",
+      "Rock Hammer",
+      "Portable Analyzer"
+    ],
+    "extraction_method": "Gentle mechanical chisel or scraper",
+    "inventory_id": "gypsum",
+    "yield": {
+      "water_ice": 1,
+      "silicate": 1
+    },
+    "description": "Цагаан сувдан өнгөтэй хавтгай талст гөлтгөний эрдэс. Бүтцийн хувьд 20%-ийн талст ус (H2O) агуулдаг тул Ангараг дээр ус ялган авах чухал эх үүсвэр болдог."
+  },
+  {
+    "id": "res_ice_water",
+    "code": "13",
+    "name_en": "Water Ice Deposit",
+    "name_mn": "Усны мөсөн хуримтлал (Water Ice)",
+    "category": "ice_and_meteorites",
+    "file": "SU_Ice_WaterDeposit.glb",
+    "chemical_composition": "H2O (Amorphous and hexagonal crystalline cryo-ice with trace dust)",
+    "hardness_mohs": 1.5,
+    "mining_difficulty": "Low",
+    "formation": "Planetary polar ice cap stratification and subsurface cryosphere permafrost",
+    "planetary_occurrence": [
+      "Mars (Polar caps, Subsurface scarps)",
+      "Moon (Shadowed craters)",
+      "Europa",
+      "Enceladus"
+    ],
+    "suitable_instruments": [
+      "Thermal Drill",
+      "Mining Laser",
+      "Sample Collector"
+    ],
+    "extraction_method": "Thermal sublimation or rotary coring",
+    "inventory_id": "water_ice",
+    "yield": {
+      "water_ice": 4,
+      "o2_canister": 1
+    },
+    "description": "Давхаргат туйлын усны цэвэр мөсөн блок. Сансрын станцын хүчилтөрөгч, ундны ус болон пуужингийн устөрөгч түлшний үндсэн нөөц."
+  },
+  {
+    "id": "res_ice_crystal_cluster",
+    "code": "14",
+    "name_en": "Ice Crystal Cluster",
+    "name_mn": "Мөсөн талстын бөөгнөрөл (Ice Crystals)",
+    "category": "ice_and_meteorites",
+    "file": "SU_Ice_CrystalCluster.glb",
+    "chemical_composition": "H2O·CO2 clathrate hydrates crystallized at cryogenic temperatures (<120 K)",
+    "hardness_mohs": 2.5,
+    "mining_difficulty": "Low",
+    "formation": "Vapor deposition in deep lunar/Martian permanently shadowed regions (PSR)",
+    "planetary_occurrence": [
+      "Moon (Shackleton crater)",
+      "Mars",
+      "Europa",
+      "Ceres"
+    ],
+    "suitable_instruments": [
+      "Sample Collector",
+      "Thermal Drill"
+    ],
+    "extraction_method": "Pneumatic cryo-vacuum retrieval",
+    "inventory_id": "ice_crystals",
+    "yield": {
+      "water_ice": 3
+    },
+    "description": "Хэт хүйтэн вакуум орчинд ууршилтын шууд хуримтлалаар ургасан тунгалаг хурц үзүүрт мөсөн талстууд. Маш өндөр цэвэршилттэй усны түүхий эд."
+  },
+  {
+    "id": "res_meteorite_chondrite",
+    "code": "15",
+    "name_en": "Rocky Meteorite (Chondrite)",
+    "name_mn": "Чулуун солир (Хондрит)",
+    "category": "ice_and_meteorites",
+    "file": "SU_Meteorite_Chondrite.glb",
+    "chemical_composition": "Silicate chondrules (olivine, pyroxene) + 5-10% Fe-Ni metal & troilite",
+    "hardness_mohs": 6.0,
+    "mining_difficulty": "Medium",
+    "formation": "Primitive undifferentiated Solar Nebula material unchanged for 4.56 billion years",
+    "planetary_occurrence": [
+      "Moon",
+      "Mars",
+      "Earth",
+      "Asteroid belt"
+    ],
+    "suitable_instruments": [
+      "Mining Laser",
+      "Geological Scanner (PIXL)",
+      "Rock Hammer"
+    ],
+    "extraction_method": "Laser surface ablation and core sampling",
+    "inventory_id": "chondrite",
+    "yield": {
+      "silicate": 2,
+      "iron_plate": 1
+    },
+    "description": "Нарны аймаг анх үүсэх үеийн 4.56 тэрбум жилийн настай анхдагч чулуун солир. Хайлалтын бараан бүрхүүл ба хондрул дуслуудаар баялаг."
+  },
+  {
+    "id": "res_meteorite_iron_nickel",
+    "code": "16",
+    "name_en": "Iron-Nickel Meteorite",
+    "name_mn": "Төмөр-Никелийн солир (Octahedrite)",
+    "category": "ice_and_meteorites",
+    "file": "SU_Meteorite_IronNickel.glb",
+    "chemical_composition": "Kamacite and taenite alloy: 90% Fe, 8-10% Ni, trace Co, Pt, Ir",
+    "hardness_mohs": 4.5,
+    "mining_difficulty": "High",
+    "formation": "Metallic core remnant of a shattered differentiated protoplanet",
+    "planetary_occurrence": [
+      "Mars",
+      "Moon",
+      "Earth",
+      "16 Psyche"
+    ],
+    "suitable_instruments": [
+      "Mining Laser",
+      "Welding Tool",
+      "Thermal Drill"
+    ],
+    "extraction_method": "Laser cutting or induction melting",
+    "inventory_id": "iron_plate",
+    "yield": {
+      "iron_plate": 3,
+      "titanium_strut": 1
+    },
+    "description": "Сүйрсэн эртний гаригийн төмөрлөг цөмөөс гаралтай цэвэр төмөр-никелийн хайлш. Барилгын хүнд даацын металл хавтан шууд гарган авах өндөр чанартай түүхий эд."
+  },
+  {
+    "id": "res_deposit_iron_ore",
+    "code": "17",
+    "name_en": "Iron Ore Deposit",
+    "name_mn": "Төмрийн хүдрийн орд (Banded Iron)",
+    "category": "ore_deposits",
+    "file": "SU_Deposit_IronOre.glb",
+    "chemical_composition": "Banded alternating layers of hematite/magnetite and chert (Fe2O3 + SiO2)",
+    "hardness_mohs": 6.5,
+    "mining_difficulty": "High",
+    "formation": "Precambrian marine sedimentation or massive planetary impact melt differentiation",
+    "planetary_occurrence": [
+      "Earth",
+      "Mars",
+      "Moon (Highlands deposits)"
+    ],
+    "suitable_instruments": [
+      "Mining Laser",
+      "Thermal Drill",
+      "Construction Tool"
+    ],
+    "extraction_method": "High-energy laser blasting and magnetic separation",
+    "inventory_id": "hematite",
+    "yield": {
+      "hematite": 4,
+      "iron_plate": 2
+    },
+    "description": "Ангарагийн бааз барих үндсэн металл хангамжийг бүрдүүлдэг зузаан давхаргат төмрийн хүдрийн баялаг илрэл. Хүчилтөрөгч ба ган төмөр үйлдвэрлэх суурь орд."
+  },
+  {
+    "id": "res_deposit_copper_ore",
+    "code": "18",
+    "name_en": "Copper Ore Deposit",
+    "name_mn": "Зэсийн хүдрийн орд (Malachite / Copper)",
+    "category": "ore_deposits",
+    "file": "SU_Deposit_CopperOre.glb",
+    "chemical_composition": "Cu2CO3(OH)2 (Malachite) + CuFeS2 (Chalcopyrite) + Native Cu",
+    "hardness_mohs": 4.0,
+    "mining_difficulty": "Medium",
+    "formation": "Hydrothermal supergene alteration zones around volcanic intrusions",
+    "planetary_occurrence": [
+      "Earth",
+      "Mars (Hydrothermal calderas)"
+    ],
+    "suitable_instruments": [
+      "Mining Laser",
+      "Welding Tool",
+      "Rock Hammer"
+    ],
+    "extraction_method": "Laser vaporization smelting or mechanical extraction",
+    "inventory_id": "copper",
+    "yield": {
+      "copper": 3,
+      "silicate": 1
+    },
+    "description": "Хөх-ногоон өнгийн малахит болон цэвэр зэсийн судал бүхий чулуулаг. Цахилгаан дамжуулагч утас, микрочип ба нарийн цахилгаан тоног төхөөрөмжийн гол металл."
+  },
+  {
+    "id": "res_deposit_aluminum_bauxite",
+    "code": "19",
+    "name_en": "Aluminum Ore Deposit (Bauxite)",
+    "name_mn": "Хөнгөн цагааны орд (Боксит)",
+    "category": "ore_deposits",
+    "file": "SU_Deposit_Bauxite.glb",
+    "chemical_composition": "AlO(OH) and Al(OH)3 (Gibbsite, boehmite, diaspore, mixed with iron oxides)",
+    "hardness_mohs": 3.0,
+    "mining_difficulty": "Low",
+    "formation": "Intense chemical weathering (lateritization) of aluminum-bearing silicate rocks",
+    "planetary_occurrence": [
+      "Earth",
+      "Mars (Clay/smectite-rich paleolakes)"
+    ],
+    "suitable_instruments": [
+      "Mining Laser",
+      "Sample Collector",
+      "Rock Hammer"
+    ],
+    "extraction_method": "Laser strip extraction or mechanical shovel",
+    "inventory_id": "titanium_strut",
+    "yield": {
+      "titanium_strut": 2
+    },
+    "description": "Бөөрөнхий пизолит бүтцээрээ онцлог хүрэн-улаан хөнгөн цагааны хүдэр. Пуужин болон сансрын хөлгийн хөнгөн, бат бэх титан-хөнгөн цагаан бүтээцийн гол түүхий эд."
+  },
+  {
+    "id": "res_deposit_rare_earth",
+    "code": "20",
+    "name_en": "Rare Earth Mineral Deposit",
+    "name_mn": "Газрын ховор элементийн орд (REE Deposit)",
+    "category": "ore_deposits",
+    "file": "SU_Deposit_RareEarth.glb",
+    "chemical_composition": "(Ce, La, Nd, Y)PO4 (Monazite) and (Ce, La)CO3F (Bastnasite)",
+    "hardness_mohs": 5.0,
+    "mining_difficulty": "Very High",
+    "formation": "Fractional crystallization of alkaline igneous carbonatite and peralkaline pegmatite complexes",
+    "planetary_occurrence": [
+      "Moon (KREEP terranes)",
+      "Mars",
+      "Earth"
+    ],
+    "suitable_instruments": [
+      "Multispectral Scanner",
+      "Thermal Drill",
+      "Portable Analyzer"
+    ],
+    "extraction_method": "Multi-spectral scanning and diamond core drilling",
+    "inventory_id": "rare_earth",
+    "yield": {
+      "silicate": 2,
+      "titanium_strut": 1
+    },
+    "description": "Неодим, самари, иттри зэрэг 17 төрлийн ховор элементүүдийн өндөр агууламжтай орд. Хэт хүчтэй соронзон ба квант тооцооллын процессоруудын орлуулашгүй эрдэс."
+  },
+  {
+    "id": "res_geo_stratified_layer",
+    "code": "21",
+    "name_en": "Geological Layer Formation",
+    "name_mn": "Геологийн үелэсэн давхарга (Strata Outcrop)",
+    "category": "geological_objects",
+    "file": "SU_Geo_StratifiedLayer.glb",
+    "chemical_composition": "Multi-tier layered sequence: Basalt bedrock, palagonitic tuff, and siltstone",
+    "hardness_mohs": 6.0,
+    "mining_difficulty": "High",
+    "formation": "Cyclic sedimentary and volcanic ash-fall deposition over billions of years",
+    "planetary_occurrence": [
+      "Mars (Valles Marineris, Gale Mound)",
+      "Earth",
+      "Moon"
+    ],
+    "suitable_instruments": [
+      "Geological Scanner (PIXL)",
+      "Ground-Penetrating Radar",
+      "Multispectral Scanner"
+    ],
+    "extraction_method": "Stratigraphic profiling and trench sampling",
+    "inventory_id": "basalt",
+    "yield": {
+      "basalt": 4,
+      "silicate": 2
+    },
+    "description": "Ангарагийн олон тэрбум жилийн түүхийг харуулсан өнгө өнгийн үелэсэн хадан цохио. Цаг уур, агаар мандлын өөрчлөлтийг унших геологийн хуудас."
+  },
+  {
+    "id": "res_geo_mineral_vein",
+    "code": "22",
+    "name_en": "Underground Mineral Vein",
+    "name_mn": "Гүний эрдсийн хагарлын судал (Mineral Vein)",
+    "category": "geological_objects",
+    "file": "SU_Geo_MineralVein.glb",
+    "chemical_composition": "Hydrothermal quartz fissure filling with native gold (Au) and pyrite (FeS2)",
+    "hardness_mohs": 7.0,
+    "mining_difficulty": "High",
+    "formation": "Precipitation of minerals along fault planes from circulating superheated hydrothermal fluids",
+    "planetary_occurrence": [
+      "Earth",
+      "Mars (Guzhev crater hydrothermal fracture network)"
+    ],
+    "suitable_instruments": [
+      "Mining Laser",
+      "Ground-Penetrating Radar",
+      "Thermal Drill"
+    ],
+    "extraction_method": "Directional laser slit trenching",
+    "inventory_id": "silicate",
+    "yield": {
+      "silicate": 3,
+      "hematite": 2
+    },
+    "description": "Хагарал дундуур халуун гидротермал уусмалаас шахагдан талсжсан цагаан кварц, алтны алтан шаргал судал. Гаригийн дотоод дулааны идэвхжлийг гэрчлэх судал."
+  },
+  {
+    "id": "res_geo_crater_fragment",
+    "code": "23",
+    "name_en": "Impact Crater Fragment",
+    "name_mn": "Солирын цохилтын хэлтэрхий (Impact Breccia)",
+    "category": "geological_objects",
+    "file": "SU_Geo_ImpactEjecta.glb",
+    "chemical_composition": "Polymict impact melt breccia (Suevite with shocked quartz and shatter cone clasts)",
+    "hardness_mohs": 6.5,
+    "mining_difficulty": "Medium",
+    "formation": "Catastrophic hypervelocity impact event pulverizing, melting, and recementing crustal rock",
+    "planetary_occurrence": [
+      "Moon",
+      "Mars",
+      "Mercury",
+      "Earth"
+    ],
+    "suitable_instruments": [
+      "Rock Hammer",
+      "Geological Scanner (PIXL)",
+      "Sample Collector"
+    ],
+    "extraction_method": "Hammer impact fracturing",
+    "inventory_id": "basalt",
+    "yield": {
+      "basalt": 3,
+      "silicate": 1
+    },
+    "description": "Хэт өндөр хурдтай сансрын биет гадаргыг мөргөхөд хайлж, бутарч буцан гагнагдсан шоконд орсон цохилтын брекчи чулуу. Өндөр даралтын эрдсийн өвөрмөц бүтэцтэй."
+  },
+  {
+    "id": "res_geo_regolith_mound",
+    "code": "24",
+    "name_en": "Planetary Regolith Formation",
+    "name_mn": "Гадаргын реголит овоолго (Regolith Mound)",
+    "category": "geological_objects",
+    "file": "SU_Geo_RegolithMound.glb",
+    "chemical_composition": "Fine particulate basaltic dust (10-100 µm) mixed with nanophase iron (npFe0) and glass spherules",
+    "hardness_mohs": 3.0,
+    "mining_difficulty": "Very Low",
+    "formation": "Continuous micrometeorite bombardment and solar wind space weathering of planetary bedrock",
+    "planetary_occurrence": [
+      "Moon",
+      "Mars",
+      "Mercury",
+      "Asteroids"
+    ],
+    "suitable_instruments": [
+      "Terrain Manipulator",
+      "Sample Collector",
+      "Rock Hammer"
+    ],
+    "extraction_method": "Gravimetric levitation or pneumatic scoop",
+    "inventory_id": "silicate",
+    "yield": {
+      "silicate": 3,
+      "basalt": 1
+    },
+    "description": "Салхины долгион үүсгэсэн нарийн ширхэгтэй Ангараг/Сарны реголит тоос ба хайрганы хуримтлал. 3D хэвлэгчээр бааз барихад бетоны үндсэн дүүргэгч материал болгон ашиглана."
+  }
+]

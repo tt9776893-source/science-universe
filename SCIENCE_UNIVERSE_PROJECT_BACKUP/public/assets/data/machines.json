@@ -1,0 +1,473 @@
+[
+  {
+    "id": "ore_crusher",
+    "index": 1,
+    "name": "Ore Crusher",
+    "model_file": "SU_Mach_Ore_Crusher.glb",
+    "category": "Resource Extraction & Processing",
+    "dimensions": {
+      "width": 2.4,
+      "length": 4.6,
+      "height": 3.2
+    },
+    "power_draw_kw": 45.0,
+    "standby_kw": 2.5,
+    "inputs": [
+      "basalt_rock",
+      "granite_rock",
+      "iron_ore",
+      "copper_ore",
+      "hematite",
+      "magnetite"
+    ],
+    "outputs": [
+      "crushed_rock",
+      "crushed_iron_ore",
+      "crushed_copper_ore",
+      "mineral_powder"
+    ],
+    "processing_time_sec": 8.0,
+    "description": "Heavy dual-toothed rotary crushing machine with vibro-hopper and articulated discharge conveyor for sizing raw planetary ores.",
+    "scientific_principle": "Mechanical comminution via counter-rotating hardened tungsten-carbide teeth reduce bulk overburden into uniform <10mm aggregate.",
+    "animations": [
+      "Action_CrushRollers",
+      "Action_HopperShake"
+    ]
+  },
+  {
+    "id": "mineral_separator",
+    "index": 2,
+    "name": "Mineral Separator",
+    "model_file": "SU_Mach_Mineral_Separator.glb",
+    "category": "Resource Extraction & Processing",
+    "dimensions": {
+      "width": 2.2,
+      "length": 3.8,
+      "height": 3.0
+    },
+    "power_draw_kw": 30.0,
+    "standby_kw": 1.8,
+    "inputs": [
+      "crushed_rock",
+      "crushed_iron_ore",
+      "crushed_copper_ore"
+    ],
+    "outputs": [
+      "separated_iron_concentrate",
+      "separated_copper_concentrate",
+      "silicate_tailings"
+    ],
+    "processing_time_sec": 10.0,
+    "description": "Cross-belt magnetic and density separator extracting paramagnetic minerals from non-metallic tailings.",
+    "scientific_principle": "High-gradient neodymium magnetic array combined with acoustic fluidization splits ferrosilicates from inert gangue.",
+    "animations": [
+      "Action_SeparatorDrum",
+      "Action_CrossBelt"
+    ]
+  },
+  {
+    "id": "smelting_furnace",
+    "index": 3,
+    "name": "Ore Smelting Furnace",
+    "model_file": "SU_Mach_Smelting_Furnace.glb",
+    "category": "Resource Extraction & Processing",
+    "dimensions": {
+      "width": 2.6,
+      "length": 3.6,
+      "height": 3.8
+    },
+    "power_draw_kw": 120.0,
+    "standby_kw": 8.0,
+    "inputs": [
+      "separated_iron_concentrate",
+      "separated_copper_concentrate",
+      "hematite",
+      "magnetite"
+    ],
+    "outputs": [
+      "iron_ingot",
+      "copper_ingot",
+      "slag_aggregate"
+    ],
+    "processing_time_sec": 15.0,
+    "description": "Induction vacuum smelting furnace featuring high-temperature ceramic crucible, thermal heat radiators, and slag drain.",
+    "scientific_principle": "High-frequency RF electromagnetic induction heating to 1850K reduces metal oxides under low-pressure reducing atmosphere.",
+    "animations": [
+      "Action_CrucibleGlow",
+      "Action_ExhaustFans"
+    ]
+  },
+  {
+    "id": "regolith_processor",
+    "index": 4,
+    "name": "Regolith Processor",
+    "model_file": "SU_Mach_Regolith_Processor.glb",
+    "category": "Resource Extraction & Processing",
+    "dimensions": {
+      "width": 2.4,
+      "length": 4.2,
+      "height": 2.9
+    },
+    "power_draw_kw": 38.0,
+    "standby_kw": 2.0,
+    "inputs": [
+      "raw_planetary_regolith",
+      "lunar_soil",
+      "martian_sand"
+    ],
+    "outputs": [
+      "sifted_regolith",
+      "fine_mineral_dust",
+      "volatiles_concentrate"
+    ],
+    "processing_time_sec": 9.0,
+    "description": "Trommel screen classification unit with electrostatic dust precipitators and magnetic fraction separation.",
+    "scientific_principle": "Rotary trommel particle sizing coupled with electrostatic precipitators isolates respirable silica fines and valuable ilmenite fractions.",
+    "animations": [
+      "Action_TrommelDrum"
+    ]
+  },
+  {
+    "id": "ice_melting_machine",
+    "index": 5,
+    "name": "Ice Melting Machine",
+    "model_file": "SU_Mach_Ice_Melter.glb",
+    "category": "Water & Ice Processing",
+    "dimensions": {
+      "width": 2.2,
+      "length": 3.4,
+      "height": 2.8
+    },
+    "power_draw_kw": 55.0,
+    "standby_kw": 1.2,
+    "inputs": [
+      "water_ice_deposit",
+      "subsurface_cryo_core",
+      "cometary_ice"
+    ],
+    "outputs": [
+      "raw_slurry_water",
+      "melt_residue_silt"
+    ],
+    "processing_time_sec": 7.0,
+    "description": "Sealed thermal extraction autoclave featuring ceramic heating coils, vacuum seal lid, and slurry pump outlet.",
+    "scientific_principle": "Conductive resistance heaters liquefy cryospheric volatile ice under controlled hyperbaric pressure to prevent sublimation loss.",
+    "animations": [
+      "Action_ThermalCoilPulsing"
+    ]
+  },
+  {
+    "id": "water_purification_unit",
+    "index": 6,
+    "name": "Water Purification Unit",
+    "model_file": "SU_Mach_Water_Purifier.glb",
+    "category": "Water & Ice Processing",
+    "dimensions": {
+      "width": 2.0,
+      "length": 3.6,
+      "height": 2.7
+    },
+    "power_draw_kw": 22.0,
+    "standby_kw": 1.0,
+    "inputs": [
+      "raw_slurry_water"
+    ],
+    "outputs": [
+      "purified_potable_water",
+      "toxic_brine_reject"
+    ],
+    "processing_time_sec": 8.0,
+    "description": "Multi-stage reverse osmosis filtration rack equipped with UV-C sterilizers and catalytic perchlorate neutralizers.",
+    "scientific_principle": "High-pressure ceramic membrane osmosis removes heavy metals, salts, and perchlorate anions followed by germicidal ultraviolet disinfection.",
+    "animations": [
+      "Action_FilterPulse"
+    ]
+  },
+  {
+    "id": "water_electrolysis_machine",
+    "index": 7,
+    "name": "Water Electrolysis Machine",
+    "model_file": "SU_Mach_Water_Electrolysis.glb",
+    "category": "Water & Ice Processing",
+    "dimensions": {
+      "width": 2.2,
+      "length": 3.2,
+      "height": 3.0
+    },
+    "power_draw_kw": 85.0,
+    "standby_kw": 3.0,
+    "inputs": [
+      "purified_potable_water"
+    ],
+    "outputs": [
+      "hydrogen_gas",
+      "pressurized_oxygen"
+    ],
+    "processing_time_sec": 12.0,
+    "description": "Proton exchange membrane (PEM) electrolyzer splitting deionized water into pure pressurized gaseous H2 and O2 streams.",
+    "scientific_principle": "2 H2O(l) + electrical energy -> 2 H2(g) + O2(g) across solid polymer electrolyte membranes operating at 35 bar.",
+    "animations": [
+      "Action_ElectrodeBubbles",
+      "Action_ManometerTick"
+    ]
+  },
+  {
+    "id": "water_storage_pump_station",
+    "index": 8,
+    "name": "Water Storage & Pumping Station",
+    "model_file": "SU_Mach_Water_Storage_Pump.glb",
+    "category": "Water & Ice Processing",
+    "dimensions": {
+      "width": 2.4,
+      "length": 4.0,
+      "height": 3.2
+    },
+    "power_draw_kw": 18.0,
+    "standby_kw": 1.5,
+    "inputs": [
+      "purified_potable_water"
+    ],
+    "outputs": [
+      "grid_pressurized_water_flow"
+    ],
+    "processing_time_sec": 1.0,
+    "description": "Pressurized manifold reservoir station with dual redundant centrifugal boost pumps, surge damping vessels, and telemetry.",
+    "scientific_principle": "Hydrostatic accumulation and variable-frequency displacement pumping maintains 6.0 bar ring-main habitat hydraulic pressure.",
+    "animations": [
+      "Action_PumpImpeller"
+    ]
+  },
+  {
+    "id": "oxygen_generator",
+    "index": 9,
+    "name": "Oxygen Generator",
+    "model_file": "SU_Mach_Oxygen_Generator.glb",
+    "category": "Atmospheric Processing",
+    "dimensions": {
+      "width": 2.2,
+      "length": 3.4,
+      "height": 3.0
+    },
+    "power_draw_kw": 60.0,
+    "standby_kw": 2.5,
+    "inputs": [
+      "ambient_atmosphere_intake",
+      "carbon_dioxide"
+    ],
+    "outputs": [
+      "medical_oxygen",
+      "carbon_soot"
+    ],
+    "processing_time_sec": 10.0,
+    "description": "Solid oxide electrolysis cell (MOXIE-style) generating breathable O2 from planetary atmospheric carbon dioxide.",
+    "scientific_principle": "Zirconia ceramic electrolyte catalytic cracking splits CO2 into carbon monoxide and oxygen ions at 800C.",
+    "animations": [
+      "Action_IntakeImpeller",
+      "Action_OxygenCore"
+    ]
+  },
+  {
+    "id": "gas_compressor",
+    "index": 10,
+    "name": "Gas Compressor",
+    "model_file": "SU_Mach_Gas_Compressor.glb",
+    "category": "Atmospheric Processing",
+    "dimensions": {
+      "width": 2.0,
+      "length": 3.6,
+      "height": 2.6
+    },
+    "power_draw_kw": 40.0,
+    "standby_kw": 1.8,
+    "inputs": [
+      "hydrogen_gas",
+      "pressurized_oxygen",
+      "carbon_dioxide",
+      "nitrogen_gas"
+    ],
+    "outputs": [
+      "high_pressure_gas_cylinder"
+    ],
+    "processing_time_sec": 6.0,
+    "description": "Multi-stage reciprocating gas compressor with interstage glycol coolers and dynamic balance flywheels.",
+    "scientific_principle": "Polytropic multi-stage piston compression raises gas pressure from ambient 0.006 bar to 300 bar for cryogenic containment.",
+    "animations": [
+      "Action_PistonStrokes",
+      "Action_Flywheel"
+    ]
+  },
+  {
+    "id": "co2_processor",
+    "index": 11,
+    "name": "CO2 Processor",
+    "model_file": "SU_Mach_CO2_Processor.glb",
+    "category": "Atmospheric Processing",
+    "dimensions": {
+      "width": 2.2,
+      "length": 3.4,
+      "height": 3.2
+    },
+    "power_draw_kw": 50.0,
+    "standby_kw": 2.2,
+    "inputs": [
+      "carbon_dioxide",
+      "hydrogen_gas"
+    ],
+    "outputs": [
+      "methane_fuel",
+      "recycled_water"
+    ],
+    "processing_time_sec": 14.0,
+    "description": "Sabatier methanation catalytic reactor converting habitat respiratory exhaled CO2 and hydrogen into rocket fuel and water.",
+    "scientific_principle": "Sabatier catalytic reaction: CO2 + 4 H2 -> CH4 + 2 H2O at 400C over ruthenium-alumina catalysts.",
+    "animations": [
+      "Action_ReactorTempIndicator"
+    ]
+  },
+  {
+    "id": "gas_storage_distribution",
+    "index": 12,
+    "name": "Gas Storage & Distribution System",
+    "model_file": "SU_Mach_Gas_Storage_Dist.glb",
+    "category": "Atmospheric Processing",
+    "dimensions": {
+      "width": 2.6,
+      "length": 4.2,
+      "height": 3.5
+    },
+    "power_draw_kw": 15.0,
+    "standby_kw": 1.2,
+    "inputs": [
+      "high_pressure_gas_cylinder",
+      "pressurized_oxygen",
+      "methane_fuel"
+    ],
+    "outputs": [
+      "regulated_habitat_atmo_feed",
+      "thruster_refuel_feed"
+    ],
+    "processing_time_sec": 1.0,
+    "description": "Quad cryogenic pressure vessel array with automated manifold regulators, relief valves, and distribution meters.",
+    "scientific_principle": "Cryogenic vacuum-jacketed Dewar containment prevents boil-off loss with electro-pneumatic pressure balancing.",
+    "animations": [
+      "Action_ManifoldValveIndicators"
+    ]
+  },
+  {
+    "id": "industrial_fabricator",
+    "index": 13,
+    "name": "Industrial Fabricator",
+    "model_file": "SU_Mach_Industrial_Fabricator.glb",
+    "category": "Manufacturing & Energy",
+    "dimensions": {
+      "width": 2.6,
+      "length": 4.4,
+      "height": 3.0
+    },
+    "power_draw_kw": 75.0,
+    "standby_kw": 3.5,
+    "inputs": [
+      "refined_structural_alloy",
+      "titanium_sheet",
+      "composite_circuitry"
+    ],
+    "outputs": [
+      "modular_building_kit",
+      "habitat_airlock_module",
+      "mining_laser_core"
+    ],
+    "processing_time_sec": 20.0,
+    "description": "Automated selective laser sintering and robotic assembly cell with 5-axis articulated head and toolchanger.",
+    "scientific_principle": "Directed energy deposition (DED) additive manufacturing builds functional mechanical parts directly from metal powders.",
+    "animations": [
+      "Action_RobotArmWeld",
+      "Action_FabricationGantry"
+    ]
+  },
+  {
+    "id": "metal_refining_station",
+    "index": 14,
+    "name": "Metal Refining Station",
+    "model_file": "SU_Mach_Metal_Refining.glb",
+    "category": "Manufacturing & Energy",
+    "dimensions": {
+      "width": 2.4,
+      "length": 4.0,
+      "height": 3.1
+    },
+    "power_draw_kw": 95.0,
+    "standby_kw": 4.0,
+    "inputs": [
+      "iron_ingot",
+      "copper_ingot",
+      "sulfur_crystal",
+      "silicate_tailings"
+    ],
+    "outputs": [
+      "refined_structural_alloy",
+      "high_conductive_wire",
+      "aerospace_grade_plates"
+    ],
+    "processing_time_sec": 18.0,
+    "description": "Electrolytic refining vat with zone-refining thermal heaters for producing 99.99% ultra-pure metallurgy.",
+    "scientific_principle": "Electro-refining and zone melting isolates interstitial impurities and refines crystalline grain boundaries for structural alloys.",
+    "animations": [
+      "Action_ZoneHeaterTravel"
+    ]
+  },
+  {
+    "id": "industrial_battery_storage",
+    "index": 15,
+    "name": "Industrial Battery Storage Unit",
+    "model_file": "SU_Mach_Battery_Storage.glb",
+    "category": "Manufacturing & Energy",
+    "dimensions": {
+      "width": 2.0,
+      "length": 3.8,
+      "height": 3.2
+    },
+    "power_draw_kw": -100.0,
+    "standby_kw": 0.5,
+    "storage_capacity_kwh": 2500.0,
+    "inputs": [
+      "electrical_grid_surplus"
+    ],
+    "outputs": [
+      "stabilized_bus_power"
+    ],
+    "processing_time_sec": 1.0,
+    "description": "Solid-state lithium-sulfur energy reservoir rack with liquid dielectric immersion cooling and active fire suppression.",
+    "scientific_principle": "Solid-state electrolyte intercalation chemistry provides 850 Wh/kg specific energy with zero thermal runaway propagation.",
+    "animations": [
+      "Action_ChargeLevelLeds",
+      "Action_VentilationFans"
+    ]
+  },
+  {
+    "id": "automated_conveyor_system",
+    "index": 16,
+    "name": "Automated Conveyor System",
+    "model_file": "SU_Mach_Automated_Conveyor.glb",
+    "category": "Manufacturing & Energy",
+    "dimensions": {
+      "width": 1.6,
+      "length": 5.0,
+      "height": 1.4
+    },
+    "power_draw_kw": 8.0,
+    "standby_kw": 0.4,
+    "inputs": [
+      "any_solid_item_or_ore"
+    ],
+    "outputs": [
+      "automated_downstream_transfer"
+    ],
+    "processing_time_sec": 2.0,
+    "description": "Heavy-duty modular link-belt transport conveyor with optical item sorting sensors and transfer deflectors.",
+    "scientific_principle": "Direct-drive brushless motor driven roller flight conveyor with optoelectronic item tracking facilitates zero-loss material transfer.",
+    "animations": [
+      "Action_BeltTravel",
+      "Action_OpticalBeamPulse"
+    ]
+  }
+]

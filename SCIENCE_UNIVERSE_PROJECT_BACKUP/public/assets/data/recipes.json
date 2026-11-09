@@ -1,0 +1,243 @@
+[
+  {
+    "id": "recipe_ore_crushing",
+    "name": "Bulk Ore Comminution",
+    "machine_id": "ore_crusher",
+    "inputs": [
+      {
+        "item": "hematite",
+        "qty": 2
+      }
+    ],
+    "outputs": [
+      {
+        "item": "crushed_iron_ore",
+        "qty": 2
+      },
+      {
+        "item": "mineral_powder",
+        "qty": 1
+      }
+    ],
+    "duration_sec": 8.0,
+    "energy_cost_kj": 360.0
+  },
+  {
+    "id": "recipe_magnetic_separation",
+    "name": "High-Gradient Magnetic Separation",
+    "machine_id": "mineral_separator",
+    "inputs": [
+      {
+        "item": "crushed_iron_ore",
+        "qty": 2
+      }
+    ],
+    "outputs": [
+      {
+        "item": "separated_iron_concentrate",
+        "qty": 2
+      },
+      {
+        "item": "silicate_tailings",
+        "qty": 1
+      }
+    ],
+    "duration_sec": 10.0,
+    "energy_cost_kj": 300.0
+  },
+  {
+    "id": "recipe_iron_smelting",
+    "name": "Induction Iron Smelting",
+    "machine_id": "smelting_furnace",
+    "inputs": [
+      {
+        "item": "separated_iron_concentrate",
+        "qty": 2
+      }
+    ],
+    "outputs": [
+      {
+        "item": "iron_ingot",
+        "qty": 1
+      },
+      {
+        "item": "slag_aggregate",
+        "qty": 1
+      }
+    ],
+    "duration_sec": 15.0,
+    "energy_cost_kj": 1800.0
+  },
+  {
+    "id": "recipe_metal_alloying",
+    "name": "Structural Alloy Zone Refining",
+    "machine_id": "metal_refining_station",
+    "inputs": [
+      {
+        "item": "iron_ingot",
+        "qty": 2
+      },
+      {
+        "item": "copper_ingot",
+        "qty": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "refined_structural_alloy",
+        "qty": 2
+      }
+    ],
+    "duration_sec": 18.0,
+    "energy_cost_kj": 1710.0
+  },
+  {
+    "id": "recipe_component_fabrication",
+    "name": "Selective Laser Component Fabrication",
+    "machine_id": "industrial_fabricator",
+    "inputs": [
+      {
+        "item": "refined_structural_alloy",
+        "qty": 2
+      }
+    ],
+    "outputs": [
+      {
+        "item": "modular_building_kit",
+        "qty": 1
+      }
+    ],
+    "duration_sec": 20.0,
+    "energy_cost_kj": 1500.0
+  },
+  {
+    "id": "recipe_ice_melting",
+    "name": "Autoclave Cryospheric Ice Melting",
+    "machine_id": "ice_melting_machine",
+    "inputs": [
+      {
+        "item": "water_ice_deposit",
+        "qty": 2
+      }
+    ],
+    "outputs": [
+      {
+        "item": "raw_slurry_water",
+        "qty": 2
+      }
+    ],
+    "duration_sec": 7.0,
+    "energy_cost_kj": 385.0
+  },
+  {
+    "id": "recipe_water_purification",
+    "name": "Reverse Osmosis & UV Disinfection",
+    "machine_id": "water_purification_unit",
+    "inputs": [
+      {
+        "item": "raw_slurry_water",
+        "qty": 2
+      }
+    ],
+    "outputs": [
+      {
+        "item": "purified_potable_water",
+        "qty": 2
+      }
+    ],
+    "duration_sec": 8.0,
+    "energy_cost_kj": 176.0
+  },
+  {
+    "id": "recipe_water_electrolysis",
+    "name": "PEM Water Electrolysis (H2 / O2)",
+    "machine_id": "water_electrolysis_machine",
+    "inputs": [
+      {
+        "item": "purified_potable_water",
+        "qty": 2
+      }
+    ],
+    "outputs": [
+      {
+        "item": "hydrogen_gas",
+        "qty": 2
+      },
+      {
+        "item": "pressurized_oxygen",
+        "qty": 1
+      }
+    ],
+    "duration_sec": 12.0,
+    "energy_cost_kj": 1020.0
+  },
+  {
+    "id": "recipe_moxie_oxygen",
+    "name": "Atmospheric CO2 Cracking (MOXIE)",
+    "machine_id": "oxygen_generator",
+    "inputs": [
+      {
+        "item": "ambient_atmosphere_intake",
+        "qty": 4
+      }
+    ],
+    "outputs": [
+      {
+        "item": "medical_oxygen",
+        "qty": 2
+      },
+      {
+        "item": "carbon_soot",
+        "qty": 1
+      }
+    ],
+    "duration_sec": 10.0,
+    "energy_cost_kj": 600.0
+  },
+  {
+    "id": "recipe_gas_compression",
+    "name": "Multi-Stage High Pressure Cylinder Bottling",
+    "machine_id": "gas_compressor",
+    "inputs": [
+      {
+        "item": "medical_oxygen",
+        "qty": 2
+      }
+    ],
+    "outputs": [
+      {
+        "item": "high_pressure_gas_cylinder",
+        "qty": 1
+      }
+    ],
+    "duration_sec": 6.0,
+    "energy_cost_kj": 240.0
+  },
+  {
+    "id": "recipe_sabatier_methanation",
+    "name": "Sabatier Methane & Water Synthesis",
+    "machine_id": "co2_processor",
+    "inputs": [
+      {
+        "item": "carbon_dioxide",
+        "qty": 1
+      },
+      {
+        "item": "hydrogen_gas",
+        "qty": 4
+      }
+    ],
+    "outputs": [
+      {
+        "item": "methane_fuel",
+        "qty": 1
+      },
+      {
+        "item": "recycled_water",
+        "qty": 2
+      }
+    ],
+    "duration_sec": 14.0,
+    "energy_cost_kj": 700.0
+  }
+]

@@ -1,0 +1,73 @@
+apply plugin: 'com.android.application'
+
+android {
+    namespace = "com.scienceuniverse.app"
+    compileSdk = rootProject.ext.compileSdkVersion
+    buildToolsVersion = "36.0.0"
+    defaultConfig {
+        applicationId "com.scienceuniverse.app"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        aaptOptions {
+             // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
+             // Default: https://android.googlesource.com/platform/frameworks/base/+/282e181b58cf72b6ca770dc7ca5f91f135444502/tools/aapt/AaptAssets.cpp#61
+            ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+repositories {
+    flatDir{
+        dirs '../capacitor-cordova-android-plugins/src/main/libs', 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
+    implementation "androidx.coordinatorlayout:coordinatorlayout:$androidxCoordinatorLayoutVersion"
+    implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"
+    implementation project(':capacitor-android')
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
+    implementation project(':capacitor-cordova-android-plugins')
+}
+
+// All Android variants must remain production-only, including debug APKs.
+// Fail closed if anyone manually copies development-server output into assets.
+def rejectDeveloperTestAssets = tasks.register('rejectDeveloperTestAssets') {
+    doLast {
+        fileTree('src/main/assets/public').matching {
+            include '**/*.html', '**/*.js', '**/*.mjs'
+        }.each { asset ->
+            if (asset.name == '__su_dev_storage__.js' || asset.getText('UTF-8').contains('SU_DEVELOPER_TEST_ONLY_V1')) {
+                throw new GradleException("Development test access cannot be packaged: ${asset}")
+            }
+        }
+    }
+}
+tasks.named('preBuild').configure { dependsOn(rejectDeveloperTestAssets) }
+tasks.configureEach { task ->
+    if (task.name ==~ /merge.*Assets/) task.dependsOn(rejectDeveloperTestAssets)
+}
+
+apply from: 'capacitor.build.gradle'
+
+try {
+    def servicesJSON = file('google-services.json')
+    if (servicesJSON.text) {
+        apply plugin: 'com.google.gms.google-services'
+    }
+} catch(Exception e) {
+    logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
+}

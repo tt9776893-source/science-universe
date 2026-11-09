@@ -1,0 +1,965 @@
+[
+  {
+    "id": "bld_foundation",
+    "code": "01",
+    "name_en": "Reinforced Base Foundation",
+    "name_mn": "Бэхжүүлсэн суурь платформ",
+    "category": "structural",
+    "file": "SU_Base_Foundation.glb",
+    "dimensions": [
+      4.0,
+      4.0,
+      0.6
+    ],
+    "mass_kg": 2800,
+    "energy_draw_kw": 0,
+    "pressurized": false,
+    "hp": 500,
+    "rad_shielding": 0.95,
+    "cost": {
+      "basalt": 8,
+      "iron_plate": 4
+    },
+    "sockets": {
+      "top": {
+        "pos": [
+          0,
+          0,
+          0.6
+        ],
+        "type": "floor_socket"
+      },
+      "north": {
+        "pos": [
+          0,
+          2.0,
+          0.3
+        ],
+        "type": "foundation_lock"
+      },
+      "south": {
+        "pos": [
+          0,
+          -2.0,
+          0.3
+        ],
+        "type": "foundation_lock"
+      },
+      "east": {
+        "pos": [
+          2.0,
+          0,
+          0.3
+        ],
+        "type": "foundation_lock"
+      },
+      "west": {
+        "pos": [
+          -2.0,
+          0,
+          0.3
+        ],
+        "type": "foundation_lock"
+      }
+    },
+    "desc_en": "Heavy titanium-reinforced concrete foundation block with hydraulic self-leveling anchor jacks for uneven planetary terrain.",
+    "desc_mn": "Тэгш бус гаригийн хөрсөнд гидравлик өөрөө тэгшилэгч хөлтэй, титан бэхжүүлэлттэй хүнд суурийн блок."
+  },
+  {
+    "id": "bld_floor_panel",
+    "code": "02",
+    "name_en": "Modular Floor Panel",
+    "name_mn": "Модуль шалны хавтан",
+    "category": "structural",
+    "file": "SU_Base_Floor_Panel.glb",
+    "dimensions": [
+      4.0,
+      4.0,
+      0.2
+    ],
+    "mass_kg": 650,
+    "energy_draw_kw": 0,
+    "pressurized": true,
+    "hp": 250,
+    "rad_shielding": 0.6,
+    "cost": {
+      "iron_plate": 3,
+      "silicate": 2
+    },
+    "sockets": {
+      "bottom": {
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "type": "floor_socket"
+      },
+      "north": {
+        "pos": [
+          0,
+          2.0,
+          0.1
+        ],
+        "type": "wall_slot"
+      },
+      "south": {
+        "pos": [
+          0,
+          -2.0,
+          0.1
+        ],
+        "type": "wall_slot"
+      },
+      "east": {
+        "pos": [
+          2.0,
+          0,
+          0.1
+        ],
+        "type": "wall_slot"
+      },
+      "west": {
+        "pos": [
+          -2.0,
+          0,
+          0.1
+        ],
+        "type": "wall_slot"
+      }
+    },
+    "desc_en": "Non-slip diamond tread floor plate with integrated underfloor power/coolant conduits and maintenance access hatch.",
+    "desc_mn": "Шалны доорх цахилгаан болон шингэний сувагчлал бүхий халтиргаанаас хамгаалсан торон шалны хавтан."
+  },
+  {
+    "id": "bld_wall_solid",
+    "code": "03",
+    "name_en": "Insulated Solid Wall",
+    "name_mn": "Тусгаарлагч битүү хана",
+    "category": "structural",
+    "file": "SU_Base_Wall_Solid.glb",
+    "dimensions": [
+      4.0,
+      0.35,
+      3.0
+    ],
+    "mass_kg": 780,
+    "energy_draw_kw": 0,
+    "pressurized": true,
+    "hp": 350,
+    "rad_shielding": 0.88,
+    "cost": {
+      "silicon_glass": 1,
+      "iron_plate": 3,
+      "basalt": 2
+    },
+    "sockets": {
+      "bottom": {
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "type": "wall_slot"
+      },
+      "top": {
+        "pos": [
+          0,
+          0,
+          3.0
+        ],
+        "type": "roof_slot"
+      }
+    },
+    "desc_en": "Multi-layer ceramic/aerogel insulated habitat exterior wall with aerodynamic micro-ribbing and built-in maintenance bus.",
+    "desc_mn": "Агаар мандалгүй болон эрс тэс уур амьсгалаас хамгаалах аэрогель дулаалга бүхий олон үет нийлмэл хана."
+  },
+  {
+    "id": "bld_wall_window",
+    "code": "04",
+    "name_en": "Observation Window Wall",
+    "name_mn": "Панорамик цонхтой хана",
+    "category": "structural",
+    "file": "SU_Base_Wall_Window.glb",
+    "dimensions": [
+      4.0,
+      0.35,
+      3.0
+    ],
+    "mass_kg": 850,
+    "energy_draw_kw": 0.2,
+    "pressurized": true,
+    "hp": 300,
+    "rad_shielding": 0.72,
+    "cost": {
+      "silicon_glass": 4,
+      "iron_plate": 2
+    },
+    "sockets": {
+      "bottom": {
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "type": "wall_slot"
+      },
+      "top": {
+        "pos": [
+          0,
+          0,
+          3.0
+        ],
+        "type": "roof_slot"
+      }
+    },
+    "desc_en": "Double-layered fused quartz observation window with embedded polarized tinting and cyan ambient perimeter lighting.",
+    "desc_mn": "Хэт ягаан туяаны хамгаалалттай, хоёр давхар хатууруулсан кварц шил бүхий панорамик ажиглалтын цонхтой хана."
+  },
+  {
+    "id": "bld_roof",
+    "code": "05",
+    "name_en": "Solar Radiator Roof Module",
+    "name_mn": "Нарны зайт дээврийн модуль",
+    "category": "structural",
+    "file": "SU_Base_Roof.glb",
+    "dimensions": [
+      4.0,
+      4.0,
+      0.8
+    ],
+    "mass_kg": 920,
+    "energy_draw_kw": -4.5,
+    "pressurized": true,
+    "hp": 300,
+    "rad_shielding": 0.85,
+    "cost": {
+      "iron_plate": 4,
+      "quartz": 2,
+      "copper_ore": 2
+    },
+    "sockets": {
+      "bottom": {
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "type": "roof_slot"
+      }
+    },
+    "desc_en": "Insulated sloped roof shell with dual high-efficiency photovoltaic solar collectors and thermal dissipation radiators.",
+    "desc_mn": "4.5 кВт эрчим хүч үйлдвэрлэх өндөр үр ашигт нарны элемент болон илүүдэл дулаан сарниулагчтай дээвэр."
+  },
+  {
+    "id": "bld_column_support",
+    "code": "06",
+    "name_en": "Telescopic Support Column",
+    "name_mn": "Телескоп тулгуур багана",
+    "category": "structural",
+    "file": "SU_Base_Column_Support.glb",
+    "dimensions": [
+      1.2,
+      1.2,
+      3.2
+    ],
+    "mass_kg": 480,
+    "energy_draw_kw": 0,
+    "pressurized": false,
+    "hp": 400,
+    "rad_shielding": 0.5,
+    "cost": {
+      "iron_plate": 2,
+      "basalt": 2
+    },
+    "sockets": {
+      "bottom": {
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "type": "ground_anchor"
+      },
+      "top": {
+        "pos": [
+          0,
+          0,
+          3.2
+        ],
+        "type": "platform_slot"
+      }
+    },
+    "desc_en": "Heavy hydraulic column capable of vertical height adjustment for elevating walkways and habitat modules above craters.",
+    "desc_mn": "Кратэр, чулуулаг тэгш бус гадарга дээр модуль, тавцанг өргөн байршуулах гидравлик сунадаг тулгуур."
+  },
+  {
+    "id": "bld_door_sliding",
+    "code": "07",
+    "name_en": "Automated Sliding Blast Door",
+    "name_mn": "Автомат гулсах даралтын хаалга",
+    "category": "connections",
+    "file": "SU_Base_Door_Sliding.glb",
+    "dimensions": [
+      4.0,
+      0.35,
+      3.0
+    ],
+    "mass_kg": 950,
+    "energy_draw_kw": 0.4,
+    "pressurized": true,
+    "hp": 450,
+    "rad_shielding": 0.9,
+    "cost": {
+      "iron_plate": 4,
+      "copper_ore": 1,
+      "rare_earth": 1
+    },
+    "sockets": {
+      "bottom": {
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "type": "wall_slot"
+      },
+      "portal": {
+        "pos": [
+          0,
+          0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      }
+    },
+    "desc_en": "Hermetically sealed interior blast door with electronic keypad authentication and emergency manual release.",
+    "desc_mn": "Аюулгүйн цахим кодлогч, аваарын механик хөшүүрэгтэй герметик битүүмжлэлт гулсах хаалга."
+  },
+  {
+    "id": "bld_airlock",
+    "code": "08",
+    "name_en": "Pressurized Decompression Airlock",
+    "name_mn": "Даралт тэнцвэржүүлэгч шлюз (Airlock)",
+    "category": "connections",
+    "file": "SU_Base_Airlock.glb",
+    "dimensions": [
+      3.2,
+      4.0,
+      2.8
+    ],
+    "mass_kg": 1850,
+    "energy_draw_kw": 1.2,
+    "pressurized": true,
+    "hp": 600,
+    "rad_shielding": 0.92,
+    "cost": {
+      "iron_plate": 6,
+      "copper_ore": 2,
+      "silicon_glass": 2,
+      "o2_canister": 2
+    },
+    "sockets": {
+      "outer": {
+        "pos": [
+          0,
+          -2.0,
+          1.4
+        ],
+        "type": "exterior_portal"
+      },
+      "inner": {
+        "pos": [
+          0,
+          2.0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      }
+    },
+    "desc_en": "Dual-door atmospheric cycling airlock preventing habitat decompression during planetary EVA egress and ingress.",
+    "desc_mn": "Гадна болон дотно хоёр бие даасан хаалгатай, гаригийн вакуум орчинд амьдрах орчны даралтыг хадгалах шлюз."
+  },
+  {
+    "id": "bld_corridor_straight",
+    "code": "09",
+    "name_en": "Walkable Straight Corridor",
+    "name_mn": "Шулуун даралтын коридор",
+    "category": "connections",
+    "file": "SU_Base_Corridor_Straight.glb",
+    "dimensions": [
+      2.8,
+      4.0,
+      2.8
+    ],
+    "mass_kg": 1400,
+    "energy_draw_kw": 0.3,
+    "pressurized": true,
+    "hp": 400,
+    "rad_shielding": 0.85,
+    "cost": {
+      "iron_plate": 4,
+      "silicon_glass": 2,
+      "silicate": 2
+    },
+    "sockets": {
+      "north": {
+        "pos": [
+          0,
+          2.0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      },
+      "south": {
+        "pos": [
+          0,
+          -2.0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      }
+    },
+    "desc_en": "Standard pressurized transit tunnel linking modules with observation windows, floor cable conduits, and LED ceiling track.",
+    "desc_mn": "Модулиудыг хооронд нь холбох панорамик цонх, таазны гэрэлтүүлэгтэй битүүмжилсэн шулуун хонгил."
+  },
+  {
+    "id": "bld_corridor_corner",
+    "code": "10",
+    "name_en": "90-Degree Corner Corridor",
+    "name_mn": "90 градусын булангийн коридор",
+    "category": "connections",
+    "file": "SU_Base_Corridor_Corner.glb",
+    "dimensions": [
+      4.0,
+      4.0,
+      2.8
+    ],
+    "mass_kg": 1550,
+    "energy_draw_kw": 0.3,
+    "pressurized": true,
+    "hp": 420,
+    "rad_shielding": 0.86,
+    "cost": {
+      "iron_plate": 4,
+      "silicate": 3
+    },
+    "sockets": {
+      "south": {
+        "pos": [
+          0,
+          -2.0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      },
+      "east": {
+        "pos": [
+          2.0,
+          0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      }
+    },
+    "desc_en": "Pressurized 90-degree bend with heavy outer diagonal impact shielding for navigating planetary topography.",
+    "desc_mn": "Газрын хэв шинжид тохируулан чиглэл өөрчлөх гадна талын хүчитгэсэн хуяг бүхий 90 градусын эргэлтийн хонгил."
+  },
+  {
+    "id": "bld_corridor_tjunction",
+    "code": "11",
+    "name_en": "3-Way T-Junction Corridor",
+    "name_mn": "Т-хэлбэрийн гурвалсан коридор",
+    "category": "connections",
+    "file": "SU_Base_Corridor_TJunction.glb",
+    "dimensions": [
+      4.0,
+      4.0,
+      2.8
+    ],
+    "mass_kg": 1650,
+    "energy_draw_kw": 0.4,
+    "pressurized": true,
+    "hp": 450,
+    "rad_shielding": 0.87,
+    "cost": {
+      "iron_plate": 5,
+      "copper_ore": 1
+    },
+    "sockets": {
+      "north": {
+        "pos": [
+          0,
+          2.0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      },
+      "south": {
+        "pos": [
+          0,
+          -2.0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      },
+      "east": {
+        "pos": [
+          2.0,
+          0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      }
+    },
+    "desc_en": "Three-way transit junction with telemetry monitoring terminal on the reinforced blind wall.",
+    "desc_mn": "Хонгилыг гурван чиглэлд салаалах зангилаа модуль. Битүү ханандаа холбооны самбартай."
+  },
+  {
+    "id": "bld_corridor_crossjunction",
+    "code": "12",
+    "name_en": "4-Way Cross-Junction Hub",
+    "name_mn": "Х-хэлбэрийн дөрвөлсөн төв зангилаа",
+    "category": "connections",
+    "file": "SU_Base_Corridor_CrossJunction.glb",
+    "dimensions": [
+      4.0,
+      4.0,
+      2.8
+    ],
+    "mass_kg": 1800,
+    "energy_draw_kw": 0.5,
+    "pressurized": true,
+    "hp": 480,
+    "rad_shielding": 0.88,
+    "cost": {
+      "iron_plate": 6,
+      "copper_ore": 1,
+      "rare_earth": 1
+    },
+    "sockets": {
+      "north": {
+        "pos": [
+          0,
+          2.0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      },
+      "south": {
+        "pos": [
+          0,
+          -2.0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      },
+      "east": {
+        "pos": [
+          2.0,
+          0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      },
+      "west": {
+        "pos": [
+          -2.0,
+          0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      }
+    },
+    "desc_en": "Four-way central colony nexus featuring an illuminated ceiling cupola and multi-directional docking collars.",
+    "desc_mn": "Дөрвөн чиглэлд салбарлах баазын төв зангилаа танхим. Таазандаа олон чиглэлт гэрэлтүүлэгтэй."
+  },
+  {
+    "id": "bld_stairs",
+    "code": "13",
+    "name_en": "Industrial Modular Stairs",
+    "name_mn": "Үйлдвэрийн модуль шат",
+    "category": "utilities",
+    "file": "SU_Base_Stairs.glb",
+    "dimensions": [
+      1.8,
+      4.0,
+      3.0
+    ],
+    "mass_kg": 420,
+    "energy_draw_kw": 0,
+    "pressurized": false,
+    "hp": 250,
+    "rad_shielding": 0.2,
+    "cost": {
+      "iron_plate": 3
+    },
+    "sockets": {
+      "bottom": {
+        "pos": [
+          0,
+          -2.0,
+          0
+        ],
+        "type": "ground_anchor"
+      },
+      "top": {
+        "pos": [
+          0,
+          2.0,
+          3.0
+        ],
+        "type": "platform_slot"
+      }
+    },
+    "desc_en": "Heavy steel grating stairs with orange safety edge nosing and twin safety handrails for ascending platforms.",
+    "desc_mn": "Өндөрлөсөн тавцан, байгууламж руу гарах аюулгүйн хашлага бүхий ган хийцийн шат."
+  },
+  {
+    "id": "bld_platform_exterior",
+    "code": "14",
+    "name_en": "Exterior Walkway Platform",
+    "name_mn": "Гадна талын задгай тавцан",
+    "category": "utilities",
+    "file": "SU_Base_Platform_Exterior.glb",
+    "dimensions": [
+      4.0,
+      4.0,
+      1.2
+    ],
+    "mass_kg": 580,
+    "energy_draw_kw": 0,
+    "pressurized": false,
+    "hp": 300,
+    "rad_shielding": 0.3,
+    "cost": {
+      "iron_plate": 4
+    },
+    "sockets": {
+      "bottom": {
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "type": "platform_slot"
+      },
+      "north": {
+        "pos": [
+          0,
+          2.0,
+          0
+        ],
+        "type": "platform_slot"
+      },
+      "south": {
+        "pos": [
+          0,
+          -2.0,
+          0
+        ],
+        "type": "platform_slot"
+      },
+      "east": {
+        "pos": [
+          2.0,
+          0,
+          0
+        ],
+        "type": "platform_slot"
+      },
+      "west": {
+        "pos": [
+          -2.0,
+          0,
+          0
+        ],
+        "type": "platform_slot"
+      }
+    },
+    "desc_en": "Open grating maintenance deck with 3-sided safety railings for staging EVAs and mounting communications antennas.",
+    "desc_mn": "Сансрын нисгэгчдийн гадна талын ажиллагаа, антен төхөөрөмж суурилуулах задгай тавцан."
+  },
+  {
+    "id": "bld_utility_pipe",
+    "code": "15",
+    "name_en": "Modular Fluid/Gas Pipe Run",
+    "name_mn": "Шингэн болон хийн хоолойн шугам",
+    "category": "utilities",
+    "file": "SU_Base_Utility_Pipe.glb",
+    "dimensions": [
+      0.9,
+      4.0,
+      0.7
+    ],
+    "mass_kg": 310,
+    "energy_draw_kw": 0,
+    "pressurized": false,
+    "hp": 200,
+    "rad_shielding": 0.4,
+    "cost": {
+      "iron_plate": 2,
+      "copper_ore": 1
+    },
+    "sockets": {
+      "north": {
+        "pos": [
+          0,
+          2.0,
+          0.5
+        ],
+        "type": "pipe_socket"
+      },
+      "south": {
+        "pos": [
+          0,
+          -2.0,
+          0.5
+        ],
+        "type": "pipe_socket"
+      }
+    },
+    "desc_en": "Insulated cryogenic water and oxygen conduit with pressure flange couplings and ground saddle supports.",
+    "desc_mn": "Хүчилтөрөгч, ус, крио шингэн дамжуулах дулаалгатай, даралт хэмжигч фланцтай модуль хоолой."
+  },
+  {
+    "id": "bld_cable_tray",
+    "code": "16",
+    "name_en": "High-Voltage Cable Tray",
+    "name_mn": "Цахилгаан ба холбооны кабелийн суваг",
+    "category": "utilities",
+    "file": "SU_Base_Cable_Tray.glb",
+    "dimensions": [
+      0.7,
+      4.0,
+      0.3
+    ],
+    "mass_kg": 190,
+    "energy_draw_kw": 0,
+    "pressurized": false,
+    "hp": 150,
+    "rad_shielding": 0.25,
+    "cost": {
+      "copper_ore": 2,
+      "iron_plate": 1
+    },
+    "sockets": {
+      "north": {
+        "pos": [
+          0,
+          2.0,
+          0.1
+        ],
+        "type": "cable_socket"
+      },
+      "south": {
+        "pos": [
+          0,
+          -2.0,
+          0.1
+        ],
+        "type": "cable_socket"
+      }
+    },
+    "desc_en": "Perforated overhead/underfloor bus tray distributing grid power and optic telemetry lines across habitats.",
+    "desc_mn": "Эрчим хүчний сүлжээ болон оптик шилэн холбооны шугамыг модулиудын хооронд түгээх суваг."
+  },
+  {
+    "id": "bld_hab_living",
+    "code": "17",
+    "name_en": "Crew Habitat Complex",
+    "name_mn": "Багийн амьдрах сууцны цогцолбор",
+    "category": "habitats",
+    "file": "SU_Base_Hab_Living.glb",
+    "dimensions": [
+      8.0,
+      8.0,
+      3.8
+    ],
+    "mass_kg": 5200,
+    "energy_draw_kw": 2.5,
+    "pressurized": true,
+    "hp": 1200,
+    "rad_shielding": 0.94,
+    "cost": {
+      "iron_plate": 12,
+      "silicon_glass": 4,
+      "o2_canister": 4,
+      "quartz": 2
+    },
+    "sockets": {
+      "north": {
+        "pos": [
+          0,
+          4.0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      },
+      "south": {
+        "pos": [
+          0,
+          -4.0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      },
+      "east": {
+        "pos": [
+          4.0,
+          0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      },
+      "west": {
+        "pos": [
+          -4.0,
+          0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      }
+    },
+    "desc_en": "Spacious octagonal living habitat with life-support atmosphere scrubbers, crew sleeping berths, and 4 docking ports.",
+    "desc_mn": "4 хүртэлх сансрын нисгэгч урт хугацаагаар амьдрах амьдрал тэтгэх систем, унтлагын хэсэг, 4 талын хаалгатай модуль."
+  },
+  {
+    "id": "bld_hab_research",
+    "code": "18",
+    "name_en": "Scientific Research Laboratory",
+    "name_mn": "Шинжлэх ухааны судалгааны лаборатори",
+    "category": "habitats",
+    "file": "SU_Base_Hab_Research.glb",
+    "dimensions": [
+      8.0,
+      8.0,
+      5.5
+    ],
+    "mass_kg": 5800,
+    "energy_draw_kw": 3.8,
+    "pressurized": true,
+    "hp": 1100,
+    "rad_shielding": 0.93,
+    "cost": {
+      "iron_plate": 10,
+      "copper_ore": 4,
+      "silicon_glass": 4,
+      "rare_earth": 3
+    },
+    "sockets": {
+      "north": {
+        "pos": [
+          0,
+          4.0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      },
+      "south": {
+        "pos": [
+          0,
+          -4.0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      },
+      "east": {
+        "pos": [
+          4.0,
+          0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      },
+      "west": {
+        "pos": [
+          -4.0,
+          0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      }
+    },
+    "desc_en": "Planetary science lab with high-gain parabolic telemetry dish, rock analysis bays, and central hologram pedestal.",
+    "desc_mn": "Парабол сансрын холбооны антен, эрдэс чулуулгийн химийн шинжилгээний вандан, голограм тавцан бүхий төв лаборатори."
+  },
+  {
+    "id": "bld_hab_greenhouse",
+    "code": "19",
+    "name_en": "Geodesic Agricultural Biodome",
+    "name_mn": "Геодезийн био-хүлэмж (Хөдөө аж ахуй)",
+    "category": "habitats",
+    "file": "SU_Base_Hab_Greenhouse.glb",
+    "dimensions": [
+      8.0,
+      8.0,
+      4.2
+    ],
+    "mass_kg": 4600,
+    "energy_draw_kw": 3.2,
+    "pressurized": true,
+    "hp": 850,
+    "rad_shielding": 0.8,
+    "cost": {
+      "silicon_glass": 8,
+      "iron_plate": 6,
+      "water_ice": 4
+    },
+    "sockets": {
+      "south": {
+        "pos": [
+          0,
+          -4.0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      }
+    },
+    "desc_en": "Geodesic triangular lattice greenhouse dome cultivating extraterrestrial hydroponic food crops under UV grow lights.",
+    "desc_mn": "Ургамал ногоо тарьж ургуулан хүчилтөрөгч, хоол хүнс үйлдвэрлэх геодез шилэн бөмбөгөр оройт гидропоник хүлэмж."
+  },
+  {
+    "id": "bld_hab_industrial",
+    "code": "20",
+    "name_en": "Heavy ISRU Refining Facility",
+    "name_mn": "Хүнд үйлдвэр, хүдэр боловсруулах ангар",
+    "category": "habitats",
+    "file": "SU_Base_Hab_Industrial.glb",
+    "dimensions": [
+      8.4,
+      8.4,
+      4.2
+    ],
+    "mass_kg": 7200,
+    "energy_draw_kw": 6.5,
+    "pressurized": true,
+    "hp": 1600,
+    "rad_shielding": 0.96,
+    "cost": {
+      "iron_plate": 16,
+      "copper_ore": 6,
+      "basalt": 8
+    },
+    "sockets": {
+      "north": {
+        "pos": [
+          0,
+          4.0,
+          1.4
+        ],
+        "type": "corridor_socket"
+      },
+      "south": {
+        "pos": [
+          0,
+          -4.0,
+          1.4
+        ],
+        "type": "cargo_bay"
+      }
+    },
+    "desc_en": "Reinforced blast bunker with raw regolith intake hopper, twin smelting chambers, and heavy motorized cargo door.",
+    "desc_mn": "Олборлосон чулуулаг, хүдрийг металл хайлш болгон хайлуулах бункер, хүдрийн юүлүүр, том ачааны хаалгатай үйлдвэр."
+  }
+]

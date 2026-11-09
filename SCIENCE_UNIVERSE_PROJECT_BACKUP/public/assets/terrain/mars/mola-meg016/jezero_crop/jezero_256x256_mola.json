@@ -1,0 +1,30 @@
+{
+  "format": "signed-16-bit little-endian elevation samples",
+  "width": 256,
+  "height": 256,
+  "bounds": {
+    "west": 75.5,
+    "east": 79.5,
+    "south": 16.4,
+    "north": 20.4
+  },
+  "center": {
+    "longitude": 77.5,
+    "latitude": 18.4
+  },
+  "verticalReference": "Mars areoid (MOLA GMM3/Godard degree-50 model)",
+  "units": "meters",
+  "noData": -8192,
+  "source": "MEGT90N000EB.IMG",
+  "sourceDataset": "MGS-M-MOLA-5-MEGDR-L3-V1.0",
+  "sourceUrl": "https://pds-geosciences.wustl.edu/missions/mgs/megdr.html",
+  "sourceProductUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg016/",
+  "sampleMinMeters": -3837,
+  "sampleMaxMeters": 459,
+  "runtimeScale": 0.006,
+  "runtimeBaseMeters": -2103.6,
+  "gameBaseHeight": 5.5,
+  "featherMeters": 40,
+  "worldCoverageMeters": 240,
+  "orientation": "north-up rows; west-to-east columns"
+}

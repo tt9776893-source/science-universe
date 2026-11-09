@@ -1,0 +1,938 @@
+{
+  "timestamp": "2026-10-27T09:29:50.731Z",
+  "totalCopied": 152,
+  "totalFailed": 0,
+  "metaCopied": 10,
+  "results": {
+    "tools": [
+      {
+        "file": "SU_Construction_Tool.glb",
+        "sizeKb": "810.4",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Geological_Scanner.glb",
+        "sizeKb": "897.9",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_GPR_Radar.glb",
+        "sizeKb": "1186.7",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Mining_Laser_MK1.glb",
+        "sizeKb": "1474.7",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Multispectral_Scanner.glb",
+        "sizeKb": "777.8",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Portable_Analyzer.glb",
+        "sizeKb": "719.8",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Repair_Tool.glb",
+        "sizeKb": "697.3",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Rock_Hammer.glb",
+        "sizeKb": "1014.4",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Rock_Hammer1.glb",
+        "sizeKb": "1044.9",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Sample_Collector.glb",
+        "sizeKb": "1132.5",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Terrain_Manipulator.glb",
+        "sizeKb": "1060.0",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Thermal_Drill.glb",
+        "sizeKb": "985.5",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Welding_Tool.glb",
+        "sizeKb": "692.7",
+        "valid": true,
+        "version": 2
+      }
+    ],
+    "resources": [
+      {
+        "file": "SU_Crystal_Quartz.glb",
+        "sizeKb": "95.0",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Crystal_Sulfur.glb",
+        "sizeKb": "80.7",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Deposit_Bauxite.glb",
+        "sizeKb": "141.1",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Deposit_CopperOre.glb",
+        "sizeKb": "127.8",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Deposit_IronOre.glb",
+        "sizeKb": "48.0",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Deposit_RareEarth.glb",
+        "sizeKb": "59.2",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Geo_ImpactEjecta.glb",
+        "sizeKb": "37.8",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Geo_Impact_Crater_Fragment.glb",
+        "sizeKb": "37.8",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Geo_Layer_Formation.glb",
+        "sizeKb": "101.0",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Geo_MineralVein.glb",
+        "sizeKb": "44.8",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Geo_Mineral_Vein.glb",
+        "sizeKb": "44.8",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Geo_Planetary_Regolith.glb",
+        "sizeKb": "103.2",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Geo_RegolithMound.glb",
+        "sizeKb": "103.2",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Geo_StratifiedLayer.glb",
+        "sizeKb": "101.0",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Granite_Rock.glb",
+        "sizeKb": "91.3",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Ice_CrystalCluster.glb",
+        "sizeKb": "124.4",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Ice_Crystal_Cluster.glb",
+        "sizeKb": "124.4",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Ice_WaterDeposit.glb",
+        "sizeKb": "19.1",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Ice_Water_Deposit.glb",
+        "sizeKb": "19.1",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Large_Boulder.glb",
+        "sizeKb": "71.7",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Meteorite_Chondrite.glb",
+        "sizeKb": "93.6",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Meteorite_IronNickel.glb",
+        "sizeKb": "108.2",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Meteorite_Iron_Nickel.glb",
+        "sizeKb": "108.2",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Meteorite_Rocky.glb",
+        "sizeKb": "93.6",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Mineral_Gypsum.glb",
+        "sizeKb": "81.2",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Mineral_Hematite.glb",
+        "sizeKb": "215.7",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Mineral_Magnetite.glb",
+        "sizeKb": "92.0",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Mineral_Olivine.glb",
+        "sizeKb": "165.4",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Mineral_Quartz.glb",
+        "sizeKb": "95.0",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Mineral_Sulfur.glb",
+        "sizeKb": "80.7",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Obsidian.glb",
+        "sizeKb": "49.6",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Ore_Aluminum_Bauxite.glb",
+        "sizeKb": "141.1",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Ore_Copper_Deposit.glb",
+        "sizeKb": "127.8",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Ore_Iron_Deposit.glb",
+        "sizeKb": "48.0",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Ore_Rare_Earth.glb",
+        "sizeKb": "59.2",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Rock_Basalt.glb",
+        "sizeKb": "91.8",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Rock_Granite.glb",
+        "sizeKb": "91.3",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Rock_LargeBoulder.glb",
+        "sizeKb": "71.7",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Rock_Obsidian.glb",
+        "sizeKb": "49.6",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Rock_Sandstone.glb",
+        "sizeKb": "35.0",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Rock_SmallStone.glb",
+        "sizeKb": "31.9",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Sandstone.glb",
+        "sizeKb": "35.0",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Small_Stone.glb",
+        "sizeKb": "31.9",
+        "valid": true,
+        "version": 2
+      }
+    ],
+    "character": [
+      {
+        "file": "SU_Astronaut_Engineer.glb",
+        "sizeKb": "118.4",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Astronaut_Explorer.glb",
+        "sizeKb": "123.1",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Astronaut_Scientist.glb",
+        "sizeKb": "118.2",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Suit_Arms.glb",
+        "sizeKb": "49.7",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Suit_Comm_Nav.glb",
+        "sizeKb": "14.4",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Suit_FirstPerson_Hands.glb",
+        "sizeKb": "137.0",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Suit_Legs.glb",
+        "sizeKb": "42.9",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Suit_LifeSupport_PLSS.glb",
+        "sizeKb": "18.8",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Suit_Modular_Helmet.glb",
+        "sizeKb": "20.2",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Suit_Oxygen_Tanks.glb",
+        "sizeKb": "37.2",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Suit_Scientific_Kit.glb",
+        "sizeKb": "21.6",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Suit_Torso.glb",
+        "sizeKb": "21.2",
+        "valid": true,
+        "version": 2
+      }
+    ],
+    "buildings": [
+      {
+        "file": "SU_Base_Airlock.glb",
+        "sizeKb": "39.2",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Base_Cable_Tray.glb",
+        "sizeKb": "74.2",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Base_Column_Support.glb",
+        "sizeKb": "27.0",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Base_Corridor_Corner.glb",
+        "sizeKb": "60.0",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Base_Corridor_CrossJunction.glb",
+        "sizeKb": "74.7",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Base_Corridor_Straight.glb",
+        "sizeKb": "88.2",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Base_Corridor_TJunction.glb",
+        "sizeKb": "66.3",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Base_Door_Sliding.glb",
+        "sizeKb": "24.9",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Base_Floor_Panel.glb",
+        "sizeKb": "19.1",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Base_Foundation.glb",
+        "sizeKb": "96.4",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Base_Hab_Greenhouse.glb",
+        "sizeKb": "87.9",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Base_Hab_Industrial.glb",
+        "sizeKb": "24.1",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Base_Hab_Living.glb",
+        "sizeKb": "281.3",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Base_Hab_Research.glb",
+        "sizeKb": "27.8",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Base_Platform_Exterior.glb",
+        "sizeKb": "91.9",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Base_Roof.glb",
+        "sizeKb": "44.3",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Base_Stairs.glb",
+        "sizeKb": "75.3",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Base_Utility_Pipe.glb",
+        "sizeKb": "51.6",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Base_Wall_Solid.glb",
+        "sizeKb": "30.5",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Base_Wall_Window.glb",
+        "sizeKb": "19.4",
+        "valid": true,
+        "version": 2
+      }
+    ],
+    "industrial": [
+      {
+        "file": "SU_Mach_Automated_Conveyor.glb",
+        "sizeKb": "60.0",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Mach_Battery_Storage.glb",
+        "sizeKb": "58.5",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Mach_CO2_Processor.glb",
+        "sizeKb": "37.8",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Mach_Gas_Compressor.glb",
+        "sizeKb": "42.0",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Mach_Gas_Storage_Dist.glb",
+        "sizeKb": "78.4",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Mach_Ice_Melter.glb",
+        "sizeKb": "52.0",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Mach_Industrial_Fabricator.glb",
+        "sizeKb": "31.7",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Mach_Metal_Refining.glb",
+        "sizeKb": "52.4",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Mach_Mineral_Separator.glb",
+        "sizeKb": "31.3",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Mach_Ore_Crusher.glb",
+        "sizeKb": "135.3",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Mach_Oxygen_Generator.glb",
+        "sizeKb": "42.7",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Mach_Regolith_Processor.glb",
+        "sizeKb": "35.0",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Mach_Smelting_Furnace.glb",
+        "sizeKb": "38.8",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Mach_Water_Electrolysis.glb",
+        "sizeKb": "32.0",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Mach_Water_Purifier.glb",
+        "sizeKb": "42.8",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Mach_Water_Storage_Pump.glb",
+        "sizeKb": "30.7",
+        "valid": true,
+        "version": 2
+      }
+    ],
+    "laboratory": [
+      {
+        "file": "SU_Lab_Analysis_Computer.glb",
+        "sizeKb": "26.4",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Lab_Bioreactor.glb",
+        "sizeKb": "35.5",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Lab_Centrifuge.glb",
+        "sizeKb": "23.9",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Lab_Chemical_Reactor.glb",
+        "sizeKb": "34.4",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Lab_Element_Analyzer.glb",
+        "sizeKb": "31.1",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Lab_Environment_Simulator.glb",
+        "sizeKb": "18.6",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Lab_Experiment_Chamber.glb",
+        "sizeKb": "32.0",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Lab_Incubator.glb",
+        "sizeKb": "18.8",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Lab_Microscope.glb",
+        "sizeKb": "29.0",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Lab_Sample_Analyzer.glb",
+        "sizeKb": "22.9",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Lab_Sample_Storage.glb",
+        "sizeKb": "18.7",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Lab_Spectrometer.glb",
+        "sizeKb": "22.9",
+        "valid": true,
+        "version": 2
+      }
+    ],
+    "vehicles": [
+      {
+        "file": "SU_Drone_Cargo_HeavyLift.glb",
+        "sizeKb": "26.9",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Drone_Geological_Drill.glb",
+        "sizeKb": "18.6",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Drone_Scout.glb",
+        "sizeKb": "36.4",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Robot_Survey_Quadruped.glb",
+        "sizeKb": "52.9",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Ship_Cargo_Freighter.glb",
+        "sizeKb": "60.1",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Ship_Exploration_Vessel.glb",
+        "sizeKb": "31.6",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Ship_Orbital_Shuttle.glb",
+        "sizeKb": "31.1",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Ship_Planetary_Lander.glb",
+        "sizeKb": "42.4",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Vehicle_Cargo_Rover.glb",
+        "sizeKb": "138.1",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Vehicle_Explorer_Rover.glb",
+        "sizeKb": "365.8",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Vehicle_Research_Rover.glb",
+        "sizeKb": "123.4",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Vehicle_Utility_Rover.glb",
+        "sizeKb": "87.1",
+        "valid": true,
+        "version": 2
+      }
+    ],
+    "spacecraft": [
+      {
+        "file": "SU_Part_Cargo_Bay.glb",
+        "sizeKb": "29.0",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Part_Cockpit.glb",
+        "sizeKb": "25.0",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Part_Crew_Hab.glb",
+        "sizeKb": "39.6",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Part_Docking_Port.glb",
+        "sizeKb": "28.7",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Part_Fuel_Tank.glb",
+        "sizeKb": "34.5",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Part_Hull_Segment.glb",
+        "sizeKb": "33.6",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Part_Landing_Gear.glb",
+        "sizeKb": "17.8",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Part_Main_Engine.glb",
+        "sizeKb": "21.6",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Part_Power_Module.glb",
+        "sizeKb": "20.1",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Part_RCS_Block.glb",
+        "sizeKb": "20.1",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Part_Solar_Array.glb",
+        "sizeKb": "9.8",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Part_Wing_Fin.glb",
+        "sizeKb": "9.6",
+        "valid": true,
+        "version": 2
+      }
+    ],
+    "energy": [
+      {
+        "file": "SU_Infra_Air_Filter_Circulator.glb",
+        "sizeKb": "15.4",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Infra_Base_Control_Center.glb",
+        "sizeKb": "20.7",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Infra_Compact_Nuclear_Reactor.glb",
+        "sizeKb": "33.3",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Infra_Energy_Storage.glb",
+        "sizeKb": "10.9",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Infra_Environmental_Shield_Dome.glb",
+        "sizeKb": "45.7",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Infra_Food_Grow_Greenhouse.glb",
+        "sizeKb": "44.6",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Infra_Oxygen_Generator.glb",
+        "sizeKb": "59.8",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Infra_Solar_Power_Plant.glb",
+        "sizeKb": "10.7",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Infra_Thermal_Control.glb",
+        "sizeKb": "13.5",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Infra_Waste_Recycling_Unit.glb",
+        "sizeKb": "10.9",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Infra_Water_Purifier.glb",
+        "sizeKb": "44.4",
+        "valid": true,
+        "version": 2
+      },
+      {
+        "file": "SU_Infra_Wind_Turbine.glb",
+        "sizeKb": "26.0",
+        "valid": true,
+        "version": 2
+      }
+    ]
+  }
+}
